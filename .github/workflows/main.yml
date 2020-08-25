@@ -28,7 +28,7 @@ jobs:
       - run: flutter build apk
       - name: Decode google-services.json
         env:
-          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG_IOS }}
-        run: echo $FIREBASE_CONFIG > ios/Runner/GoogleService-Info.plist
+          FIREBASE_CONFIG_IOS: ${{ secrets.FIREBASE_CONFIG_IOS }}
+        run: echo $FIREBASE_CONFIG_IOS > ios/Runner/GoogleService-Info.plist
         
       - run: flutter build ios --release --no-codesign
