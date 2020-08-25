@@ -45,3 +45,4 @@ app.*.map.json
 # Firestore Keys
 android/app/src/google-services.json
 ios/Runner/GoogleService-Info.plist
+ios/Flutter/.last_build_id
