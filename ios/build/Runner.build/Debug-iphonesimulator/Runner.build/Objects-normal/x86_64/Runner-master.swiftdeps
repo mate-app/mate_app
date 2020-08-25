@@ -1,0 +1,5 @@
+version: "Apple Swift version 5.2.4 (swiftlang-1103.0.32.9 clang-1103.0.32.53)"
+options: "f34b89507c8bc3e5e38a02c1a3d5602b"
+build_time: [1596789410, 13823000]
+inputs:
+  "/Users/tobiaspoertner/projects/mate-app/ios/Runner/AppDelegate.swift": [1596788859, 770506577]
