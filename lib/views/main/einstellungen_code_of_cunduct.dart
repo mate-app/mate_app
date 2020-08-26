@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 
 import '../../styles/styles.dart';
 
-class EinstellungImpressum extends StatefulWidget {
+class EinstellungCode extends StatefulWidget {
   @override
-  _EinstellungImpressumState createState() {
-    return _EinstellungImpressumState();
+  _EinstellungCodeState createState() {
+    return _EinstellungCodeState();
   }
 }
 
-class _EinstellungImpressumState extends State<EinstellungImpressum> {
+class _EinstellungCodeState extends State<EinstellungCode> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,7 +17,7 @@ class _EinstellungImpressumState extends State<EinstellungImpressum> {
       child: const CustomScrollView(
         slivers: <Widget>[
           CupertinoSliverNavigationBar(
-            largeTitle: Text('Veranstaltung'),
+            largeTitle: Text('Code of Conduct'),
           ),
         ],
       ),

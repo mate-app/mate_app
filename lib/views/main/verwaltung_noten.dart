@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../styles/styles.dart';
+
 class VerwaltungNoten extends StatefulWidget {
   @override
   _VerwaltungNotenState createState() {
@@ -10,12 +12,15 @@ class VerwaltungNoten extends StatefulWidget {
 class _VerwaltungNotenState extends State<VerwaltungNoten> {
   @override
   Widget build(BuildContext context) {
-    return const CustomScrollView(
-      slivers: <Widget>[
-        CupertinoSliverNavigationBar(
-          largeTitle: Text('Notenübersicht'),
-        ),
-      ],
+    return Container(
+      color: Styles.white,
+      child: const CustomScrollView(
+        slivers: <Widget>[
+          CupertinoSliverNavigationBar(
+            largeTitle: Text('Notenübersicht'),
+          ),
+        ],
+      ),
     );
   }
 }
