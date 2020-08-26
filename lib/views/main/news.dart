@@ -1,3 +1,4 @@
+import 'package:mateapp/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,35 +15,55 @@ class NewsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     UserModel user = Provider.of<UserModel>(context);
 
-    return StreamProvider<List<News>>.value(
-      value: Collection<News>(path: 'hochschulen/${user.university}/news')
-          .streamData(),
-      child: CustomScrollView(
-        physics: const BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics()),
-        slivers: <Widget>[
-          CupertinoSliverNavigationBar(
-            largeTitle: const Text('News'),
-          ),
-          CupertinoSliverRefreshControl(
-            onRefresh: handleRefresh,
-          ),
-          NewsPanelList(),
-          SliverToBoxAdapter(
-            child: SizedBox(
-              height: 60,
-              child: Center(
-                child: Text(''),
-              ),
+    return CustomScrollView(
+      physics:
+          const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+      slivers: <Widget>[
+        CupertinoSliverNavigationBar(
+          largeTitle: const Text('News'),
+        ),
+        CupertinoSliverRefreshControl(
+          onRefresh: handleRefresh,
+        ),
+        user == null
+            ? SliverLoadingIndicator()
+            : StreamBuilder<Object>(
+                stream: Collection<News>(
+                    path: 'hochschulen/${user.university}/news',
+                    queries: [
+                      CustomQuery(
+                          field: 'category',
+                          operation: 'whereIn',
+                          value: ['Allgemein', user.department])
+                    ],
+                    limit: 30,
+                    order: ['date', 'DESC']).streamData(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData || snapshot.hasError) {
+                    print(snapshot.error);
+                    return SliverLoadingIndicator();
+                  }
+
+                  return NewsPanelList(snapshot.data);
+                }),
+        SliverToBoxAdapter(
+          child: SizedBox(
+            height: 60,
+            child: Center(
+              child: Text(''),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
 
 class NewsPanelList extends StatefulWidget {
+  final List<News> news;
+
+  NewsPanelList(this.news);
+
   @override
   _NewsPanelListState createState() => _NewsPanelListState();
 }
@@ -50,12 +71,10 @@ class NewsPanelList extends StatefulWidget {
 class _NewsPanelListState extends State<NewsPanelList> {
   @override
   Widget build(BuildContext context) {
-    final news = Provider.of<List<News>>(context);
-
     return SliverList(
       delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-        return NewsPanel(news: news[index]);
-      }, childCount: news?.length ?? 0),
+        return NewsPanel(news: widget.news[index]);
+      }, childCount: widget.news?.length ?? 0),
     );
   }
 }
@@ -113,10 +132,14 @@ class NewsPanel extends StatelessWidget {
                   Container(
                       child: Row(
                     children: <Widget>[
-                      Tag(tagName: news.category),
+                      Tag(
+                        tag: news.category,
+                        margin_bottom: 0,
+                        margin_right: 0,
+                      ),
                       Spacer(flex: 2),
                       Text(
-                        news.date.toString(),
+                        convertDateToString(news.date),
                         style: Styles.tiny.apply(color: Styles.white),
                       )
                     ],
@@ -132,7 +155,7 @@ class NewsPanel extends StatelessWidget {
                     Container(
                       height: 60,
                       child: Text(
-                        news.teaser,
+                        news.teaser != '' ? news.teaser : news.text,
                         style: Styles.font.apply(color: Styles.grey),
                         textAlign: TextAlign.left,
                       ),
@@ -153,41 +176,6 @@ class NewsPanel extends StatelessWidget {
             )
           ],
         ),
-      ),
-    );
-  }
-}
-
-//creates a Tag
-class Tag extends StatelessWidget {
-  final String tagName;
-
-  // Constructor
-  Tag({Key key, this.tagName = "News"});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          border: Border.all(color: Styles.white, width: 1.0),
-          borderRadius: Styles.roundedEdges),
-      padding: EdgeInsets.all(5),
-      child: Row(
-        children: <Widget>[
-          Icon(
-            Icons.fiber_manual_record,
-            color: Styles.white,
-            size: 12.0,
-            semanticLabel: 'dot',
-          ),
-          Container(
-            margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
-            child: Text(
-              tagName,
-              style: Styles.tiny.apply(color: Styles.white),
-            ),
-          )
-        ],
       ),
     );
   }

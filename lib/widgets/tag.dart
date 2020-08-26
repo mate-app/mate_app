@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 // TODO: remove import use inheritance
@@ -5,14 +7,21 @@ import 'package:mateapp/styles/styles.dart';
 
 class Tag extends StatelessWidget {
   final String tag;
+  double margin_right;
+  double margin_bottom;
 
+// TODO: 0 default margin, turn around with mensa screen
   // Constructor
-  Tag({Key key, this.tag = ''});
+  Tag(
+      {Key key,
+      this.tag = '',
+      this.margin_right = 10.0,
+      this.margin_bottom = 20.0});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: new EdgeInsets.only(right: 10.0, bottom: 20.0),
+      margin: new EdgeInsets.only(right: margin_right, bottom: margin_bottom),
       decoration: BoxDecoration(
           border: Border.all(color: Styles.white, width: 1.0),
           borderRadius: Styles.roundedEdges),

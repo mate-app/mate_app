@@ -59,12 +59,12 @@ abstract class Styles {
 
   static const newsColor = {
     "Allgemein": gradientPrimary,
-    "Wirtschaft": gradientThird,
-    "Maschinenwesen": gradientThird,
+    "Wirtschaft": gradientSecondary,
+    "Maschinenwesen": gradientSecondary,
     "Soziale Arbeit und Gesundheit": gradientSecondary,
     "Informatik und Elektrotechnik": gradientSecondary,
-    "Medien / Bauwesen": gradientPrimary,
-    "Agrarwirtschaft": gradientPrimary,
+    "Medien / Bauwesen": gradientSecondary,
+    "Agrarwirtschaft": gradientSecondary,
   };
   //Font
   static const h1 = TextStyle(
