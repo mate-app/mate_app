@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:mateapp/models/university.dart';
-import 'package:mateapp/views/setup/subjects.dart';
-import 'package:mateapp/services/database.dart';
 import 'package:provider/provider.dart';
+import 'package:mateapp/models/models.dart';
+import 'package:mateapp/views/views.dart';
+import 'package:mateapp/services/services.dart';
 
 class UniversityScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<University>>.value(
-      value: DatabaseService().universityStream,
+      value: Collection(path: 'hochschulen').streamData(),
       child: CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           middle: Text('Wähle deine Uni/Hochschule aus'),

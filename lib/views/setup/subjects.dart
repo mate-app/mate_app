@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:mateapp/models/university.dart';
-import 'package:mateapp/services/database.dart';
 import 'package:provider/provider.dart';
-import 'package:mateapp/models/subject.dart';
-import 'package:mateapp/views/setup/semester.dart';
+import 'package:mateapp/models/models.dart';
+import 'package:mateapp/services/services.dart';
+import 'package:mateapp/views/views.dart';
 
 class SubjectScreen extends StatelessWidget {
   final University university;
@@ -14,7 +13,9 @@ class SubjectScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<Subject>>.value(
-      value: DatabaseService().subjectStream,
+      value: Collection<Subject>(
+              path: 'hochschulen/${university.shortName}/subjects')
+          .streamData(),
       child: CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           middle: Text('Wähle dein Modul'),

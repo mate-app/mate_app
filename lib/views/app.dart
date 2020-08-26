@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'home_tab.dart';
-import 'mensa_tab.dart';
-import 'news_tab.dart';
-import 'verwaltung_tab.dart';
-import 'einstellungen_tab.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mateapp/views/views.dart';
+import 'package:mateapp/models/models.dart';
+import 'package:provider/provider.dart';
 
 class MateAppHomePage extends StatelessWidget {
+  final User fireuser;
+  MateAppHomePage(this.fireuser);
+
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(

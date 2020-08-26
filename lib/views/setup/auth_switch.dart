@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mateapp/models/university.dart';
-import 'package:mateapp/views/setup/sign_in.dart';
-import 'package:mateapp/views/setup/register.dart';
-import 'package:mateapp/models/subject.dart';
+import 'package:mateapp/models/models.dart';
+import 'package:mateapp/views/views.dart';
 
 class Login extends StatefulWidget {
   final University university; // university chosen in screen before

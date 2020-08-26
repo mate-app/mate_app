@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mateapp/services/auth.dart';
-import 'package:mateapp/views/main/einstellung_account_tab.dart';
-import 'package:mateapp/views/main/einstellung_datenschutz_tab.dart';
-import 'package:mateapp/views/main/einstellung_version_tab.dart';
-import 'package:mateapp/views/main/einsttellung_impressum_tab.dart';
-import '../../styles/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:mateapp/views/views.dart';
+
+// TODO: remove and use inheritance instead
+import '../../styles/styles.dart';
 
 class EinstellungenTab extends StatefulWidget {
   @override

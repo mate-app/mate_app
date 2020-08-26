@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:mateapp/models/university.dart';
-import 'package:mateapp/models/subject.dart';
-import 'package:mateapp/views/setup/login.dart';
+import 'package:mateapp/models/models.dart';
+import 'package:mateapp/views/views.dart';
 
 class SemesterScreen extends StatelessWidget {
   final University university;

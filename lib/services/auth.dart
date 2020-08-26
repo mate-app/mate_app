@@ -1,53 +1,116 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mateapp/models/user.dart';
-import 'package:mateapp/services/database.dart';
-import 'package:mateapp/models/subject.dart';
-import 'package:mateapp/models/university.dart';
+import 'package:http/http.dart';
+import 'dart:convert';
+import 'package:mateapp/models/models.dart';
+import 'package:mateapp/services/services.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // creates custom user object
-  User _userFromFirebaseUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
+  // provides an immediate event of the user's current authentication state,
+  // and then provides subsequent events whenever the authentication state changes.
+  Stream<User> get user {
+    return _auth.authStateChanges();
   }
 
-  // auth change user stream
-  // returns whenever there is a change in authentication
-  Stream<User> get user {
-    return _auth.onAuthStateChanged.map(_userFromFirebaseUser);
+  // checks whether the credentials are valid
+  Future<bool> _checkCredentials(String email, String password) async {
+    Response response = await post(
+        'https://us-central1-mate-app-e8033.cloudfunctions.net/validateUserdata',
+        headers: {'Content-Type': 'application/json; charset=UTF-8'},
+        body:
+            jsonEncode(<String, String>{'email': email, 'password': password}));
+    if (response.body == 'false') {
+      throw 'Du scheinst nicht bei der ausgewählten Insitution registriert zu sein.';
+    }
+    return true;
   }
 
   // sign in with mail and password
   Future loginWithEmailAndPassword(String email, String password) async {
+    User user;
+    String errorMessage;
+
     try {
-      AuthResult result = await _auth.signInWithEmailAndPassword(
+      UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      FirebaseUser user = result.user;
-      return _userFromFirebaseUser(user);
-    } catch (e) {
-      print(e.toString());
-      return null;
+      user = result.user;
+    } on FirebaseAuthException catch (error) {
+      switch (error.code) {
+        case 'invalid-email':
+          errorMessage =
+              'Deine eingegebene E-Mail-Adresse ist leider ungültig.';
+          break;
+        case 'user-disabled':
+          errorMessage =
+              'Dein Benutzerkonto wurde deaktiviert. Melde dich bitte beim Support.';
+          break;
+        case 'user-not-found':
+          errorMessage = 'Deine E-Mail-Adresse ist uns nicht bekannt.';
+          break;
+        case 'wrong-password':
+          errorMessage = 'Dein Passwort ist leider nicht korrekt.';
+          break;
+        default:
+          errorMessage = 'Ein unbekannter Fehler ist aufgetreten.';
+      }
+    } catch (error) {
+      errorMessage = 'Ein unbekannter Fehler ist aufgetreten.';
     }
+
+    if (errorMessage != null) {
+      return Future.error(errorMessage);
+    }
+
+    return user;
   }
 
   // Register with email & password
   Future registerWithEmailAndPassword(String email, String password,
       University university, Subject subject, int semester) async {
+    User user;
+    String errorMessage;
+
     try {
-      AuthResult result = await _auth.createUserWithEmailAndPassword(
+      await _checkCredentials(email, password);
+
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      FirebaseUser user = result.user;
+      user = result.user;
 
-      // create a new document for user with uid
-      await DatabaseService(uid: user.uid).updateUserData(user.uid, email,
-          university.shortName, subject.name, semester, 'german');
-
-      return _userFromFirebaseUser(user);
+      await UserData(collection: 'users').upsert({
+        'user_id': user.uid,
+        'mail': email,
+        'university': university.shortName,
+        'subject': subject.name,
+        'semester': semester,
+        'language': 'german'
+      });
+    } on FirebaseAuthException catch (error) {
+      switch (error.code) {
+        case 'invalid-email':
+          errorMessage =
+              'Deine eingegebene E-Mail-Adresse ist leider ungültig.';
+          break;
+        case 'weak-password':
+          errorMessage =
+              'Dein Passwort ist nicht sicher genug. Es muss mindestens 6 Zeichen lang sein.';
+          break;
+        case 'email-already-in-use':
+          errorMessage = 'Du bist bei uns bereits registriert.';
+          break;
+        default:
+          errorMessage = 'Ein unbekannter Fehler ist aufgetreten.';
+      }
     } catch (e) {
-      print(e.toString());
-      return null;
+      errorMessage = 'Ein unbekannter Fehler ist aufgetreten.';
     }
+
+    if (errorMessage != null) {
+      return Future.error(errorMessage);
+    }
+
+    return user;
   }
 
   // sign out

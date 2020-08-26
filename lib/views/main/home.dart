@@ -1,82 +1,79 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:mateapp/views/main/home_veranstaltung_tab.dart';
-import '../../styles/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:mateapp/models/home.dart';
+import 'package:mateapp/views/views.dart';
+import 'package:mateapp/models/models.dart';
+
+// TODO: remove import use inheritance
+import '../../styles/styles.dart';
 
 class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      physics:
-          const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-      slivers: <Widget>[
-        CupertinoSliverNavigationBar(
-          largeTitle: const Text('Home'),
-        ),
-        SliverToBoxAdapter(
-          child: SizedBox(
-            height: 60,
-            child: Center(
-              child: Text(''),
+    // TODO: switch to stream provider with new coding style
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance
+          .collection('hochschulen')
+          .doc('fhkiel')
+          .collection('events')
+          .snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text('Something went wrong');
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Text("Loading");
+        }
+
+        List<QueryDocumentSnapshot> events = snapshot.data.docs;
+
+        return CustomScrollView(
+          physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics()),
+          slivers: <Widget>[
+            CupertinoSliverNavigationBar(
+              largeTitle: const Text('Home'),
             ),
-          ),
-        ),
-      ],
+            HomeList(events),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 60,
+                child: Center(
+                  child: Text(''),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
 
-class HomeList extends StatefulWidget {
-  @override
-  _HomeListState createState() => _HomeListState();
-}
+class HomeList extends StatelessWidget {
+  var events;
 
-class _HomeListState extends State<HomeList> {
+  HomeList(this.events);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 0,
-      width: 0,
-    );
-    // final event = Provider.of<List<Event>>(context);
-
-    // return SliverList(
-    //   delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-    //     return HomeDay(event: event[index]);
-    //   }, childCount: event?.length ?? 0),
-    // );
+    return SliverList(
+        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+      return Day();
+    }, childCount: events != null ? events.length : 0));
   }
 }
 
-class HomeDay extends StatelessWidget {
-  final Event event;
-
-  // Constructor
-  HomeDay({Key key, this.event});
-
-  List _buildHomeEventList() {
-    List<Widget> homeItem = List();
-    for (int i = 0; i < event.count; i++) {
-      homeItem.add(new HomeDate());
-
-      for (int i = 0; i < event.count; i++) {
-        homeItem.add(new HomeAppointments());
-      }
-    }
-    homeItem.add(new Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 60)));
-    return homeItem;
-  }
-
+class Day extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        CupertinoSliverNavigationBar(
-          largeTitle: Text('Home'),
-        ),
-        SliverList(delegate: SliverChildListDelegate(_buildHomeEventList())),
-      ],
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      // children: <Widget>[for (var item in list) Text(item)],
+      children: <Widget>[],
     );
   }
 }
@@ -85,18 +82,22 @@ class HomeDay extends StatelessWidget {
 class HomeDate extends StatelessWidget {
   /// Creates the top of each List with the Related Date [homeDate]
   ///
-
-  final Event event;
+  final DateTime date;
 
   //Constructor
   HomeDate({
-    Key key,
-    this.event,
+    this.date,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (event.date == "2020, 08, 06") {
+    var events = Provider.of<List<Event>>(context);
+
+    initializeDateFormatting('de_DE', null);
+
+    if (date.day == DateTime.now().day &&
+        date.month == DateTime.now().month &&
+        date.year == DateTime.now().year) {
       return Container(
         decoration: BoxDecoration(
           boxShadow: [
@@ -108,7 +109,7 @@ class HomeDate extends StatelessWidget {
         height: 30,
         margin: EdgeInsets.fromLTRB(15, 15, 15, 5),
         padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-        child: Text(event.date,
+        child: Text(DateFormat('dd. MMM y', 'de_DE').format(date),
             style: Styles.font.apply(
               color: Styles.white,
               fontWeightDelta: 2,
@@ -126,7 +127,7 @@ class HomeDate extends StatelessWidget {
         height: 30,
         margin: EdgeInsets.fromLTRB(15, 15, 15, 5),
         padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-        child: Text(event.date,
+        child: Text(DateFormat('dd. MMM y', 'de_DE').format(date),
             style: Styles.font.apply(
               color: Styles.white,
               fontWeightDelta: 2,
@@ -163,9 +164,10 @@ class HomeAppointments extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Column(children: <Widget>[
-              Text(event.start, style: Styles.small.apply(color: Styles.grey)),
+              Text(DateFormat('HH:MM', 'de_DE').format(event.startsAt),
+                  style: Styles.small.apply(color: Styles.grey)),
               Padding(padding: EdgeInsetsDirectional.only(top: 5)),
-              Text(event.end,
+              Text(DateFormat('HH:MM', 'de_DE').format(event.endsAt),
                   style: Styles.small.apply(color: Styles.lightGrey))
             ]),
             Container(
@@ -183,7 +185,7 @@ class HomeAppointments extends StatelessWidget {
                       maxWidth: MediaQuery.of(context).size.width * 0.58,
                     ),
                     child: Text(
-                      event.name,
+                      event.courseName,
                       style: Styles.font.apply(
                         color: Styles.grey,
                         fontWeightDelta: 2,
