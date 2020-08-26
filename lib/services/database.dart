@@ -57,7 +57,7 @@ class Collection<T> {
   void _addOrder(List<String> order) {
     ref = order.isEmpty
         ? ref
-        : ref.orderBy(order[0], descending: order[1] == 'asc' ? false : true);
+        : ref.orderBy(order[0], descending: order[1] == 'ASC' ? false : true);
   }
 
   void _addLimit(int limit) {
@@ -95,6 +95,9 @@ class Collection<T> {
           break;
         case 'isNull':
           ref = ref.where(field, isNull: value);
+          break;
+        case 'whereIn':
+          ref = ref.where(field, whereIn: value);
           break;
         default:
           ref = ref;
