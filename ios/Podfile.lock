@@ -1,8 +1,11 @@
 PODS:
-  - cloud_firestore (0.0.1):
-    - Firebase/Core
-    - Firebase/Firestore (~> 6.0)
+  - cloud_firestore (0.14.0-2):
+    - Firebase/CoreOnly (~> 6.26.0)
+    - Firebase/Firestore (~> 6.26.0)
+    - firebase_core
     - Flutter
+  - Firebase/Analytics (6.26.0):
+    - Firebase/Core
   - Firebase/Auth (6.26.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.5.3)
@@ -14,12 +17,18 @@ PODS:
   - Firebase/Firestore (6.26.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 1.15.0)
-  - firebase_auth (0.0.1):
-    - Firebase/Auth (~> 6.3)
-    - Firebase/Core
+  - firebase_analytics (6.0.0):
+    - Firebase/Analytics (~> 6.26.0)
+    - Firebase/CoreOnly (~> 6.26.0)
+    - firebase_core
     - Flutter
-  - firebase_core (0.0.1):
-    - Firebase/Core
+  - firebase_auth (0.18.0-1):
+    - Firebase/Auth (~> 6.26.0)
+    - Firebase/CoreOnly (~> 6.26.0)
+    - firebase_core
+    - Flutter
+  - firebase_core (0.5.0):
+    - Firebase/CoreOnly (~> 6.26.0)
     - Flutter
   - FirebaseAnalytics (6.6.0):
     - FirebaseCore (~> 6.7)
@@ -95,6 +104,7 @@ PODS:
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
+  - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - FirebaseFirestore (from `https://github.com/invertase/firestore-ios-sdk-frameworks.git`, tag `6.26.0`)
@@ -121,6 +131,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
+  firebase_analytics:
+    :path: ".symlinks/plugins/firebase_analytics/ios"
   firebase_auth:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
@@ -137,10 +149,11 @@ CHECKOUT OPTIONS:
     :tag: 6.26.0
 
 SPEC CHECKSUMS:
-  cloud_firestore: 4cc700e236ebfe2d5d980e49cb066d202cfee0e9
+  cloud_firestore: b054ccc068b5907645c32b669d38e82db2a11fc7
   Firebase: 7cf5f9c67f03cb3b606d1d6535286e1080e57eb6
-  firebase_auth: af8784c4d8d87c36f730a305f97bfbcb24db024b
-  firebase_core: 335c02abd48672b7c83c683df833d0488a72e73e
+  firebase_analytics: 3ad65aa7be059752b2c1a6392bfafe030b4ab9fa
+  firebase_auth: c42c06a212439824b5da53437da905931e8e6b9a
+  firebase_core: 3134fe79d257d430f163b558caf52a10a87efe8a
   FirebaseAnalytics: 96634d356482d4f3af8fe459a0ebf19a99c71b75
   FirebaseAuth: 7047aec89c0b17ecd924a550c853f0c27ac6015e
   FirebaseAuthInterop: a0f37ae05833af156e72028f648d313f7e7592e9
