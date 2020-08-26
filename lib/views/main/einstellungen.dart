@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mateapp/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mateapp/views/main/einstellungen_code_of_cunduct.dart';
 import 'package:mateapp/views/views.dart';
+import 'dart:math' as math;
 
 // TODO: remove and use inheritance instead
 import '../../styles/styles.dart';
@@ -75,6 +78,48 @@ class EinstellungsLinks extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                     child: Text(
                       "Account",
+                      style: Styles.font.apply(color: Styles.grey),
+                    ),
+                  ),
+                  Spacer(),
+                  Icon(
+                    Icons.keyboard_arrow_right,
+                    color: Styles.grey,
+                    size: 20.0,
+                  ),
+                ]),
+              ),
+            ),
+
+            //Code of Conduct
+            Container(
+              decoration: BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(
+                  width: 1.0,
+                  color: Styles.grey,
+                )),
+              ),
+              margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+              child: CupertinoButton(
+                padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    CupertinoPageRoute(builder: (context) {
+                      return EinstellungCode();
+                    }),
+                  );
+                },
+                child: Row(children: <Widget>[
+                  Icon(
+                    FontAwesomeIcons.handHoldingHeart,
+                    color: Styles.grey,
+                    size: 30.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    child: Text(
+                      "Code of Conduct",
                       style: Styles.font.apply(color: Styles.grey),
                     ),
                   ),
