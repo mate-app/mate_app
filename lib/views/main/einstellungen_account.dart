@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../styles/styles.dart';
+
 class EinstellungAccount extends StatefulWidget {
   @override
   _EinstellungAccountState createState() {
@@ -10,12 +12,15 @@ class EinstellungAccount extends StatefulWidget {
 class _EinstellungAccountState extends State<EinstellungAccount> {
   @override
   Widget build(BuildContext context) {
-    return const CustomScrollView(
-      slivers: <Widget>[
-        CupertinoSliverNavigationBar(
-          largeTitle: Text('Account'),
-        ),
-      ],
+    return Container(
+      color: Styles.white,
+      child: const CustomScrollView(
+        slivers: <Widget>[
+          CupertinoSliverNavigationBar(
+            largeTitle: Text('Account'),
+          ),
+        ],
+      ),
     );
   }
 }

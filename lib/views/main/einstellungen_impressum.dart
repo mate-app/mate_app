@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../styles/styles.dart';
+
 class EinstellungImpressum extends StatefulWidget {
   @override
   _EinstellungImpressumState createState() {
@@ -10,12 +12,15 @@ class EinstellungImpressum extends StatefulWidget {
 class _EinstellungImpressumState extends State<EinstellungImpressum> {
   @override
   Widget build(BuildContext context) {
-    return const CustomScrollView(
-      slivers: <Widget>[
-        CupertinoSliverNavigationBar(
-          largeTitle: Text('Veranstaltung'),
-        ),
-      ],
+    return Container(
+      color: Styles.white,
+      child: const CustomScrollView(
+        slivers: <Widget>[
+          CupertinoSliverNavigationBar(
+            largeTitle: Text('Veranstaltung'),
+          ),
+        ],
+      ),
     );
   }
 }

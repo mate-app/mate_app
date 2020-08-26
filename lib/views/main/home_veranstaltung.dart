@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../styles/styles.dart';
+
 class HomeVeranstaltung extends StatefulWidget {
   @override
   _HomeVeranstaltungState createState() {
@@ -10,12 +12,15 @@ class HomeVeranstaltung extends StatefulWidget {
 class _HomeVeranstaltungState extends State<HomeVeranstaltung> {
   @override
   Widget build(BuildContext context) {
-    return const CustomScrollView(
-      slivers: <Widget>[
-        CupertinoSliverNavigationBar(
-          largeTitle: Text('Veranstaltung'),
-        ),
-      ],
+    return Container(
+      color: Styles.white,
+      child: const CustomScrollView(
+        slivers: <Widget>[
+          CupertinoSliverNavigationBar(
+            largeTitle: Text('Veranstaltung'),
+          ),
+        ],
+      ),
     );
   }
 }

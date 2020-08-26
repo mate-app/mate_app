@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../styles/styles.dart';
+
 class VerwaltungPruefungsOrdnung extends StatefulWidget {
   @override
   _VerwaltungPruefungsOrdnungState createState() {
@@ -11,12 +13,15 @@ class _VerwaltungPruefungsOrdnungState
     extends State<VerwaltungPruefungsOrdnung> {
   @override
   Widget build(BuildContext context) {
-    return const CustomScrollView(
-      slivers: <Widget>[
-        CupertinoSliverNavigationBar(
-          largeTitle: Text('Prüfungsordnung'),
-        ),
-      ],
+    return Container(
+      color: Styles.white,
+      child: const CustomScrollView(
+        slivers: <Widget>[
+          CupertinoSliverNavigationBar(
+            largeTitle: Text('Prüfungsordnung'),
+          ),
+        ],
+      ),
     );
   }
 }
