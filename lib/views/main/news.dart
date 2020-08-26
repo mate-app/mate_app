@@ -1,19 +1,22 @@
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:mateapp/views/main/news_detail_tab.dart';
-import '../../styles/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:mateapp/services/database.dart';
-import 'package:mateapp/models/news.dart';
-import '../../widgets/mate_page_route.dart';
+import 'package:mateapp/views/views.dart';
+import 'package:mateapp/services/services.dart';
+import 'package:mateapp/models/models.dart';
+import 'package:mateapp/utils/utils.dart';
 
-import 'news_detail_tab.dart';
+// TODO: remove import and use inheritance
+import '../../styles/styles.dart';
 
 class NewsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    UserModel user = Provider.of<UserModel>(context);
+
     return StreamProvider<List<News>>.value(
-      value: DatabaseService().newsStream,
+      value: Collection<News>(path: 'hochschulen/${user.university}/news')
+          .streamData(),
       child: CustomScrollView(
         physics: const BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics()),
@@ -22,7 +25,7 @@ class NewsTab extends StatelessWidget {
             largeTitle: const Text('News'),
           ),
           CupertinoSliverRefreshControl(
-            onRefresh: _handleRefresh,
+            onRefresh: handleRefresh,
           ),
           NewsPanelList(),
           SliverToBoxAdapter(
@@ -57,10 +60,6 @@ class _NewsPanelListState extends State<NewsPanelList> {
   }
 }
 
-Future _handleRefresh() async {
-  return new Future.delayed(const Duration(seconds: 1), () => {});
-}
-
 //Creates the News Panel
 class NewsPanel extends StatelessWidget {
   final News news;
@@ -77,7 +76,7 @@ class NewsPanel extends StatelessWidget {
       padding: EdgeInsets.all(0),
       onPressed: () {
         Navigator.of(context).push(
-          MatePageRoute(page: NewsDetailTab(news: news)),
+          CupertinoPageRoute(builder: (context) => NewsDetailTab(news: news)),
         );
       },
       child: Container(
@@ -95,7 +94,8 @@ class NewsPanel extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 borderRadius: Styles.roundedEdges,
-                gradient: Styles.newsColor[news.newsCategory],
+                gradient: Styles.newsColor[news.category] ??
+                    Styles.newsColor['Allgemein'],
               ),
               height: 160,
               padding: EdgeInsets.all(20),
@@ -104,7 +104,7 @@ class NewsPanel extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     height: 80,
-                    child: Text(news.newsTitle,
+                    child: Text(news.title,
                         style: Styles.h1.apply(color: Styles.white)),
                   ),
                   Spacer(
@@ -113,10 +113,10 @@ class NewsPanel extends StatelessWidget {
                   Container(
                       child: Row(
                     children: <Widget>[
-                      Tag(tagName: news.newsCategory),
+                      Tag(tagName: news.category),
                       Spacer(flex: 2),
                       Text(
-                        news.newsDate,
+                        news.date.toString(),
                         style: Styles.tiny.apply(color: Styles.white),
                       )
                     ],
@@ -132,7 +132,7 @@ class NewsPanel extends StatelessWidget {
                     Container(
                       height: 60,
                       child: Text(
-                        news.newsShort,
+                        news.teaser,
                         style: Styles.font.apply(color: Styles.grey),
                         textAlign: TextAlign.left,
                       ),

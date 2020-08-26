@@ -1,16 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mateapp/views/setup/universities.dart';
-import 'package:mateapp/models/university.dart';
 import 'package:provider/provider.dart';
-import 'package:mateapp/services/database.dart';
-import 'package:mateapp/views/setup/subjects.dart';
+import 'package:mateapp/views/views.dart';
+import 'package:mateapp/models/models.dart';
+import 'package:mateapp/services/services.dart';
 
 class LegalScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<University>>.value(
-        value: DatabaseService().universityStream, child: LegalScreenContent());
+      value: Global.universityRef.streamData(),
+      child: LegalScreenContent(),
+    );
   }
 }
 

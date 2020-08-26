@@ -1,16 +1,18 @@
 class Dish {
-  final String id;
-  final String name;
-  final List<dynamic> tags;
-  final String price;
-  final String date;
+  String id;
+  String name;
+  List<String> tags;
+  String price;
+  DateTime date;
   int rating;
 
-  Dish(
-      {this.id = '',
-      this.name = '',
-      this.tags = const ['tag'],
-      this.price = '',
-      this.date = '',
-      this.rating = 0});
+  Dish({this.id, this.name, this.tags, this.price, this.date, this.rating});
+  Dish.fromMap(doc) {
+    id = doc.id;
+    name = doc.data()['name'] ?? '';
+    tags = List.from(doc.data()['tags']) ?? [];
+    price = doc.data()['price'] ?? '';
+    date = doc.data()['date'].toDate() ?? '';
+    rating = doc.data()['rating'] ?? 0;
+  }
 }

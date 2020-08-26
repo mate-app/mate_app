@@ -59,9 +59,12 @@ abstract class Styles {
 
   static const newsColor = {
     "Allgemein": gradientPrimary,
-    "Career": gradientThird,
-    "Medien": gradientSecondary,
-    // TODO: Farben für alle Newstypen
+    "Wirtschaft": gradientThird,
+    "Maschinenwesen": gradientThird,
+    "Soziale Arbeit und Gesundheit": gradientSecondary,
+    "Informatik und Elektrotechnik": gradientSecondary,
+    "Medien / Bauwesen": gradientPrimary,
+    "Agrarwirtschaft": gradientPrimary,
   };
   //Font
   static const h1 = TextStyle(

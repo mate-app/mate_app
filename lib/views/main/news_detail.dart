@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import '../../styles/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:mateapp/models/news.dart';
-import 'news_tab.dart';
+import 'package:mateapp/models/models.dart';
+import 'package:mateapp/views/views.dart';
+
+// TODO: remove import and use inheritance
+import '../../styles/styles.dart';
 
 class NewsDetailTab extends StatefulWidget {
   final News news;
@@ -19,7 +21,6 @@ class _NewsDetailTab extends State<NewsDetailTab> {
   @override
   Widget build(BuildContext context) {
     // final news = Provider.of<List<News>>(context);
-
     return Container(
       color: Styles.white,
       child: CustomScrollView(
@@ -65,7 +66,7 @@ class StaticNavigationBar extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 64.0;
+  double get maxExtent => 88.0;
 
   @override
   double get minExtent => maxExtent;
@@ -91,7 +92,7 @@ class NewsDetailPanel extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: Styles.roundedEdges,
-        gradient: Styles.newsColor[news.newsCategory],
+        gradient: Styles.newsColor[news.category],
       ),
       height: 160,
       margin: EdgeInsets.all(15),
@@ -101,8 +102,8 @@ class NewsDetailPanel extends StatelessWidget {
         children: <Widget>[
           Container(
             height: 80,
-            child: Text(news.newsTitle,
-                style: Styles.h1.apply(color: Styles.white)),
+            child:
+                Text(news.title, style: Styles.h1.apply(color: Styles.white)),
           ),
           Spacer(
             flex: 2,
@@ -110,7 +111,7 @@ class NewsDetailPanel extends StatelessWidget {
           Container(
               child: Row(
             children: <Widget>[
-              Tag(tagName: news.newsCategory),
+              Tag(tagName: news.category),
             ],
           ))
         ],
@@ -150,7 +151,7 @@ class NewsDetailText extends StatelessWidget {
               children: <Widget>[
                 Text("", style: Styles.small.apply(color: Styles.grey)),
                 Spacer(),
-                Text(news.newsDate,
+                Text(news.date.toString(),
                     style: Styles.small.apply(color: Styles.grey)),
               ],
             ),
@@ -158,7 +159,7 @@ class NewsDetailText extends StatelessWidget {
           Container(
               padding: EdgeInsets.fromLTRB(15, 25, 15, 0),
               child: Text(
-                news.newsShort,
+                news.teaser,
                 style: Styles.font.apply(color: Styles.grey),
                 // textAlign: TextAlign.justify,
               ))

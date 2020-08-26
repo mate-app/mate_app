@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mateapp/models/university.dart';
-import 'package:mateapp/services/auth.dart';
-import 'package:mateapp/views/loading.dart';
-import 'package:mateapp/views/wrapper.dart';
-import 'package:mateapp/models/form_field_content.dart';
-import 'package:mateapp/models/subject.dart';
+import 'package:mateapp/models/models.dart';
+import 'package:mateapp/services/services.dart';
+import 'package:mateapp/widgets/widgets.dart';
+import 'package:mateapp/views/views.dart';
 
 class RegisterScreen extends StatefulWidget {
   final University university; // university chosen in screen before
@@ -45,30 +43,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void sendForm() async {
-    dynamic result = await _auth.registerWithEmailAndPassword(
-        email.fieldContent + widget.university.emailDomain,
-        password.fieldContent,
-        widget.university,
-        widget.subject,
-        widget.semester);
-    if (result == null) {
-      setState(() => _loading = false);
-      _registerAlert();
-    } else {
+    await _auth
+        .registerWithEmailAndPassword(
+            email.fieldContent + widget.university.domain,
+            password.fieldContent,
+            widget.university,
+            widget.subject,
+            widget.semester)
+        .then((value) {
       Navigator.pushAndRemoveUntil(
           context,
           CupertinoPageRoute(builder: (context) => Wrapper()),
           (route) => false);
-    }
+    }, onError: (error) {
+      setState(() => _loading = false);
+      _registerAlert(message: error);
+    });
   }
 
-  Future<void> _registerAlert() async {
+  Future<void> _registerAlert(
+      {String message = 'Ein unbekannter Fehler ist aufgetreten.'}) async {
     return showCupertinoDialog(
         context: context,
         builder: (BuildContext context) {
           return CupertinoAlertDialog(
             title: Text('Fehler'),
-            content: Text('Bitte überprüfe deine e-Mail und dein Passwort.'),
+            content: Text(message),
             actions: <Widget>[
               CupertinoDialogAction(
                   child: Text('nochmal versuchen'),
@@ -118,8 +118,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 44,
                     child: CupertinoTextField(
                       autofocus: true,
-                      placeholder: 'mail' + widget.university.emailDomain,
-                      suffix: Text(widget.university.emailDomain),
+                      placeholder: 'mail' + widget.university.domain,
+                      suffix: Text(widget.university.domain),
                       suffixMode: OverlayVisibilityMode.editing,
                       expands: false,
                       clearButtonMode: OverlayVisibilityMode.editing,

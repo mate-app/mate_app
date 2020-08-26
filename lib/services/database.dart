@@ -1,146 +1,136 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:mateapp/models/news.dart';
-import 'package:mateapp/models/university.dart';
-import 'package:mateapp/models/subject.dart';
-import 'package:mateapp/models/dish.dart';
+import 'package:mateapp/models/models.dart';
+import 'package:mateapp/services/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class DatabaseService {
-  final String uid;
+class Document<T> {
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final String path;
+  DocumentReference ref;
 
-  // Constructer
-  DatabaseService({this.uid});
-
-  // University Collection
-  final CollectionReference universityCollection =
-      Firestore.instance.collection('hochschulen');
-
-  // news Collection
-  final CollectionReference newsCollection = Firestore.instance
-      .collection('hochschulen')
-      .document('fhkiel')
-      .collection('news');
-
-  // user Collection
-  final CollectionReference userCollection =
-      Firestore.instance.collection('users');
-
-  // moduls Collection
-  final CollectionReference subjectCollection = Firestore.instance
-      .collection('hochschulen')
-      .document('fhkiel')
-      .collection('subjects');
-
-  // Dishes Collection
-  final CollectionReference dishCollection = Firestore.instance
-      .collection('hochschulen')
-      .document('fhkiel')
-      .collection('mensa');
-
-  // List of Dishes from Snapshot
-  List<Dish> _dishListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.documents.map((doc) {
-      return Dish(
-          id: doc.documentID,
-          name: doc.data['name'] ?? '',
-          tags: doc.data['tags'] ?? [],
-          price: doc.data['price'] ?? '',
-          date: _convertDateToString(doc.data['date']) ?? '',
-          rating: doc.data['rating'] ?? 0);
-    }).toList();
+  Document({this.path}) {
+    ref = _db.doc(path);
+    // implement optional filter
   }
 
-  // List of News from Snapshot
-  List<News> _newsListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.documents.map((doc) {
-      return News(
-          newsId: doc.data['id'],
-          newsCategory: doc.data['category'] ?? '',
-          newsDate: _convertDateToString(doc.data['date']) ?? '',
-          newsShort: doc.data['teaser'] ?? '',
-          newsTitle: doc.data['title'] ?? '');
-    }).toList();
+  Future<T> getData() {
+    return ref.get().then((doc) => Global.models[T](doc) as T);
   }
 
-  // List of Subjects from Snapshot
-  List<Subject> _subjectListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.documents.map((doc) {
-      return Subject(
-        name: doc.data['name'] ?? '',
-        degree: doc.data['degree'] ?? '',
-        duration: doc.data['duration'] ?? 6,
-        department: doc.data['department'] ?? '',
-        type: doc.data['type'] ?? '',
-      );
-    }).toList();
+  Stream<T> streamData() {
+    return ref.snapshots().map((v) => Global.models[T](v) as T);
   }
 
-  // List of Universities from Snapshopt
-  List<University> _universityListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.documents.map((doc) {
-      return University(
-          name: doc.data['name'] ?? '',
-          emailDomain: doc.data['domain'] ?? '',
-          city: doc.data['city'] ?? '',
-          shortName: doc.data['short_name'] ?? '');
-    }).toList();
-  }
-
-  // University Stream
-  Stream<List<University>> get universityStream {
-    return universityCollection.snapshots().map(_universityListFromSnapshot);
-  }
-
-  // newsStream
-  Stream<List<News>> get newsStream {
-    return newsCollection
-        .orderBy('date', descending: true)
-        .snapshots()
-        .map(_newsListFromSnapshot);
-  }
-
-  // subject Stream
-  Stream<List<Subject>> get subjectStream {
-    return subjectCollection.snapshots().map(_subjectListFromSnapshot);
-  }
-
-  //Dishes Stream
-  Stream<List<Dish>> get dishStream {
-    return dishCollection
-        .where("date",
-            isGreaterThanOrEqualTo: DateTime(DateTime.now().year,
-                DateTime.now().month, DateTime.now().day, 0, 0))
-        .where("date",
-            isLessThanOrEqualTo: DateTime(DateTime.now().year,
-                DateTime.now().month, DateTime.now().day, 23, 59, 59))
-        .snapshots()
-        .map(_dishListFromSnapshot);
-  }
-
-  // Converts Timestamps to usable String Format
-  String _convertDateToString(Timestamp timestamp) {
-    initializeDateFormatting('de_DE', null);
-    return DateFormat('dd. MMM y', 'de_DE')
-        .format(DateTime.parse(timestamp.toDate().toString()));
-  }
-
-  // Functions updates standard user data
-  Future updateUserData(
-    String uid,
-    String mail,
-    String university,
-    String subject,
-    int semester,
-    String language,
-  ) async {
-    return await userCollection.document(uid).setData({
-      'user_id': uid,
-      'mail': mail,
-      'university': university,
-      'subject': subject,
-      'semester': semester,
-      'language': language
-    });
+  Future<void> upsert(Map data) {
+    return ref
+        .update(Map<String, dynamic>.from(data))
+        .catchError((err) => print('error: $err'));
   }
 }
+
+class Collection<T> {
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final String path;
+  final int limit;
+  final List<String> order;
+  final List<CustomQuery> queries;
+  Query ref;
+
+  Collection(
+      {this.path,
+      this.queries = const [],
+      this.limit = 0,
+      this.order = const []}) {
+    ref = _db.collection(path);
+    _addFilter(queries, queries.length);
+    _addLimit(limit);
+    _addOrder(order);
+  }
+
+  void _addOrder(List<String> order) {
+    ref = order.isEmpty
+        ? ref
+        : ref.orderBy(order[0], descending: order[1] == 'asc' ? false : true);
+  }
+
+  void _addLimit(int limit) {
+    ref = limit > 0 ? ref.limit(limit) : ref;
+  }
+
+  void _addFilter(List<CustomQuery> queries, int loops) {
+    if (loops > 0) {
+      loops--;
+      String field = queries[loops].field;
+      String operation = queries[loops].operation;
+      dynamic value = queries[loops].value;
+
+      switch (operation) {
+        case '==':
+          ref = ref.where(field, isEqualTo: value);
+          break;
+        case '<':
+          ref = ref.where(field, isLessThan: value);
+          break;
+        case '>':
+          ref = ref.where(field, isGreaterThan: value);
+          break;
+        case '<=':
+          ref = ref.where(field, isLessThanOrEqualTo: value);
+          break;
+        case '>=':
+          ref = ref.where(field, isGreaterThanOrEqualTo: value);
+          break;
+        case 'arrayContains':
+          ref = ref.where(field, arrayContains: value);
+          break;
+        case 'arrayContainsAny':
+          ref = ref.where(field, arrayContainsAny: value);
+          break;
+        case 'isNull':
+          ref = ref.where(field, isNull: value);
+          break;
+        default:
+          ref = ref;
+      }
+      _addFilter(queries, loops);
+    }
+  }
+
+  Future<List<T>> getData() async {
+    var snapshots = await ref.get();
+    return snapshots.docs.map((doc) => Global.models[T](doc) as T).toList();
+  }
+
+  Stream<List<T>> streamData() {
+    return ref.snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => Global.models[T](doc) as T).toList());
+  }
+}
+
+class UserData<T> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final String collection;
+
+  UserData({this.collection});
+
+  Stream<T> get documentStream {
+    if (_auth.currentUser.uid != null) {
+      Document<T> doc =
+          Document<T>(path: '$collection/${_auth.currentUser.uid}');
+      return doc.streamData();
+    } else {
+      return Stream<T>.value(null);
+    }
+  }
+
+  Future<void> upsert(Map data) async {
+    User user = _auth.currentUser;
+    Document<T> ref = Document(path: '$collection/${user.uid}');
+    return ref.upsert(data);
+  }
+}
+// String _convertDateToString(Timestamp timestamp) {
+//     initializeDateFormatting('de_DE', null);
+//     return DateFormat('dd. MMM y', 'de_DE')
+//         .format(DateTime.parse(timestamp.toDate().toString()));
+//   }

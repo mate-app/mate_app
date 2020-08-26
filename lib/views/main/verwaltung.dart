@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mateapp/views/main/verwaltung_module_tab.dart';
-import 'package:mateapp/views/main/verwaltung_noten_tab.dart';
-import 'package:mateapp/views/main/verwaltung_personen_tab.dart';
-import 'package:mateapp/views/main/verwaltung_pruefungsordnung_tab.dart';
-import '../../styles/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:mateapp/views/views.dart';
+
+// TODO: remove import and use inheritance
+import '../../styles/styles.dart';
 
 class VerwaltungTab extends StatefulWidget {
   @override

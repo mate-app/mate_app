@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mateapp/views/views.dart';
+
+// TODO: remove import and use inheritance
 import 'package:mateapp/styles/styles.dart';
-// Custom
-import 'package:mateapp/views/setup/legal.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
