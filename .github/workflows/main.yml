@@ -26,7 +26,7 @@ jobs:
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
         run: echo $FIREBASE_CONFIG > android/app/google-services.json
         
-      - run: flutter build appbundle
+      - run: flutter build apk
         
       - name: Decode GoogleService-Info.plist
         env:
