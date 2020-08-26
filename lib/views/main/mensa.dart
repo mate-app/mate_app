@@ -48,7 +48,7 @@ class MensaTab extends StatelessWidget {
                               59))
                     ]).streamData(),
                 builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
+                  if (!snapshot.hasData || snapshot.hasError) {
                     return SliverLoadingIndicator();
                   }
                   return MensaPanelList(snapshot.data);
@@ -188,6 +188,9 @@ class _MensaPanelState extends State<MensaPanel> {
                       userVotes = {
                         'upvotes': FieldValue.arrayRemove([widget.dish.id]),
                       };
+                      setState(() {
+                        upvoted = false;
+                      });
                     } else {
                       increment = {
                         'rating': FieldValue.increment(1),
@@ -195,16 +198,15 @@ class _MensaPanelState extends State<MensaPanel> {
                       userVotes = {
                         'upvotes': FieldValue.arrayUnion([widget.dish.id]),
                       };
+                      setState(() {
+                        upvoted = true;
+                      });
                     }
                     Document(
                             path:
                                 'hochschulen/${user.university}/mensa/${widget.dish.id}')
                         .upsert(increment);
                     UserData(collection: 'users').upsert(userVotes);
-
-                    setState(() {
-                      upvoted = true;
-                    });
                   }),
               Text(
                 widget.dish.rating.toString(),
@@ -230,6 +232,9 @@ class _MensaPanelState extends State<MensaPanel> {
                     userVotes = {
                       'downvotes': FieldValue.arrayRemove([widget.dish.id]),
                     };
+                    setState(() {
+                      downvoted = false;
+                    });
                   } else {
                     increment = {
                       'rating': FieldValue.increment(-1),
@@ -237,16 +242,15 @@ class _MensaPanelState extends State<MensaPanel> {
                     userVotes = {
                       'downvotes': FieldValue.arrayUnion([widget.dish.id]),
                     };
+                    setState(() {
+                      downvoted = true;
+                    });
                   }
                   Document(
                           path:
                               'hochschulen/${user.university}/mensa/${widget.dish.id}')
                       .upsert(increment);
                   UserData(collection: 'users').upsert(userVotes);
-
-                  setState(() {
-                    downvoted = true;
-                  });
                 },
               ),
               Spacer(),

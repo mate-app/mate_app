@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:mateapp/models/models.dart';
 import 'package:mateapp/services/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,6 +25,12 @@ class Document<T> {
   Future<void> upsert(Map data) {
     return ref
         .update(Map<String, dynamic>.from(data))
+        .catchError((err) => print('error: $err'));
+  }
+
+  Future<void> createAndMerge(Map data) {
+    return ref
+        .set(Map<String, dynamic>.from(data), SetOptions(merge: true))
         .catchError((err) => print('error: $err'));
   }
 }
@@ -114,7 +121,7 @@ class UserData<T> {
   UserData({this.collection});
 
   Stream<T> get documentStream {
-    if (_auth.currentUser.uid != null) {
+    if (_auth.currentUser != null) {
       Document<T> doc =
           Document<T>(path: '$collection/${_auth.currentUser.uid}');
       return doc.streamData();
@@ -126,7 +133,7 @@ class UserData<T> {
   Future<void> upsert(Map data) async {
     User user = _auth.currentUser;
     Document<T> ref = Document(path: '$collection/${user.uid}');
-    return ref.upsert(data);
+    return ref.createAndMerge(data);
   }
 }
 // String _convertDateToString(Timestamp timestamp) {
