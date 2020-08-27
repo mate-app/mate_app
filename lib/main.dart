@@ -33,13 +33,8 @@ class MateApp extends StatelessWidget {
 
           // show application
           if (snapshot.connectionState == ConnectionState.done) {
-            return MultiProvider(
-              providers: [
-                StreamProvider<User>.value(value: AuthService().user),
-                StreamProvider<UserModel>.value(
-                    value: UserData<UserModel>(collection: 'users')
-                        .documentStream),
-              ],
+            return StreamProvider<User>.value(
+              value: AuthService().user,
               child: CupertinoApp(
                 localizationsDelegates: [
                   DefaultMaterialLocalizations.delegate,

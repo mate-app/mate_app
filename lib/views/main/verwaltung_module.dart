@@ -1,10 +1,8 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mateapp/styles/styles.dart';
-
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:mateapp/widgets/widgets.dart';
 import '../../styles/styles.dart';
 
 class VerwaltungModule extends StatefulWidget {
@@ -21,54 +19,10 @@ class _VerwaltungModuleState extends State<VerwaltungModule> {
       color: Styles.white,
       child: CustomScrollView(
         slivers: <Widget>[
-          SliverAppBar(
-            title: Container(
-              padding: EdgeInsets.fromLTRB(0, 3, 0, 0),
-              child: Text(
-                'Module',
-                style: TextStyle(fontSize: 16, color: Color(0xff000000)),
-              ),
-            ),
-            leading: CupertinoButton(
-                padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Icon(Icons.arrow_back_ios)),
-            iconTheme: IconThemeData(color: Styles.primary),
-            backgroundColor: Color(0xddffffff),
-            centerTitle: true,
-            collapsedHeight: 44,
-            toolbarHeight: 43,
+          SliverPersistentHeader(
+            delegate: StaticNavigationBar('Module'),
             pinned: true,
-            elevation: 0.1,
-            shadowColor: Color(0x00ffffff),
-            flexibleSpace: Container(
-              height: 68,
-              width: double.infinity,
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    width: MediaQuery.of(context).size.width,
-                    height: 68,
-                    child: ClipRect(
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.4),
-                              border: Border(
-                                  bottom: BorderSide(
-                                      width: 0.125, color: Color(0xff000000)))),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            floating: true,
           ),
           ModulGridList(),
           SliverToBoxAdapter(

@@ -101,6 +101,7 @@ class MensaPanel extends StatefulWidget {
 class _MensaPanelState extends State<MensaPanel> {
   bool upvoted = false;
   bool downvoted = false;
+  bool _btnEnabled = true;
 
   @override
   Widget build(BuildContext context) {
@@ -173,41 +174,47 @@ class _MensaPanelState extends State<MensaPanel> {
                   padding: EdgeInsets.all(0),
                   child: Icon(
                     Icons.keyboard_arrow_up,
-                    color: upvoted ? Styles.grey : Styles.white,
+                    color: upvoted ? Colors.white54 : Styles.white,
                     size: 40.0,
                   ),
-                  onPressed: () {
-                    // // rating + 1
-                    if (downvoted) return;
-                    Map increment;
-                    Map userVotes;
-                    if (upvoted) {
-                      increment = {
-                        'rating': FieldValue.increment(-1),
-                      };
-                      userVotes = {
-                        'upvotes': FieldValue.arrayRemove([widget.dish.id]),
-                      };
-                      setState(() {
-                        upvoted = false;
-                      });
-                    } else {
-                      increment = {
-                        'rating': FieldValue.increment(1),
-                      };
-                      userVotes = {
-                        'upvotes': FieldValue.arrayUnion([widget.dish.id]),
-                      };
-                      setState(() {
-                        upvoted = true;
-                      });
-                    }
-                    Document(
-                            path:
-                                'hochschulen/${user.university}/mensa/${widget.dish.id}')
-                        .upsert(increment);
-                    UserData(collection: 'users').upsert(userVotes);
-                  }),
+                  onPressed: _btnEnabled
+                      ? () async {
+                          // // rating + 1
+                          setState(() {
+                            _btnEnabled = false;
+                          });
+                          if (downvoted) return;
+                          Map increment;
+                          Map userVotes;
+                          if (upvoted) {
+                            increment = {
+                              'rating': FieldValue.increment(-1),
+                            };
+                            userVotes = {
+                              'votes': FieldValue.arrayRemove([widget.dish.id]),
+                            };
+                          } else {
+                            increment = {
+                              'rating': FieldValue.increment(1),
+                            };
+                            userVotes = {
+                              'votes': FieldValue.arrayUnion([widget.dish.id]),
+                            };
+                          }
+                          await Document(
+                                  path:
+                                      'hochschulen/${user.university}/mensa/${widget.dish.id}')
+                              .upsert(increment);
+                          await UserData(collection: 'users')
+                              .upsert(userVotes)
+                              .then((value) {
+                            setState(() {
+                              upvoted = upvoted ? false : true;
+                              _btnEnabled = true;
+                            });
+                          });
+                        }
+                      : null),
               Text(
                 widget.dish.rating.toString(),
                 style: Styles.h2.apply(color: Styles.white),
@@ -217,41 +224,48 @@ class _MensaPanelState extends State<MensaPanel> {
                 child: Icon(
                   Icons.keyboard_arrow_down,
                   // TODO: change upvote and downvote color for arrow to something nice
-                  color: downvoted ? Styles.grey : Styles.white,
+                  color: downvoted ? Colors.white54 : Styles.white,
                   size: 40.0,
                 ),
-                onPressed: () {
-                  // rating + 1
-                  if (upvoted) return;
-                  Map increment;
-                  Map userVotes;
-                  if (downvoted) {
-                    increment = {
-                      'rating': FieldValue.increment(1),
-                    };
-                    userVotes = {
-                      'downvotes': FieldValue.arrayRemove([widget.dish.id]),
-                    };
-                    setState(() {
-                      downvoted = false;
-                    });
-                  } else {
-                    increment = {
-                      'rating': FieldValue.increment(-1),
-                    };
-                    userVotes = {
-                      'downvotes': FieldValue.arrayUnion([widget.dish.id]),
-                    };
-                    setState(() {
-                      downvoted = true;
-                    });
-                  }
-                  Document(
-                          path:
-                              'hochschulen/${user.university}/mensa/${widget.dish.id}')
-                      .upsert(increment);
-                  UserData(collection: 'users').upsert(userVotes);
-                },
+                onPressed: _btnEnabled
+                    ? () {
+                        setState(() {
+                          _btnEnabled = false;
+                        });
+                        // rating + 1
+                        if (upvoted) return;
+                        Map increment;
+                        Map userVotes;
+                        if (downvoted) {
+                          increment = {
+                            'rating': FieldValue.increment(1),
+                          };
+                          userVotes = {
+                            'votes': FieldValue.arrayRemove([widget.dish.id]),
+                          };
+                        } else {
+                          increment = {
+                            'rating': FieldValue.increment(-1),
+                          };
+                          userVotes = {
+                            'votes': FieldValue.arrayUnion([widget.dish.id]),
+                          };
+                        }
+                        Document(
+                                path:
+                                    'hochschulen/${user.university}/mensa/${widget.dish.id}')
+                            .upsert(increment);
+                        UserData(collection: 'users')
+                            .upsert(userVotes)
+                            .then((value) {
+                          setState(() {
+                            downvoted = downvoted ? false : true;
+                            _btnEnabled = true;
+                          });
+                        });
+                        ;
+                      }
+                    : null,
               ),
               Spacer(),
             ],
