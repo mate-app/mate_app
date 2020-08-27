@@ -20,7 +20,7 @@ class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserModel user = Provider.of<UserModel>(context);
-    user == null ? null : print(user.department);
+    user == null ? null : print(user.semester);
     return CustomScrollView(
       physics:
           const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
@@ -53,12 +53,8 @@ class HomeTab extends StatelessWidget {
                     .streamData(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData || snapshot.hasError) {
-                    print(snapshot.connectionState);
-
                     return SliverLoadingIndicator();
                   }
-                  print(snapshot.connectionState);
-                  print(snapshot.data);
                   return HomeList(snapshot.data);
                 },
               ),

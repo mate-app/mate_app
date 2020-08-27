@@ -194,6 +194,8 @@ class _MensaPanelState extends State<MensaPanel> {
                             };
                             userVotes = {
                               'votes': FieldValue.arrayRemove([widget.dish.id]),
+                              'upvotes':
+                                  FieldValue.arrayRemove([widget.dish.id]),
                             };
                           } else {
                             increment = {
@@ -201,6 +203,8 @@ class _MensaPanelState extends State<MensaPanel> {
                             };
                             userVotes = {
                               'votes': FieldValue.arrayUnion([widget.dish.id]),
+                              'upvotes':
+                                  FieldValue.arrayUnion([widget.dish.id]),
                             };
                           }
                           await Document(
@@ -244,6 +248,8 @@ class _MensaPanelState extends State<MensaPanel> {
                           };
                           userVotes = {
                             'votes': FieldValue.arrayRemove([widget.dish.id]),
+                            'downvotes':
+                                FieldValue.arrayRemove([widget.dish.id]),
                           };
                         } else {
                           increment = {
@@ -251,6 +257,8 @@ class _MensaPanelState extends State<MensaPanel> {
                           };
                           userVotes = {
                             'votes': FieldValue.arrayUnion([widget.dish.id]),
+                            'downvotes':
+                                FieldValue.arrayUnion([widget.dish.id]),
                           };
                         }
                         Document(
