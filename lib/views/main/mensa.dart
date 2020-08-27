@@ -49,6 +49,8 @@ class MensaTab extends StatelessWidget {
                     ]).streamData(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData || snapshot.hasError) {
+                    print(snapshot.error);
+
                     return SliverLoadingIndicator();
                   }
                   return MensaPanelList(snapshot.data);
@@ -173,7 +175,7 @@ class _MensaPanelState extends State<MensaPanel> {
                   padding: EdgeInsets.all(0),
                   child: Icon(
                     Icons.keyboard_arrow_up,
-                    color: upvoted ? Styles.grey : Styles.white,
+                    color: upvoted ? Colors.white54 : Styles.white,
                     size: 40.0,
                   ),
                   onPressed: () {

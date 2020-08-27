@@ -10,7 +10,7 @@ class Dish {
   Dish.fromMap(doc) {
     id = doc.id;
     name = doc.data()['name'] ?? '';
-    tags = List.from(doc.data()['tags']) ?? [];
+    tags = doc.data()['tags'] != null ? List.from(doc.data()['tags']) : [];
     price = doc.data()['price'] ?? '';
     date = doc.data()['date'].toDate() ?? '';
     rating = doc.data()['rating'] ?? 0;

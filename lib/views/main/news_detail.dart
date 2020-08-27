@@ -29,7 +29,7 @@ class _NewsDetailTab extends State<NewsDetailTab> {
         slivers: <Widget>[
           SliverPersistentHeader(
             delegate: StaticNavigationBar(),
-            pinned: false,
+            pinned: true,
             floating: true,
           ),
           SliverList(
@@ -66,7 +66,7 @@ class StaticNavigationBar extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 88.0;
+  double get maxExtent => 64.0;
 
   @override
   double get minExtent => maxExtent;

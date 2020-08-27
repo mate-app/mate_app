@@ -27,19 +27,23 @@ class Event {
       this.startsAt,
       this.subjects,
       this.type});
-  Event.fromMap(Map data, String id) {
-    id = id;
-    courseName = data['course_name'] ?? '';
-    date = data['date'].toDate() ?? DateTime.utc(1970, 01, 01);
-    degree = data['degree'] ?? '';
-    endsAt = data['ends_at'].toDate() ?? DateTime.utc(1970, 01, 01);
-    groups = List.from(data['groups']) ?? [];
-    lecturers = List.from(data['lecturers']) ?? [];
-    location = data['location'] ?? '';
-    major = data['major'] ?? '';
-    semester = data['semester'] ?? 0;
-    startsAt = data['starts_at'].toDate() ?? DateTime.utc(1970, 01, 01);
-    subjects = List.from(data['subjects']) ?? [];
-    type = data['event_type'] ?? '';
+  Event.fromMap(doc) {
+    id = doc.id;
+    courseName = doc.data()['course_name'] ?? '';
+    date = doc.data()['date'].toDate() ?? DateTime.utc(1970, 01, 01);
+    degree = doc.data()['degree'] ?? '';
+    endsAt = doc.data()['ends_at'].toDate() ?? DateTime.utc(1970, 01, 01);
+    groups =
+        doc.data()['groups'] != null ? List.from(doc.data()['groups']) : [];
+    lecturers = doc.data()['lecturers'] != null
+        ? List.from(doc.data()['lecturers'])
+        : [];
+    location = doc.data()['location'] ?? '';
+    major = doc.data()['major'] ?? '';
+    semester = doc.data()['semester'] ?? 0;
+    startsAt = doc.data()['starts_at'].toDate() ?? DateTime.utc(1970, 01, 01);
+    subjects =
+        doc.data()['subjects'] != null ? List.from(doc.data()['subjects']) : [];
+    type = doc.data()['event_type'] ?? '';
   }
 }
