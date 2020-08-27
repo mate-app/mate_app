@@ -28,6 +28,7 @@ dependencies:
   timeago: ^2.0.26
   intl: ^0.16.1
   font_awesome_flutter: ^8.2.0
+  url_launcher: ^5.5.0
 
 dev_dependencies:
   flutter_test:

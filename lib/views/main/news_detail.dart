@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mateapp/models/models.dart';
-import 'package:mateapp/views/views.dart';
-
+import 'package:mateapp/utils/utils.dart';
+import 'package:mateapp/widgets/widgets.dart';
 // TODO: remove import and use inheritance
 import '../../styles/styles.dart';
 
@@ -20,7 +20,6 @@ class NewsDetailTab extends StatefulWidget {
 class _NewsDetailTab extends State<NewsDetailTab> {
   @override
   Widget build(BuildContext context) {
-    // final news = Provider.of<List<News>>(context);
     return Container(
       color: Styles.white,
       child: CustomScrollView(
@@ -28,7 +27,7 @@ class _NewsDetailTab extends State<NewsDetailTab> {
             parent: AlwaysScrollableScrollPhysics()),
         slivers: <Widget>[
           SliverPersistentHeader(
-            delegate: StaticNavigationBar(),
+            delegate: StaticNavigationBar('Mitteilung'),
             pinned: true,
             floating: true,
           ),
@@ -44,37 +43,6 @@ class _NewsDetailTab extends State<NewsDetailTab> {
         ],
       ),
     );
-  }
-}
-
-class StaticNavigationBar extends SliverPersistentHeaderDelegate {
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      child: CupertinoNavigationBar(
-        middle: Container(
-          child: Text(
-            'Mitteilung',
-            style: TextStyle(
-              fontSize: 15.5,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
-  double get maxExtent => 64.0;
-
-  @override
-  double get minExtent => maxExtent;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
-    // TODO: implement shouldRebuild
-    return false;
   }
 }
 
@@ -111,7 +79,11 @@ class NewsDetailPanel extends StatelessWidget {
           Container(
               child: Row(
             children: <Widget>[
-              Tag(tagName: news.category),
+              Tag(
+                tag: news.category,
+                margin_bottom: 0,
+                margin_right: 0,
+              ),
             ],
           ))
         ],
@@ -132,13 +104,13 @@ class NewsDetailText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(20, 20, 20, 60),
+      margin: EdgeInsets.fromLTRB(20, 20, 20, 40),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           //Essential Links
           Container(
-            padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
+            padding: EdgeInsets.fromLTRB(15, 0, 15, 10),
             width: MediaQuery.of(context).size.width * 0.90,
             decoration: BoxDecoration(
               border: Border(
@@ -149,20 +121,42 @@ class NewsDetailText extends StatelessWidget {
             ),
             child: Row(
               children: <Widget>[
-                Text("", style: Styles.small.apply(color: Styles.grey)),
+                Text(
+                  news.author,
+                  style: Styles.small.apply(color: Styles.grey),
+                ),
                 Spacer(),
-                Text(news.date.toString(),
+                Text(convertDateToString(news.date),
                     style: Styles.small.apply(color: Styles.grey)),
               ],
             ),
           ),
           Container(
-              padding: EdgeInsets.fromLTRB(15, 25, 15, 0),
-              child: Text(
-                news.teaser,
-                style: Styles.font.apply(color: Styles.grey),
-                // textAlign: TextAlign.justify,
-              ))
+            padding: EdgeInsets.fromLTRB(15, 25, 15, 0),
+            child: Text(
+              news.teaser,
+              style: Styles.font.apply(color: Styles.grey),
+              // textAlign: TextAlign.justify,
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.fromLTRB(15, 25, 15, 0),
+            child: Text(
+              news.text,
+              style: Styles.font.apply(color: Styles.grey),
+              // textAlign: TextAlign.justify,
+            ),
+          ),
+          Center(
+            child: Container(
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 50),
+              child: CupertinoButton(
+                padding: EdgeInsets.zero,
+                child: Text('zur Webseite'),
+                onPressed: () => launchURL(news.link),
+              ),
+            ),
+          ),
         ],
       ),
     );

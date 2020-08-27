@@ -77,22 +77,13 @@ class AuthService {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       user = result.user;
-      print({
-        'user_id': user.uid,
-        'mail': email,
-        'university': university.shortName,
-        'subject': subject.name,
-        'semester': semester,
-        'language': 'german',
-        'upvotes': [],
-        'downvotes': []
-      });
       await UserData(collection: 'users').upsert({
         'user_id': user.uid,
         'mail': email,
         'university': university.shortName,
         'subject': subject.name,
         'semester': semester,
+        'department': subject.department,
         'language': 'german',
         'upvotes': [],
         'downvotes': []

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:mateapp/models/models.dart';
 import 'package:mateapp/services/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -139,8 +138,3 @@ class UserData<T> {
     return ref.createAndMerge(data);
   }
 }
-// String _convertDateToString(Timestamp timestamp) {
-//     initializeDateFormatting('de_DE', null);
-//     return DateFormat('dd. MMM y', 'de_DE')
-//         .format(DateTime.parse(timestamp.toDate().toString()));
-//   }
