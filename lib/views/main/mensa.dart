@@ -49,6 +49,8 @@ class MensaTab extends StatelessWidget {
                     ]).streamData(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData || snapshot.hasError) {
+                    print(snapshot.error);
+
                     return SliverLoadingIndicator();
                   }
                   return MensaPanelList(snapshot.data);

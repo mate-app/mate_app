@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -5,75 +7,108 @@ import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mateapp/views/views.dart';
+import 'package:mateapp/widgets/widgets.dart';
+import 'package:mateapp/services/services.dart';
 import 'package:mateapp/models/models.dart';
+import 'package:mateapp/utils/utils.dart';
 
 // TODO: remove import use inheritance
+import '../../models/event.dart';
 import '../../styles/styles.dart';
 
 class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: switch to stream provider with new coding style
-    return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance
-          .collection('hochschulen')
-          .doc('fhkiel')
-          .collection('events')
-          .snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text('Something went wrong');
-        }
+    UserModel user = Provider.of<UserModel>(context);
+    user == null ? null : print(user.department);
+    return CustomScrollView(
+      physics:
+          const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+      slivers: <Widget>[
+        CupertinoSliverNavigationBar(
+          largeTitle: const Text('Home'),
+        ),
+        CupertinoSliverRefreshControl(
+          onRefresh: handleRefresh,
+        ),
+        user == null
+            ? SliverLoadingIndicator()
+            : StreamBuilder(
+                stream: Collection<Event>(
+                        path: 'hochschulen/${user.university}/events',
+                        queries: [
+                          CustomQuery(
+                            field: 'subjects',
+                            operation: 'arrayContains',
+                            value: user.subject,
+                          ),
+                          CustomQuery(
+                            field: 'semester',
+                            operation: '==',
+                            value: user.semester,
+                          ),
+                        ],
+                        order: ['starts_at', 'ASC'],
+                        limit: 200)
+                    .streamData(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData || snapshot.hasError) {
+                    print(snapshot.connectionState);
 
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
-        }
-
-        List<QueryDocumentSnapshot> events = snapshot.data.docs;
-
-        return CustomScrollView(
-          physics: const BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics()),
-          slivers: <Widget>[
-            CupertinoSliverNavigationBar(
-              largeTitle: const Text('Home'),
-            ),
-            HomeList(events),
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: 60,
-                child: Center(
-                  child: Text(''),
-                ),
+                    return SliverLoadingIndicator();
+                  }
+                  print(snapshot.connectionState);
+                  print(snapshot.data);
+                  return HomeList(snapshot.data);
+                },
               ),
+        SliverToBoxAdapter(
+          child: SizedBox(
+            height: 60,
+            child: Center(
+              child: Text(''),
             ),
-          ],
-        );
-      },
+          ),
+        ),
+      ],
     );
   }
 }
 
 class HomeList extends StatelessWidget {
-  var events;
+  final List<Event> events;
 
   HomeList(this.events);
   @override
   Widget build(BuildContext context) {
     return SliverList(
         delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-      return Day();
-    }, childCount: events != null ? events.length : 0));
+      return Day(events[index]);
+    }, childCount: events?.length ?? 0));
   }
 }
 
 class Day extends StatelessWidget {
+  final Event event;
+
+  Day(this.event);
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       // children: <Widget>[for (var item in list) Text(item)],
-      children: <Widget>[],
+      children: <Widget>[
+        HomeDate(
+          date: event.date,
+        ),
+        HomeAppointments(
+          name: event.courseName,
+          start: event.startsAt,
+          end: event.endsAt,
+          location: event.location,
+          type: event.type,
+        )
+      ],
     );
   }
 }
@@ -91,7 +126,7 @@ class HomeDate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var events = Provider.of<List<Event>>(context);
+    // var event = Provider.of<List<Event>>(context);
 
     initializeDateFormatting('de_DE', null);
 
@@ -140,12 +175,20 @@ class HomeDate extends StatelessWidget {
 class HomeAppointments extends StatelessWidget {
   /// Creates a List with all events of the Day, using [homeEventName; homeEventStart; homeEventEnd; homeEventLocation; homeEventType;]
 
-  final Event event;
+  final String name;
+  final DateTime start;
+  final DateTime end;
+  final String location;
+  final String type;
 
   // Constructor
   HomeAppointments({
     Key key,
-    this.event,
+    this.name,
+    this.start,
+    this.end,
+    this.location,
+    this.type,
   });
 
   @override
@@ -164,10 +207,10 @@ class HomeAppointments extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Column(children: <Widget>[
-              Text(DateFormat('HH:MM', 'de_DE').format(event.startsAt),
+              Text(DateFormat('HH:MM', 'de_DE').format(start),
                   style: Styles.small.apply(color: Styles.grey)),
               Padding(padding: EdgeInsetsDirectional.only(top: 5)),
-              Text(DateFormat('HH:MM', 'de_DE').format(event.endsAt),
+              Text(DateFormat('HH:MM', 'de_DE').format(end),
                   style: Styles.small.apply(color: Styles.lightGrey))
             ]),
             Container(
@@ -185,7 +228,7 @@ class HomeAppointments extends StatelessWidget {
                       maxWidth: MediaQuery.of(context).size.width * 0.58,
                     ),
                     child: Text(
-                      event.courseName,
+                      name,
                       style: Styles.font.apply(
                         color: Styles.grey,
                         fontWeightDelta: 2,
@@ -193,13 +236,13 @@ class HomeAppointments extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    event.location,
+                    location,
                     style: Styles.font.apply(color: Styles.lightGrey),
                   )
                 ]),
             Spacer(),
             Column(children: <Widget>[
-              Text(event.type, style: Styles.font.apply(color: Styles.grey))
+              Text(type, style: Styles.font.apply(color: Styles.grey))
             ]),
           ],
         ),
