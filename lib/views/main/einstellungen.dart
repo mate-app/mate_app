@@ -40,7 +40,7 @@ class EinstellungsLinks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(20, 20, 20, 60),
+      margin: EdgeInsets.fromLTRB(10, 20, 10, 60),
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
