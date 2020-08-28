@@ -77,35 +77,37 @@ class HomeList extends StatelessWidget {
   HomeList(this.events);
   @override
   Widget build(BuildContext context) {
+    List<DateTime> dates =
+        [for (var event in events) event.date].toSet().toList();
+
     return SliverList(
         delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-      return Day(events[index]);
-    }, childCount: events?.length ?? 0));
-  }
-}
+      List<Event> filteredEvents =
+          events.where((element) => element.date == dates[index]).toList();
 
-class Day extends StatelessWidget {
-  final Event event;
+      List<Widget> _createChildren(delIndex) {
+        List<Widget> days = [
+          HomeDate(date: dates[delIndex]),
+        ];
+        List<Widget> appointments =
+            List<Widget>.generate(filteredEvents.length, (int index) {
+          return HomeAppointments(
+            name: filteredEvents[index].courseName,
+            start: filteredEvents[index].startsAt,
+            end: filteredEvents[index].endsAt,
+            location: filteredEvents[index].location,
+            type: filteredEvents[index].type,
+          );
+        });
+        return [...days, ...appointments];
+      }
 
-  Day(this.event);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      // children: <Widget>[for (var item in list) Text(item)],
-      children: <Widget>[
-        HomeDate(
-          date: event.date,
-        ),
-        HomeAppointments(
-          name: event.courseName,
-          start: event.startsAt,
-          end: event.endsAt,
-          location: event.location,
-          type: event.type,
-        )
-      ],
-    );
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        // children: <Widget>[for (var item in list) Text(item)],
+        children: _createChildren(index),
+      );
+    }, childCount: dates?.length ?? 0));
   }
 }
 
