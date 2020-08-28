@@ -66,6 +66,16 @@ abstract class Styles {
     "Medien / Bauwesen": gradientSecondary,
     "Agrarwirtschaft": gradientSecondary,
   };
+
+  static const eventColor = {
+    "VL": primary,
+    "SE": secondary,
+    "Ü": secondary,
+    "Wahlmodul": third,
+    "Praxis": secondary,
+    "Vorlesung/Labor": primary,
+  };
+
   //Font
   static const h1 = TextStyle(
     fontSize: 22,
