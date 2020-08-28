@@ -171,7 +171,9 @@ class HomeAppointments extends StatelessWidget {
         onPressed: () {
           Navigator.of(context).push(
             CupertinoPageRoute(builder: (context) {
-              return HomeVeranstaltung();
+              return HomeVeranstaltung(
+                event: event,
+              );
             }),
           );
         },
