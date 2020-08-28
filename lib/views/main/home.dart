@@ -20,7 +20,6 @@ class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserModel user = Provider.of<UserModel>(context);
-    user == null ? null : print(user.semester);
     return CustomScrollView(
       physics:
           const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),

@@ -40,7 +40,6 @@ class NewsTab extends StatelessWidget {
                     order: ['date', 'DESC']).streamData(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData || snapshot.hasError) {
-                    print(snapshot.error);
                     return SliverLoadingIndicator();
                   }
 
