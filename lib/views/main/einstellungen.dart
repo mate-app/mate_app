@@ -4,6 +4,7 @@ import 'package:mateapp/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mateapp/views/main/einstellungen_code_of_cunduct.dart';
 import 'package:mateapp/views/views.dart';
+import 'package:mateapp/widgets/widgets.dart';
 import 'dart:math' as math;
 
 // TODO: remove and use inheritance instead
@@ -43,222 +44,49 @@ class EinstellungsLinks extends StatelessWidget {
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            //Essential Links
             Container(
               padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
               child: Text("Allgemein", style: Styles.small),
             ),
 
             //Account
+            SettingsListItem(
+              title: 'Account',
+              iconData: Icons.person,
+              route: EinstellungAccount(),
+            ),
+
+            //Information
             Container(
-              decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(
-                  width: 1.0,
-                  color: Styles.grey,
-                )),
-              ),
-              margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
-              child: CupertinoButton(
-                padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    CupertinoPageRoute(builder: (context) {
-                      return EinstellungAccount();
-                    }),
-                  );
-                },
-                child: Row(children: <Widget>[
-                  Icon(
-                    Icons.person,
-                    color: Styles.grey,
-                    size: 30.0,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: Text(
-                      "Account",
-                      style: Styles.font.apply(color: Styles.grey),
-                    ),
-                  ),
-                  Spacer(),
-                  Icon(
-                    Icons.keyboard_arrow_right,
-                    color: Styles.grey,
-                    size: 20.0,
-                  ),
-                ]),
-              ),
+              padding: EdgeInsets.fromLTRB(10, 35, 0, 10),
+              child: Text("Information", style: Styles.small),
             ),
 
             //Code of Conduct
-            Container(
-              decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(
-                  width: 1.0,
-                  color: Styles.grey,
-                )),
-              ),
-              margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
-              child: CupertinoButton(
-                padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    CupertinoPageRoute(builder: (context) {
-                      return EinstellungCode();
-                    }),
-                  );
-                },
-                child: Row(children: <Widget>[
-                  Icon(
-                    FontAwesomeIcons.handHoldingHeart,
-                    color: Styles.grey,
-                    size: 30.0,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: Text(
-                      "Code of Conduct",
-                      style: Styles.font.apply(color: Styles.grey),
-                    ),
-                  ),
-                  Spacer(),
-                  Icon(
-                    Icons.keyboard_arrow_right,
-                    color: Styles.grey,
-                    size: 20.0,
-                  ),
-                ]),
-              ),
+            SettingsListItem(
+              title: 'Code of Conduct',
+              iconData: FontAwesomeIcons.handHoldingHeart,
+              route: EinstellungCode(),
             ),
-
             //Datenschutz
-            Container(
-              decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(
-                  width: 1.0,
-                  color: Styles.grey,
-                )),
-              ),
-              margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
-              child: CupertinoButton(
-                padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    CupertinoPageRoute(builder: (context) {
-                      return EinstellungDatenschutz();
-                    }),
-                  );
-                },
-                child: Row(children: <Widget>[
-                  Icon(
-                    Icons.security,
-                    color: Styles.grey,
-                    size: 30.0,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: Text(
-                      "Datenschutz",
-                      style: Styles.font.apply(color: Styles.grey),
-                    ),
-                  ),
-                  Spacer(),
-                  Icon(
-                    Icons.keyboard_arrow_right,
-                    color: Styles.grey,
-                    size: 20.0,
-                  ),
-                ]),
-              ),
+            SettingsListItem(
+              title: 'Datenschutz',
+              iconData: Icons.security,
+              route: EinstellungDatenschutz(),
             ),
 
             //Impressum
-            Container(
-              decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(
-                  width: 1.0,
-                  color: Styles.grey,
-                )),
-              ),
-              margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
-              child: CupertinoButton(
-                padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    CupertinoPageRoute(builder: (context) {
-                      return EinstellungImpressum();
-                    }),
-                  );
-                },
-                child: Row(children: <Widget>[
-                  Icon(
-                    Icons.info,
-                    color: Styles.grey,
-                    size: 30.0,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: Text(
-                      "Impressum",
-                      style: Styles.font.apply(color: Styles.grey),
-                    ),
-                  ),
-                  Spacer(),
-                  Icon(
-                    Icons.keyboard_arrow_right,
-                    color: Styles.grey,
-                    size: 20.0,
-                  ),
-                ]),
-              ),
+            SettingsListItem(
+              title: 'Impressum',
+              iconData: Icons.info,
+              route: EinstellungDatenschutz(),
             ),
-
             //Version
-            Container(
-              decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(
-                  width: 1.0,
-                  color: Styles.grey,
-                )),
-              ),
-              margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
-              child: CupertinoButton(
-                padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    CupertinoPageRoute(builder: (context) {
-                      return EinstellungVersion();
-                    }),
-                  );
-                },
-                child: Row(children: <Widget>[
-                  Icon(
-                    Icons.code,
-                    color: Styles.grey,
-                    size: 30.0,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: Text(
-                      "Version",
-                      style: Styles.font.apply(color: Styles.grey),
-                    ),
-                  ),
-                  Spacer(),
-                  Icon(
-                    Icons.keyboard_arrow_right,
-                    color: Styles.grey,
-                    size: 20.0,
-                  ),
-                ]),
-              ),
+            SettingsListItem(
+              title: 'Version',
+              iconData: Icons.code,
+              route: EinstellungVersion(),
             ),
-
             Container(
               color: CupertinoColors.white,
               height: 80.0,
