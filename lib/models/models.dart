@@ -6,3 +6,4 @@ export 'subject.dart';
 export 'university.dart';
 export 'usermodel.dart';
 export 'custom_query.dart';
+export 'grade.dart';

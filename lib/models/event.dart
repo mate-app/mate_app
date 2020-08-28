@@ -1,3 +1,6 @@
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
+
 class Event {
   String id;
   String courseName;
@@ -45,5 +48,40 @@ class Event {
     subjects =
         doc.data()['subjects'] != null ? List.from(doc.data()['subjects']) : [];
     type = doc.data()['event_type'] ?? '';
+  }
+
+  get getStartsAt {
+    return removeDateFromDateTime(startsAt);
+  }
+
+  get getEndsAt {
+    return removeDateFromDateTime(endsAt);
+  }
+
+  get getDate {
+    return convertDateToString(date);
+  }
+
+  get getType {
+    Map shortType = {
+      'Vorlesung': 'VL', // orange
+      'Seminar': 'SE', // rot
+      'Übung': 'Ü', // rot
+      'Wahlmodul': 'WAHL', // türkis
+      'Praxis': 'Pr', // rot
+      'Vorlesung/Labor': 'VL/L' // Orange
+    };
+    return shortType[type];
+  }
+
+  String convertDateToString(DateTime datetime) {
+    initializeDateFormatting('de_DE', null);
+    return DateFormat('dd. MMM y', 'de_DE')
+        .format(DateTime.parse(datetime.toString()));
+  }
+
+  String removeDateFromDateTime(DateTime datetime) {
+    initializeDateFormatting('de_DE', null);
+    return DateFormat('', 'de_DE').add_Hm().format(datetime);
   }
 }

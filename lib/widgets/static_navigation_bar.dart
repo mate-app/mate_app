@@ -25,7 +25,7 @@ class StaticNavigationBar extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 64.0;
+  double get maxExtent => 88.0;
 
   @override
   double get minExtent => maxExtent;
