@@ -12,6 +12,7 @@ class Global {
     Subject: (data) => Subject.fromMap(data),
     University: (data) => University.fromMap(data),
     UserModel: (data) => UserModel.fromMap(data),
+    Grade: (data) => Grade.fromMap(data),
   };
 
   static final UserData<UserModel> userModelRef =
