@@ -20,7 +20,6 @@ class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserModel user = Provider.of<UserModel>(context);
-    user == null ? null : print(user.semester);
     return CustomScrollView(
       physics:
           const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
@@ -91,13 +90,7 @@ class HomeList extends StatelessWidget {
         ];
         List<Widget> appointments =
             List<Widget>.generate(filteredEvents.length, (int index) {
-          return HomeAppointments(
-            name: filteredEvents[index].courseName,
-            start: filteredEvents[index].startsAt,
-            end: filteredEvents[index].endsAt,
-            location: filteredEvents[index].location,
-            type: filteredEvents[index].type,
-          );
+          return HomeAppointments(event: filteredEvents[index]);
         });
         return [...days, ...appointments];
       }
@@ -142,30 +135,21 @@ class HomeDate extends StatelessWidget {
         height: 30,
         margin: EdgeInsets.fromLTRB(15, 15, 15, 5),
         padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-        child: Text(DateFormat('dd. MMM y', 'de_DE').format(date),
-            style: Styles.font.apply(
-              color: Styles.white,
-              fontWeightDelta: 2,
-            )),
+        child: Text(convertDateToString(date)),
       );
     } else {
       return Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            Styles.boxShadow,
-          ],
-          borderRadius: Styles.roundedEdges,
-          gradient: Styles.lightGradientPrimary,
-        ),
-        height: 30,
-        margin: EdgeInsets.fromLTRB(15, 15, 15, 5),
-        padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-        child: Text(DateFormat('dd. MMM y', 'de_DE').format(date),
-            style: Styles.font.apply(
-              color: Styles.white,
-              fontWeightDelta: 2,
-            )),
-      );
+          decoration: BoxDecoration(
+            boxShadow: [
+              Styles.boxShadow,
+            ],
+            borderRadius: Styles.roundedEdges,
+            gradient: Styles.lightGradientPrimary,
+          ),
+          height: 30,
+          margin: EdgeInsets.fromLTRB(15, 15, 15, 5),
+          padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+          child: Text(convertDateToString(date)));
     }
   }
 }
@@ -173,21 +157,10 @@ class HomeDate extends StatelessWidget {
 class HomeAppointments extends StatelessWidget {
   /// Creates a List with all events of the Day, using [homeEventName; homeEventStart; homeEventEnd; homeEventLocation; homeEventType;]
 
-  final String name;
-  final DateTime start;
-  final DateTime end;
-  final String location;
-  final String type;
+  final Event event;
 
   // Constructor
-  HomeAppointments({
-    Key key,
-    this.name,
-    this.start,
-    this.end,
-    this.location,
-    this.type,
-  });
+  HomeAppointments({Key key, this.event});
 
   @override
   Widget build(BuildContext context) {
@@ -205,10 +178,10 @@ class HomeAppointments extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Column(children: <Widget>[
-              Text(DateFormat('HH:MM', 'de_DE').format(start),
+              Text(event.getStartsAt,
                   style: Styles.small.apply(color: Styles.grey)),
               Padding(padding: EdgeInsetsDirectional.only(top: 5)),
-              Text(DateFormat('HH:MM', 'de_DE').format(end),
+              Text(event.getEndsAt,
                   style: Styles.small.apply(color: Styles.lightGrey))
             ]),
             Container(
@@ -226,7 +199,7 @@ class HomeAppointments extends StatelessWidget {
                       maxWidth: MediaQuery.of(context).size.width * 0.58,
                     ),
                     child: Text(
-                      name,
+                      event.courseName,
                       style: Styles.font.apply(
                         color: Styles.grey,
                         fontWeightDelta: 2,
@@ -234,13 +207,13 @@ class HomeAppointments extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    location,
+                    event.location,
                     style: Styles.font.apply(color: Styles.lightGrey),
                   )
                 ]),
             Spacer(),
             Column(children: <Widget>[
-              Text(type, style: Styles.font.apply(color: Styles.grey))
+              Text(event.getType, style: Styles.font.apply(color: Styles.grey))
             ]),
           ],
         ),
