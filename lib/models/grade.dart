@@ -15,7 +15,8 @@ class Grade {
       this.grade,
       this.percentage,
       this.semester,
-      this.status});
+      this.status,
+      this.tries});
   Grade.fromMap(doc) {
     id = doc.id;
     course = doc.data()['course'] ?? '';
