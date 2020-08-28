@@ -1,9 +1,5 @@
-import 'dart:math';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mateapp/views/views.dart';
@@ -13,7 +9,6 @@ import 'package:mateapp/models/models.dart';
 import 'package:mateapp/utils/utils.dart';
 
 // TODO: remove import use inheritance
-import '../../models/event.dart';
 import '../../styles/styles.dart';
 
 class HomeTab extends StatelessWidget {
@@ -45,13 +40,14 @@ class HomeTab extends StatelessWidget {
                             field: 'semester',
                             operation: '==',
                             value: user.semester,
-                          ),
+                          )
                         ],
                         order: ['starts_at', 'ASC'],
                         limit: 200)
                     .streamData(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData || snapshot.hasError) {
+                    print(snapshot.error);
                     return SliverLoadingIndicator();
                   }
                   return HomeList(snapshot.data);
@@ -76,98 +72,102 @@ class HomeList extends StatelessWidget {
   HomeList(this.events);
   @override
   Widget build(BuildContext context) {
-    List<DateTime> dates =
-        [for (var event in events) event.date].toSet().toList();
+    List<DateTime> dates = [for (var event in events) event.date]
+        .toSet()
+        .toList()
+        .where((element) => element.compareTo(
+                  DateTime(
+                    DateTime.now().year,
+                    DateTime.now().month,
+                    DateTime.now().day,
+                  ),
+                ) >
+                0
+            ? true
+            : false)
+        .toList();
 
     return SliverList(
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-      List<Event> filteredEvents =
-          events.where((element) => element.date == dates[index]).toList();
+      delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+        List<Event> filteredEvents =
+            events.where((element) => element.date == dates[index]).toList();
 
-      List<Widget> _createChildren(delIndex) {
-        List<Widget> days = [
-          HomeDate(date: dates[delIndex]),
-        ];
-        List<Widget> appointments =
-            List<Widget>.generate(filteredEvents.length, (int index) {
-          return HomeAppointments(event: filteredEvents[index]);
-        });
-        return [...days, ...appointments];
-      }
+        List<Widget> _createChildren(delIndex) {
+          List<Widget> days = [
+            HomeDate(date: dates[delIndex]),
+          ];
+          List<Widget> appointments =
+              List<Widget>.generate(filteredEvents.length, (int index) {
+            return HomeAppointments(event: filteredEvents[index]);
+          });
+          return [...days, ...appointments];
+        }
 
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        // children: <Widget>[for (var item in list) Text(item)],
-        children: _createChildren(index),
-      );
-    }, childCount: dates?.length ?? 0));
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: _createChildren(index),
+        );
+      }, childCount: dates?.length ?? 0),
+    );
   }
 }
 
-//Creates the Home List
 class HomeDate extends StatelessWidget {
-  /// Creates the top of each List with the Related Date [homeDate]
-  ///
   final DateTime date;
 
-  //Constructor
   HomeDate({
     this.date,
   });
 
   @override
   Widget build(BuildContext context) {
-    // var event = Provider.of<List<Event>>(context);
-
     initializeDateFormatting('de_DE', null);
 
-    if (date.day == DateTime.now().day &&
-        date.month == DateTime.now().month &&
-        date.year == DateTime.now().year) {
-      return Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            Styles.boxShadow,
-          ],
-          borderRadius: Styles.roundedEdges,
-          gradient: Styles.gradientPrimary,
-        ),
-        height: 30,
-        margin: EdgeInsets.fromLTRB(15, 15, 15, 5),
-        padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-        child: Text(convertDateToString(date)),
-      );
-    } else {
-      return Container(
-          decoration: BoxDecoration(
-            boxShadow: [
-              Styles.boxShadow,
-            ],
-            borderRadius: Styles.roundedEdges,
-            gradient: Styles.lightGradientPrimary,
-          ),
-          height: 30,
-          margin: EdgeInsets.fromLTRB(15, 15, 15, 5),
-          padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-          child: Text(convertDateToString(date)));
-    }
+    bool isToday = (date.day == DateTime.now().day &&
+            date.month == DateTime.now().month &&
+            date.year == DateTime.now().year)
+        ? true
+        : false;
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          Styles.boxShadow,
+        ],
+        borderRadius: Styles.roundedEdges,
+        gradient:
+            isToday ? Styles.gradientPrimary : Styles.lightGradientPrimary,
+      ),
+      height: 30,
+      width: MediaQuery.of(context).size.width * 0.95,
+      margin: EdgeInsets.fromLTRB(10, 15, 10, 5),
+      padding: EdgeInsets.fromLTRB(
+        15,
+        isToday ? 4 : 5,
+        15,
+        5,
+      ),
+      child: Text(
+        isToday ? 'Heute' : convertDateToString(date),
+        style: Styles.font.apply(
+            color: Styles.white,
+            fontWeightDelta: isToday ? 4 : 1,
+            fontSizeDelta: isToday ? 2 : 1),
+      ),
+    );
   }
 }
 
 class HomeAppointments extends StatelessWidget {
-  /// Creates a List with all events of the Day, using [homeEventName; homeEventStart; homeEventEnd; homeEventLocation; homeEventType;]
-
   final Event event;
 
-  // Constructor
   HomeAppointments({Key key, this.event});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
+      margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
       child: CupertinoButton(
-        padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+        padding: EdgeInsets.fromLTRB(5, 5, 10, 5),
         onPressed: () {
           Navigator.of(context).push(
             CupertinoPageRoute(builder: (context) {
@@ -177,13 +177,18 @@ class HomeAppointments extends StatelessWidget {
         },
         child: Row(
           children: <Widget>[
-            Column(children: <Widget>[
-              Text(event.getStartsAt,
-                  style: Styles.small.apply(color: Styles.grey)),
-              Padding(padding: EdgeInsetsDirectional.only(top: 5)),
-              Text(event.getEndsAt,
-                  style: Styles.small.apply(color: Styles.lightGrey))
-            ]),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.12,
+              child: Column(
+                children: <Widget>[
+                  Text(event.getStartsAt,
+                      style: Styles.small.apply(color: Styles.grey)),
+                  Padding(padding: EdgeInsetsDirectional.only(top: 5)),
+                  Text(event.getEndsAt,
+                      style: Styles.small.apply(color: Styles.lightGrey))
+                ],
+              ),
+            ),
             Container(
               color: Styles.primary,
               height: 35,
