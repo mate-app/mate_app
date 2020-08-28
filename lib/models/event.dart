@@ -64,13 +64,12 @@ class Event {
 
   get getType {
     Map shortType = {
-      'Vorlesung': 'VL',
-      'Seminar': 'SE',
-      'Wahlmodul': 'WAHL',
-      'Praxis': 'PR',
-      'Übung': 'Ü',
-      'Forschungsprojekt': 'FPR',
-      'Vorlesung/Labor': 'VL/L'
+      'Vorlesung': 'VL', // orange
+      'Seminar': 'SE', // rot
+      'Übung': 'Ü', // rot
+      'Wahlmodul': 'WAHL', // türkis
+      'Praxis': 'Pr', // rot
+      'Vorlesung/Labor': 'VL/L' // Orange
     };
     return shortType[type];
   }

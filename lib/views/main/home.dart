@@ -190,11 +190,13 @@ class HomeAppointments extends StatelessWidget {
               ),
             ),
             Container(
-              color: Styles.primary,
-              height: 35,
-              width: 1,
-              margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-            ),
+                height: 35,
+                width: 2,
+                margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                decoration: BoxDecoration(
+                  borderRadius: Styles.roundedEdges,
+                  color: Styles.eventColor[event.getType],
+                )),
             Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
