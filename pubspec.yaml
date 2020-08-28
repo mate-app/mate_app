@@ -29,6 +29,7 @@ dependencies:
   intl: ^0.16.1
   font_awesome_flutter: ^8.2.0
   url_launcher: ^5.5.0
+  pie_chart: ^3.1.1
 
 dev_dependencies:
   flutter_test:
