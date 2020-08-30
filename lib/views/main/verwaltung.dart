@@ -2,6 +2,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mateapp/models/models.dart';
+import 'package:mateapp/views/views.dart';
 
 // TODO: remove import and use inheritance
 import '../../styles/styles.dart';
@@ -41,6 +42,7 @@ class VerwaltungsPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var userPercent = (170 / user.credits) * 100;
     return Container(
       decoration: BoxDecoration(
         boxShadow: [
@@ -71,7 +73,7 @@ class VerwaltungsPanel extends StatelessWidget {
                 ),
               ),
               child: Center(
-                  child: Text("$verwaltungDays",
+                  child: Text("",
                       style: Styles.font
                           .apply(color: Styles.grey, fontWeightDelta: 2))),
             ),
@@ -110,8 +112,8 @@ class VerwaltungsPanel extends StatelessWidget {
                   // Add one stop for each color. Stops should increase from 0 to 1
                   stops: [
                     0.0,
-                    verwaltungPercent / 100,
-                    verwaltungPercent / 100 + 0.001
+                    (170 / user.credits),
+                    (170 / user.credits) + 0.001
                   ],
                   colors: [
                     // Colors are easy thanks to Flutter's Colors class.
@@ -122,7 +124,7 @@ class VerwaltungsPanel extends StatelessWidget {
                 ),
               ),
               child: Center(
-                child: Text('$verwaltungPercent',
+                child: Text(userPercent.toString(),
                     style: Styles.h2.apply(color: Styles.grey)),
               ),
             ),
@@ -133,7 +135,7 @@ class VerwaltungsPanel extends StatelessWidget {
                 maxWidth: MediaQuery.of(context).size.width * 0.28,
               ),
               child: Text(
-                'Fortschritt $verwaltungPercent%',
+                'Fortschritt $userPercent%',
                 style: Styles.h2.apply(color: Styles.white),
                 textAlign: TextAlign.center,
               ),
@@ -156,7 +158,7 @@ class VerwaltungsPanel extends StatelessWidget {
                 ),
               ),
               child: Center(
-                  child: Text(user.ave,
+                  child: Text(user.average.toString(),
                       style: Styles.font
                           .apply(color: Styles.grey, fontWeightDelta: 2))),
             ),
@@ -201,57 +203,57 @@ class VerwaltungsLinks extends StatelessWidget {
               child: Text("Essential Links", style: Styles.small),
             ),
 
-            //Meine Module
-            CupertinoButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  CupertinoPageRoute(builder: (context) {
-                    return VerwaltungModule();
-                  }),
-                );
-              },
-              child: Container(
-                padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
-                child: Row(children: <Widget>[
-                  Text(
-                    "Meine Module",
-                    style: Styles.font.apply(color: Styles.grey),
-                  ),
-                  Spacer(),
-                  Icon(
-                    Icons.keyboard_arrow_right,
-                    color: Styles.grey,
-                    size: 20.0,
-                  ),
-                ]),
-              ),
-            ),
+            // //Meine Module
+            // CupertinoButton(
+            //   onPressed: () {
+            //     Navigator.of(context).push(
+            //       CupertinoPageRoute(builder: (context) {
+            //         return VerwaltungModule();
+            //       }),
+            //     );
+            //   },
+            //   child: Container(
+            //     padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
+            //     child: Row(children: <Widget>[
+            //       Text(
+            //         "Meine Module",
+            //         style: Styles.font.apply(color: Styles.grey),
+            //       ),
+            //       Spacer(),
+            //       Icon(
+            //         Icons.keyboard_arrow_right,
+            //         color: Styles.grey,
+            //         size: 20.0,
+            //       ),
+            //     ]),
+            //   ),
+            // ),
 
-            //Personen
-            CupertinoButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  CupertinoPageRoute(builder: (context) {
-                    return VerwaltungPersonen();
-                  }),
-                );
-              },
-              child: Container(
-                padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
-                child: Row(children: <Widget>[
-                  Text(
-                    "Personen",
-                    style: Styles.font.apply(color: Styles.grey),
-                  ),
-                  Spacer(),
-                  Icon(
-                    Icons.keyboard_arrow_right,
-                    color: Styles.grey,
-                    size: 20.0,
-                  ),
-                ]),
-              ),
-            ),
+            // //Personen
+            // CupertinoButton(
+            //   onPressed: () {
+            //     Navigator.of(context).push(
+            //       CupertinoPageRoute(builder: (context) {
+            //         return VerwaltungPersonen();
+            //       }),
+            //     );
+            //   },
+            //   child: Container(
+            //     padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
+            //     child: Row(children: <Widget>[
+            //       Text(
+            //         "Personen",
+            //         style: Styles.font.apply(color: Styles.grey),
+            //       ),
+            //       Spacer(),
+            //       Icon(
+            //         Icons.keyboard_arrow_right,
+            //         color: Styles.grey,
+            //         size: 20.0,
+            //       ),
+            //     ]),
+            //   ),
+            // ),
 
             //Notenübersicht
             CupertinoButton(
