@@ -8,7 +8,7 @@ class UserModel {
   String department;
   List upvotes;
   List downvotes;
-  int average;
+  double average;
   int credits;
 
   UserModel({
@@ -34,7 +34,7 @@ class UserModel {
     department = doc.data()['department'] ?? '';
     upvotes = doc.data()['upvotes'] ?? [];
     downvotes = doc.data()['downvotes'] ?? [];
-    average = doc.average ?? 0;
-    credits = doc.credit_points ?? 0;
+    average = doc.data()['average'] ?? 0;
+    credits = doc.data()['credit_points'] ?? 0;
   }
 }

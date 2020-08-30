@@ -42,7 +42,8 @@ class VerwaltungsPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var userPercent = (170 / user.credits) * 100;
+    var userPercent = (user.credits / 210) * 100;
+    var roundet = userPercent.round();
     return Container(
       decoration: BoxDecoration(
         boxShadow: [
@@ -112,8 +113,8 @@ class VerwaltungsPanel extends StatelessWidget {
                   // Add one stop for each color. Stops should increase from 0 to 1
                   stops: [
                     0.0,
-                    (170 / user.credits),
-                    (170 / user.credits) + 0.001
+                    userPercent / 100,
+                    userPercent / 100 + 0.001,
                   ],
                   colors: [
                     // Colors are easy thanks to Flutter's Colors class.
@@ -124,7 +125,7 @@ class VerwaltungsPanel extends StatelessWidget {
                 ),
               ),
               child: Center(
-                child: Text(userPercent.toString(),
+                child: Text(roundet.toString(),
                     style: Styles.h2.apply(color: Styles.grey)),
               ),
             ),
@@ -135,7 +136,7 @@ class VerwaltungsPanel extends StatelessWidget {
                 maxWidth: MediaQuery.of(context).size.width * 0.28,
               ),
               child: Text(
-                'Fortschritt $userPercent%',
+                'Fortschritt $roundet%',
                 style: Styles.h2.apply(color: Styles.white),
                 textAlign: TextAlign.center,
               ),
