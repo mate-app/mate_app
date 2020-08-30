@@ -57,10 +57,38 @@ class GradeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: SizedBox(
-        height: 60,
-        child: Text(grades[0].grade),
+    return SliverList(
+      delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+        return CourseGradesEntry(grade: grades[index]);
+      }, childCount: grades?.length ?? 0),
+    );
+  }
+}
+
+class CourseGradesEntry extends StatelessWidget {
+  final Grade grade;
+  const CourseGradesEntry({
+    Key key,
+    this.grade,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+      child: Container(
+        padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
+        child: Row(children: <Widget>[
+          Text(
+            grade.course ?? 'Kursname Ladefehler',
+            style: Styles.font.apply(color: Styles.grey),
+          ),
+          Spacer(),
+          Text(
+            grade.grade ?? 0,
+            style: Styles.font.apply(color: Styles.gradeStatus[grade.status]),
+          ),
+        ]),
       ),
     );
   }

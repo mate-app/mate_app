@@ -84,6 +84,11 @@ abstract class Styles {
     "Vorlesung/Labor": gradientPrimary,
   };
 
+  static const gradeStatus = {
+    'BE': Color(0xff03c838),
+    'NB': secondary,
+  };
+
   //Font
   static const h1 = TextStyle(
     fontSize: 22,
