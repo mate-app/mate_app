@@ -80,12 +80,12 @@ class CourseGradesEntry extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
         child: Row(children: <Widget>[
           Text(
-            grade.course,
+            grade.course ?? 'Kursname Ladefehler',
             style: Styles.font.apply(color: Styles.grey),
           ),
           Spacer(),
           Text(
-            grade.grade,
+            grade.grade ?? 0,
             style: Styles.font.apply(color: Styles.gradeStatus[grade.status]),
           ),
         ]),
