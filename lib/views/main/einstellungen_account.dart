@@ -44,6 +44,7 @@ class AccountData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserModel user = Provider.of<UserModel>(context);
+    var votes = user.upvotes.length + user.downvotes.length;
     return Container(
       margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
       child: Column(
@@ -82,7 +83,7 @@ class AccountData extends StatelessWidget {
                 ),
                 //Votes
                 AccountListItem(
-                  userData: user.subject,
+                  userData: votes.toString(),
                   title: 'Deine Mensa-Votes:',
                 ),
                 //PieChart
@@ -92,6 +93,8 @@ class AccountData extends StatelessWidget {
                     children: [
                       AccountPieChart(
                         user: user,
+                        upvotes: user.upvotes.length.toDouble(),
+                        downvotes: user.downvotes.length.toDouble(),
                       ),
                       Container(
                         padding: EdgeInsets.only(left: 15),
