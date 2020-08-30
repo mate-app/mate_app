@@ -92,7 +92,6 @@ class AccountData extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       AccountPieChart(
-                        user: user,
                         upvotes: user.upvotes.length.toDouble(),
                         downvotes: user.downvotes.length.toDouble(),
                       ),
@@ -101,11 +100,11 @@ class AccountData extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Ledgend(
+                            Legend(
                               color: Styles.primary,
                               title: 'Upvotes',
                             ),
-                            Ledgend(
+                            Legend(
                               color: Styles.secondary,
                               title: 'Downvotes',
                             ),
@@ -134,11 +133,11 @@ class AccountData extends StatelessWidget {
   }
 }
 
-class Ledgend extends StatelessWidget {
+class Legend extends StatelessWidget {
   final String title;
   final Color color;
 
-  const Ledgend({
+  const Legend({
     Key key,
     this.title,
     this.color,
@@ -235,8 +234,8 @@ class _AccountPieChart extends State<AccountPieChart> {
   @override
   void initState() {
     super.initState();
-    dataMap.putIfAbsent("Upvotes", () => upvotes ?? 0);
-    dataMap.putIfAbsent("Downvotes", () => downvotes ?? 0);
+    dataMap.putIfAbsent("Upvotes", () => upvotes ?? 1);
+    dataMap.putIfAbsent("Downvotes", () => downvotes ?? 1);
   }
 
   @override
