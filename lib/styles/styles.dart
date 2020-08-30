@@ -75,6 +75,14 @@ abstract class Styles {
     "Praxis": secondary,
     "Vorlesung/Labor": primary,
   };
+  static const eventGradient = {
+    "VL": gradientPrimary,
+    "SE": gradientSecondary,
+    "Ü": gradientSecondary,
+    "Wahlmodul": gradientThird,
+    "Praxis": gradientSecondary,
+    "Vorlesung/Labor": gradientPrimary,
+  };
 
   //Font
   static const h1 = TextStyle(
