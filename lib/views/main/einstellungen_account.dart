@@ -45,7 +45,7 @@ class AccountData extends StatelessWidget {
   Widget build(BuildContext context) {
     UserModel user = Provider.of<UserModel>(context);
     return Container(
-      margin: EdgeInsets.fromLTRB(10, 20, 10, 60),
+      margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -196,23 +196,33 @@ class AccountListItem extends StatelessWidget {
 
 class AccountPieChart extends StatefulWidget {
   final UserModel user;
+  final upvotes;
+  final downvotes;
 
   const AccountPieChart({
     Key key,
     @required this.user,
+    this.upvotes,
+    this.downvotes,
   }) : super(key: key);
 
   @override
-  _AccountPieChart createState() => _AccountPieChart(user: user);
+  _AccountPieChart createState() =>
+      _AccountPieChart(user: user, upvotes: upvotes, downvotes: downvotes);
 }
 
 class _AccountPieChart extends State<AccountPieChart> {
   _AccountPieChart({
     Key key,
     @required this.user,
+    this.upvotes,
+    this.downvotes,
   });
 
   final UserModel user;
+  final upvotes;
+  final downvotes;
+
   List<Color> colorList = [
     Styles.primary,
     Styles.secondary,
@@ -222,8 +232,8 @@ class _AccountPieChart extends State<AccountPieChart> {
   @override
   void initState() {
     super.initState();
-    dataMap.putIfAbsent("Upvotes", () => 5);
-    dataMap.putIfAbsent("Downvotes", () => 3);
+    dataMap.putIfAbsent("Upvotes", () => upvotes ?? 1);
+    dataMap.putIfAbsent("Downvotes", () => downvotes ?? 1);
   }
 
   @override
@@ -269,39 +279,43 @@ class _AnalyticsSettingsState extends State<AnalyticsSettings> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.fromLTRB(10, 50, 0, 10),
-          child: Text(
-            'Datenschutz Einstellungen',
-            style: Styles.small,
+    return Container(
+      margin: EdgeInsets.fromLTRB(10, 20, 10, 60),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.fromLTRB(10, 50, 0, 10),
+            child: Text(
+              'Datenschutz Einstellungen',
+              style: Styles.small,
+            ),
           ),
-        ),
-        Container(
-          padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-          child: Row(
-            children: [
-              Text(
-                'Analyse Aktivieren',
-                style:
-                    Styles.font.apply(color: Styles.grey, fontWeightDelta: 2),
-              ),
-              Spacer(
-                flex: 2,
-              ),
-              CupertinoSwitch(
-                value: analytic ? true : false,
-                onChanged: (bool value) {
-                  setState(() {
-                    analytic = analytic ? false : true;
-                  });
-                },
-              )
-            ],
-          ),
-        )
-      ],
+          Container(
+            padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+            child: Row(
+              children: [
+                Text(
+                  'Analyse Aktivieren',
+                  style:
+                      Styles.font.apply(color: Styles.grey, fontWeightDelta: 2),
+                ),
+                Spacer(
+                  flex: 2,
+                ),
+                CupertinoSwitch(
+                  value: analytic ? true : false,
+                  onChanged: (bool value) {
+                    setState(() {
+                      analytic = analytic ? false : true;
+                    });
+                  },
+                )
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
