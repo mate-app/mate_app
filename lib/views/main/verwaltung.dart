@@ -1,6 +1,7 @@
+import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mateapp/views/views.dart';
+import 'package:mateapp/models/models.dart';
 
 // TODO: remove import and use inheritance
 import '../../styles/styles.dart';
@@ -15,6 +16,7 @@ class VerwaltungTab extends StatefulWidget {
 class _VerwaltungTabState extends State<VerwaltungTab> {
   @override
   Widget build(BuildContext context) {
+    UserModel user = Provider.of<UserModel>(context);
     return CustomScrollView(
       slivers: <Widget>[
         CupertinoSliverNavigationBar(
@@ -22,23 +24,19 @@ class _VerwaltungTabState extends State<VerwaltungTab> {
         ),
         SliverList(
             delegate: SliverChildListDelegate(
-                [VerwaltungsPanel(), VerwaltungsLinks()]))
+                [VerwaltungsPanel(user: user), VerwaltungsLinks()]))
       ],
     );
   }
 }
 
 class VerwaltungsPanel extends StatelessWidget {
-  final int verwaltungDays;
-  final int verwaltungPercent;
-  final double verwaltungNotes;
+  final UserModel user;
 
   // Constructor
   VerwaltungsPanel({
     Key key,
-    this.verwaltungDays = -15,
-    this.verwaltungPercent = 80,
-    this.verwaltungNotes = 1.7,
+    this.user,
   });
 
   @override
@@ -158,7 +156,7 @@ class VerwaltungsPanel extends StatelessWidget {
                 ),
               ),
               child: Center(
-                  child: Text("$verwaltungNotes",
+                  child: Text(user.ave,
                       style: Styles.font
                           .apply(color: Styles.grey, fontWeightDelta: 2))),
             ),
