@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:mateapp/widgets/widgets.dart';
 import 'package:mateapp/models/models.dart';
 import 'package:pie_chart/pie_chart.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // TODO: remove import use inheritance
 import '../../styles/styles.dart';
@@ -16,6 +18,12 @@ class EinstellungAccount extends StatefulWidget {
 }
 
 class _EinstellungAccountState extends State<EinstellungAccount> {
+  Future<bool> _checkAnalytics() async {
+    final analyticsStorage = await SharedPreferences.getInstance();
+    print(analyticsStorage.getBool('analyticsOn'));
+    return analyticsStorage.getBool('analyticsOn');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +40,17 @@ class _EinstellungAccountState extends State<EinstellungAccount> {
           SliverList(
               delegate: SliverChildListDelegate([
             AccountData(),
-            AnalyticsSettings(),
+            FutureBuilder<bool>(
+                future: _checkAnalytics(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError || !snapshot.hasData) {
+                    print(snapshot.error);
+                    return Container(
+                      child: null,
+                    );
+                  }
+                  return AnalyticsSettings(snapshot.data);
+                }),
           ])),
         ],
       ),
@@ -268,6 +286,9 @@ class _AccountPieChart extends State<AccountPieChart> {
 }
 
 class AnalyticsSettings extends StatefulWidget {
+  final bool analytic;
+  AnalyticsSettings(this.analytic);
+
   @override
   _AnalyticsSettingsState createState() => _AnalyticsSettingsState();
 }
@@ -277,7 +298,7 @@ class _AnalyticsSettingsState extends State<AnalyticsSettings> {
   // Constructor
   @override
   void initState() {
-    analytic = true;
+    analytic = widget.analytic;
   }
 
   @override
@@ -308,10 +329,15 @@ class _AnalyticsSettingsState extends State<AnalyticsSettings> {
                 ),
                 CupertinoSwitch(
                   value: analytic ? true : false,
-                  onChanged: (bool value) {
+                  onChanged: (bool value) async {
+                    final analyticsStorage =
+                        await SharedPreferences.getInstance();
+                    await analyticsStorage.setBool(
+                        'analyticsOn', analytic ? false : true);
                     setState(() {
                       analytic = analytic ? false : true;
                     });
+                    FirebaseAnalytics().setAnalyticsCollectionEnabled(analytic);
                   },
                 )
               ],

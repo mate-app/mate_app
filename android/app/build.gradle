@@ -26,6 +26,14 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
+
+def keystoreProperties = new Properties()
+   def keystorePropertiesFile = rootProject.file('key.properties')
+   if (keystorePropertiesFile.exists()) {
+       keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+   }
+
+
 android {
     compileSdkVersion 28
 
@@ -46,11 +54,18 @@ android {
         versionName flutterVersionName
     }
 
+    signingConfigs {
+       release {
+           keyAlias keystoreProperties['keyAlias']
+           keyPassword keystoreProperties['keyPassword']
+           storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+           storePassword keystoreProperties['storePassword']
+       }
+   }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
     }
 }
@@ -64,6 +79,6 @@ dependencies {
     implementation "com.google.firebase:firebase-auth:19.3.2"
     implementation "com.google.firebase:firebase-firestore:21.5.0"
     implementation "com.google.firebase:firebase-functions:19.0.2"
-    implementation "com.google.firebase:firebase-analytics:17.4.4"
+    implementation "com.google.firebase:firebase-analytics:17.5.0"
 }
 

@@ -7,11 +7,18 @@ import 'package:flutter/material.dart';
 import 'package:mateapp/widgets/widgets.dart';
 import 'package:mateapp/services/services.dart';
 import 'package:mateapp/views/views.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 
 // TODO: remove style import and use inheritance
 import 'package:mateapp/styles/styles.dart';
 
-void main() => runApp(MateApp());
+FirebaseAnalytics analytics;
+
+void main() {
+  analytics = FirebaseAnalytics();
+  runApp(MateApp());
+}
 
 class MateApp extends StatelessWidget {
   @override
@@ -58,6 +65,9 @@ class MateApp extends StatelessWidget {
           // show loading screen otherwise
           return CupertinoApp(
             home: LoadingScreen(),
+            navigatorObservers: [
+              FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
+            ],
           );
         });
   }
