@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mateapp/models/models.dart';
 
 class StaticNavigationBar extends SliverPersistentHeaderDelegate {
   String title;

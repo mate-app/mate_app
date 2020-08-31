@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:mateapp/widgets/widgets.dart';
 import 'package:mateapp/services/services.dart';
 import 'package:mateapp/views/views.dart';
-import 'package:mateapp/models/models.dart';
 
 // TODO: remove style import and use inheritance
 import 'package:mateapp/styles/styles.dart';

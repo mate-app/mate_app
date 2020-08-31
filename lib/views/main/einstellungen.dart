@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mateapp/views/main/einstellungen_code_of_cunduct.dart';
 import 'package:mateapp/views/views.dart';
 import 'package:mateapp/widgets/widgets.dart';
-import 'dart:math' as math;
+import 'package:shared_preferences/shared_preferences.dart';
 
 // TODO: remove and use inheritance instead
 import '../../styles/styles.dart';
@@ -96,6 +96,9 @@ class EinstellungsLinks extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 0, horizontal: 40),
                   child: Text('logout'),
                   onPressed: () async {
+                    final credentials = await SharedPreferences.getInstance();
+                    credentials.remove('email');
+                    credentials.remove('password');
                     await _auth.signOut();
                   },
                 ),

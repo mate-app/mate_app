@@ -1,9 +1,9 @@
 class Grade {
   String id;
   String course;
-  int creditPoints;
+  String creditPoints;
   String grade;
-  int percentage;
+  String percentage;
   String semester;
   String status;
   int tries;

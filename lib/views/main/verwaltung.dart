@@ -4,7 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mateapp/models/models.dart';
 import 'package:mateapp/views/views.dart';
+import 'package:provider/provider.dart';
+import 'package:mateapp/models/models.dart';
 import 'package:mateapp/widgets/widgets.dart';
+
 
 // TODO: remove import and use inheritance
 import '../../styles/styles.dart';
@@ -65,9 +68,11 @@ class VerwaltungsPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserModel user = Provider.of<UserModel>(context);
     var days = university.nextHolidays.difference(DateTime.now()).inDays;
     var userPercent = (user.credits / 210) * 100;
     var roundet = userPercent.round();
+
     return Container(
       decoration: BoxDecoration(
         boxShadow: [
