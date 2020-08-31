@@ -14,8 +14,8 @@ class SubjectScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamProvider<List<Subject>>.value(
       value: Collection<Subject>(
-              path: 'hochschulen/${university.shortName}/subjects')
-          .streamData(),
+          path: 'hochschulen/${university.shortName}/subjects',
+          order: ['name', 'ASC']).streamData(),
       child: CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           middle: Text('Wähle dein Modul'),

@@ -1,6 +1,10 @@
+import 'package:mateapp/services/database.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mateapp/models/models.dart';
 import 'package:mateapp/views/views.dart';
+import 'package:mateapp/widgets/widgets.dart';
 
 // TODO: remove import and use inheritance
 import '../../styles/styles.dart';
@@ -15,34 +19,55 @@ class VerwaltungTab extends StatefulWidget {
 class _VerwaltungTabState extends State<VerwaltungTab> {
   @override
   Widget build(BuildContext context) {
+    UserModel user = Provider.of<UserModel>(context);
     return CustomScrollView(
       slivers: <Widget>[
         CupertinoSliverNavigationBar(
           largeTitle: const Text('Verwaltung'),
         ),
-        SliverList(
-            delegate: SliverChildListDelegate(
-                [VerwaltungsPanel(), VerwaltungsLinks()]))
+        user != null
+            ? SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    StreamBuilder(
+                      stream: Document<University>(
+                        path: 'hochschulen/${user.university}',
+                      ).streamData(),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData || snapshot.hasError) {
+                          print(snapshot.error);
+                          return Container(width: 0.0, height: 0.0);
+                        }
+                        return VerwaltungsPanel(
+                            user: user, university: snapshot.data);
+                      },
+                    ),
+                    VerwaltungsLinks(),
+                  ],
+                ),
+              )
+            : SliverLoadingIndicator()
       ],
     );
   }
 }
 
 class VerwaltungsPanel extends StatelessWidget {
-  final int verwaltungDays;
-  final int verwaltungPercent;
-  final double verwaltungNotes;
+  final UserModel user;
+  final University university;
 
   // Constructor
   VerwaltungsPanel({
     Key key,
-    this.verwaltungDays = -15,
-    this.verwaltungPercent = 80,
-    this.verwaltungNotes = 1.7,
+    this.user,
+    this.university,
   });
 
   @override
   Widget build(BuildContext context) {
+    var days = university.nextHolidays.difference(DateTime.now()).inDays;
+    var userPercent = (user.credits / 210) * 100;
+    var roundet = userPercent.round();
     return Container(
       decoration: BoxDecoration(
         boxShadow: [
@@ -51,7 +76,7 @@ class VerwaltungsPanel extends StatelessWidget {
         borderRadius: Styles.roundedEdges,
         gradient: Styles.gradientPrimary,
       ),
-      height: 210,
+      height: 220,
       margin: EdgeInsets.all(15),
       padding: EdgeInsets.fromLTRB(5, 20, 5, 20),
       child: Row(
@@ -73,7 +98,7 @@ class VerwaltungsPanel extends StatelessWidget {
                 ),
               ),
               child: Center(
-                  child: Text("$verwaltungDays",
+                  child: Text(days.toString(),
                       style: Styles.font
                           .apply(color: Styles.grey, fontWeightDelta: 2))),
             ),
@@ -112,8 +137,8 @@ class VerwaltungsPanel extends StatelessWidget {
                   // Add one stop for each color. Stops should increase from 0 to 1
                   stops: [
                     0.0,
-                    verwaltungPercent / 100,
-                    verwaltungPercent / 100 + 0.001
+                    userPercent / 100,
+                    userPercent / 100 + 0.001,
                   ],
                   colors: [
                     // Colors are easy thanks to Flutter's Colors class.
@@ -124,7 +149,7 @@ class VerwaltungsPanel extends StatelessWidget {
                 ),
               ),
               child: Center(
-                child: Text('$verwaltungPercent',
+                child: Text(roundet.toString(),
                     style: Styles.h2.apply(color: Styles.grey)),
               ),
             ),
@@ -135,7 +160,7 @@ class VerwaltungsPanel extends StatelessWidget {
                 maxWidth: MediaQuery.of(context).size.width * 0.28,
               ),
               child: Text(
-                'Fortschritt $verwaltungPercent%',
+                'Fortschritt $roundet%',
                 style: Styles.h2.apply(color: Styles.white),
                 textAlign: TextAlign.center,
               ),
@@ -158,7 +183,7 @@ class VerwaltungsPanel extends StatelessWidget {
                 ),
               ),
               child: Center(
-                  child: Text("$verwaltungNotes",
+                  child: Text(user.average.toString(),
                       style: Styles.font
                           .apply(color: Styles.grey, fontWeightDelta: 2))),
             ),
@@ -203,57 +228,57 @@ class VerwaltungsLinks extends StatelessWidget {
               child: Text("Essential Links", style: Styles.small),
             ),
 
-            //Meine Module
-            CupertinoButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  CupertinoPageRoute(builder: (context) {
-                    return VerwaltungModule();
-                  }),
-                );
-              },
-              child: Container(
-                padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
-                child: Row(children: <Widget>[
-                  Text(
-                    "Meine Module",
-                    style: Styles.font.apply(color: Styles.grey),
-                  ),
-                  Spacer(),
-                  Icon(
-                    Icons.keyboard_arrow_right,
-                    color: Styles.grey,
-                    size: 20.0,
-                  ),
-                ]),
-              ),
-            ),
+            // //Meine Module
+            // CupertinoButton(
+            //   onPressed: () {
+            //     Navigator.of(context).push(
+            //       CupertinoPageRoute(builder: (context) {
+            //         return VerwaltungModule();
+            //       }),
+            //     );
+            //   },
+            //   child: Container(
+            //     padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
+            //     child: Row(children: <Widget>[
+            //       Text(
+            //         "Meine Module",
+            //         style: Styles.font.apply(color: Styles.grey),
+            //       ),
+            //       Spacer(),
+            //       Icon(
+            //         Icons.keyboard_arrow_right,
+            //         color: Styles.grey,
+            //         size: 20.0,
+            //       ),
+            //     ]),
+            //   ),
+            // ),
 
-            //Personen
-            CupertinoButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  CupertinoPageRoute(builder: (context) {
-                    return VerwaltungPersonen();
-                  }),
-                );
-              },
-              child: Container(
-                padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
-                child: Row(children: <Widget>[
-                  Text(
-                    "Personen",
-                    style: Styles.font.apply(color: Styles.grey),
-                  ),
-                  Spacer(),
-                  Icon(
-                    Icons.keyboard_arrow_right,
-                    color: Styles.grey,
-                    size: 20.0,
-                  ),
-                ]),
-              ),
-            ),
+            // //Personen
+            // CupertinoButton(
+            //   onPressed: () {
+            //     Navigator.of(context).push(
+            //       CupertinoPageRoute(builder: (context) {
+            //         return VerwaltungPersonen();
+            //       }),
+            //     );
+            //   },
+            //   child: Container(
+            //     padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
+            //     child: Row(children: <Widget>[
+            //       Text(
+            //         "Personen",
+            //         style: Styles.font.apply(color: Styles.grey),
+            //       ),
+            //       Spacer(),
+            //       Icon(
+            //         Icons.keyboard_arrow_right,
+            //         color: Styles.grey,
+            //         size: 20.0,
+            //       ),
+            //     ]),
+            //   ),
+            // ),
 
             //Notenübersicht
             CupertinoButton(
@@ -282,30 +307,30 @@ class VerwaltungsLinks extends StatelessWidget {
             ),
 
             //Prüfungsordnung
-            CupertinoButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  CupertinoPageRoute(builder: (context) {
-                    return VerwaltungPruefungsOrdnung();
-                  }),
-                );
-              },
-              child: Container(
-                padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
-                child: Row(children: <Widget>[
-                  Text(
-                    "Prüfungsordnung",
-                    style: Styles.font.apply(color: Styles.grey),
-                  ),
-                  Spacer(),
-                  Icon(
-                    Icons.keyboard_arrow_right,
-                    color: Styles.grey,
-                    size: 20.0,
-                  ),
-                ]),
-              ),
-            ),
+            // CupertinoButton(
+            //   onPressed: () {
+            //     Navigator.of(context).push(
+            //       CupertinoPageRoute(builder: (context) {
+            //         return VerwaltungPruefungsOrdnung();
+            //       }),
+            //     );
+            //   },
+            //   child: Container(
+            //     padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
+            //     child: Row(children: <Widget>[
+            //       Text(
+            //         "Prüfungsordnung",
+            //         style: Styles.font.apply(color: Styles.grey),
+            //       ),
+            //       Spacer(),
+            //       Icon(
+            //         Icons.keyboard_arrow_right,
+            //         color: Styles.grey,
+            //         size: 20.0,
+            //       ),
+            //     ]),
+            //   ),
+            // ),
           ]),
     );
   }
