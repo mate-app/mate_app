@@ -9,6 +9,7 @@ class University {
   String phone;
   String website;
   String zip;
+  DateTime nextHolidays;
 
   University(
       {this.id,
@@ -20,7 +21,8 @@ class University {
       this.street,
       this.phone,
       this.website,
-      this.zip});
+      this.zip,
+      this.nextHolidays});
   University.fromMap(doc) {
     id = doc.id;
     city = doc.data()['city'] ?? '';
@@ -32,5 +34,7 @@ class University {
     phone = doc.data()['tel'] ?? '';
     website = doc.data()['website'] ?? '';
     zip = doc.data()['zip'] ?? '';
+    nextHolidays =
+        doc.data()['next_holidays'].toDate() ?? DateTime.utc(1970, 01, 01);
   }
 }

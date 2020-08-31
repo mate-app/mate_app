@@ -14,7 +14,7 @@ class SemesterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text('Wähle dein Semester'),
+        middle: Text(subject.name),
       ),
       child: SemesterList(
         university: university,

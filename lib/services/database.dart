@@ -18,7 +18,7 @@ class Document<T> {
   }
 
   Stream<T> streamData() {
-    return ref.snapshots().map((v) => Global.models[T](v) as T);
+    return ref.snapshots().map((doc) => Global.models[T](doc) as T);
   }
 
   Future<void> upsert(Map data) {
