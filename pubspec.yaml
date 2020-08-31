@@ -31,9 +31,7 @@ dependencies:
   url_launcher: ^5.5.0
   pie_chart: ^3.1.1
   flutter_markdown: ^0.4.3
-
   shared_preferences: ^0.5.10
-
   flutter_launcher_icons: "^0.7.3"
 
 
@@ -41,8 +39,14 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon_50.png"
+
 # The following section is specific to Flutter.
 flutter:
   uses-material-design: true
   assets:
     - assets/welcomescreen.png
+

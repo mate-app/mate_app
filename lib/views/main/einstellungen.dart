@@ -79,7 +79,7 @@ class EinstellungsLinks extends StatelessWidget {
             SettingsListItem(
               title: 'Impressum',
               iconData: Icons.info,
-              route: EinstellungDatenschutz(),
+              route: EinstellungImpressum(),
             ),
             //Version
             SettingsListItem(

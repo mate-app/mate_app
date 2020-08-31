@@ -18,7 +18,9 @@ class AuthService {
     final credentials = await SharedPreferences.getInstance();
     bool emailSet = await credentials.setString('email', email);
     bool passwordSet = await credentials.setString('password', password);
-    return (emailSet && passwordSet) ? true : false;
+    final analyticsStorage = await SharedPreferences.getInstance();
+    bool analyticsOn = await analyticsStorage.setBool('analyticsOn', true);
+    return (emailSet && passwordSet && analyticsOn) ? true : false;
   }
 
   // checks whether the credentials are valid
