@@ -8,17 +8,22 @@ class UserModel {
   String department;
   List upvotes;
   List downvotes;
+  double average;
+  int credits;
 
-  UserModel(
-      {this.id,
-      this.language,
-      this.mail,
-      this.semester,
-      this.subject,
-      this.university,
-      this.department,
-      this.upvotes,
-      this.downvotes});
+  UserModel({
+    this.id,
+    this.language,
+    this.mail,
+    this.semester,
+    this.subject,
+    this.university,
+    this.department,
+    this.upvotes,
+    this.downvotes,
+    this.average,
+    this.credits,
+  });
   UserModel.fromMap(doc) {
     id = doc.id;
     language = doc.data()['language'] ?? 'german';
@@ -29,5 +34,7 @@ class UserModel {
     department = doc.data()['department'] ?? '';
     upvotes = doc.data()['upvotes'] ?? [];
     downvotes = doc.data()['downvotes'] ?? [];
+    average = doc.data()['average'] ?? 0;
+    credits = doc.data()['credit_points'] ?? 0;
   }
 }
