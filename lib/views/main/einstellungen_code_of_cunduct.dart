@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mateapp/widgets/widgets.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 import '../../styles/styles.dart';
 
@@ -27,19 +28,18 @@ class _EinstellungCodeState extends State<EinstellungCode> {
           SliverList(
               delegate: SliverChildListDelegate([
             CodeText(
-              text: '''
-Wir beziehen Position:
-1.       Für den uneingeschränkten Zugang zu Bildung für alle -- Deshalb ist Mate für Student*Innen kostenlos
+              text:
+                  '''## Die folgenden Punkte bilden die Grundlage unseres Handelns
 
-2.       Für die volle soziale, ökonomische Teilhabe aller Menschen.
-
-3.       Für den Erhalt des Planeten für gegenwärtige und künftige Generationen und den Erhalt der Artenvielfalt. – Deswegen setzen wir bei unserer technischen Infrastruktur auf Strom aus erneuerbaren Energien.
-
-4.       Für das Recht, selbstbestimmt über Daten zur eigenen Person zu entscheiden – Deshalb bieten wir an, über den Support jederzeit alle Nutzerdaten einzusehen und löschen zu lassen.
-
-5.       Gegen jede Form von Menschenfeindlichkeit. 
-
-Dafür setzen wir uns ein und diese Positionen sind nicht verhandelbar.''',
+Wir beziehen Position:  
+1. Für den uneingeschränkten Zugang zu Bildung für alle — Deshalb ist Mate für Student*Innen kostenlos  
+2. Für die volle soziale, ökonomische Teilhabe aller Menschen.  
+3. Für den Erhalt des Planeten für gegenwärtige und künftige Generationen und den Erhalt der Artenvielfalt. – Deswegen setzen wir bei unserer technischen Infrastruktur auf Strom aus erneuerbaren Energien.  
+4. Für das Recht, selbstbestimmt über Daten zur eigenen Person zu entscheiden – Deshalb bieten wir an, über den Support jederzeit alle Nutzerdaten einzusehen und löschen zu lassen.  
+5. Gegen jede Form von Menschenfeindlichkeit.   
+  
+Dafür setzen wir uns ein und diese Positionen sind nicht verhandelbar.
+''',
             ),
           ])),
         ],
@@ -60,27 +60,13 @@ class CodeText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(20, 20, 20, 40),
+      margin: EdgeInsets.fromLTRB(20, 0, 20, 40),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.fromLTRB(15, 10, 15, 0),
-            child: Text(
-              'Die folgenden Punkte bilden die Grundlage unseres Handelns',
-              style: Styles.h2.apply(
-                color: Styles.grey,
-              ),
-              // textAlign: TextAlign.justify,
-            ),
-          ),
-          Container(
             padding: EdgeInsets.fromLTRB(15, 25, 15, 0),
-            child: Text(
-              text,
-              style: Styles.font.apply(color: Styles.grey),
-              // textAlign: TextAlign.justify,
-            ),
+            child: MarkdownBody(data: text),
           ),
         ],
       ),
