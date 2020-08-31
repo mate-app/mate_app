@@ -3,6 +3,7 @@ import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:mateapp/models/models.dart';
 import 'package:mateapp/services/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -11,6 +12,13 @@ class AuthService {
   // and then provides subsequent events whenever the authentication state changes.
   Stream<User> get user {
     return _auth.authStateChanges();
+  }
+
+  Future<bool> _saveCredentials(String email, String password) async {
+    final credentials = await SharedPreferences.getInstance();
+    bool emailSet = await credentials.setString('email', email);
+    bool passwordSet = await credentials.setString('password', password);
+    return (emailSet && passwordSet) ? true : false;
   }
 
   // checks whether the credentials are valid
@@ -35,6 +43,7 @@ class AuthService {
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       user = result.user;
+      await _saveCredentials(email, password);
     } on FirebaseAuthException catch (error) {
       switch (error.code) {
         case 'invalid-email':
@@ -88,6 +97,7 @@ class AuthService {
         'upvotes': [],
         'downvotes': []
       });
+      await _saveCredentials(email, password);
     } on FirebaseAuthException catch (error) {
       switch (error.code) {
         case 'invalid-email':

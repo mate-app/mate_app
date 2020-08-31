@@ -92,6 +92,7 @@ class AccountData extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       AccountPieChart(
+                        user: user,
                         upvotes: user.upvotes.length.toDouble(),
                         downvotes: user.downvotes.length.toDouble(),
                       ),

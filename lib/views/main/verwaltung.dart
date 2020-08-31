@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mateapp/views/views.dart';
+import 'package:provider/provider.dart';
+import 'package:mateapp/models/models.dart';
 
 // TODO: remove import and use inheritance
 import '../../styles/styles.dart';
@@ -43,6 +45,7 @@ class VerwaltungsPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserModel user = Provider.of<UserModel>(context);
     return Container(
       decoration: BoxDecoration(
         boxShadow: [
