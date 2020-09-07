@@ -8,7 +8,7 @@
   <br>
 </h1>
 
-<h4 align="center">A flutter app helping students to manage their whole education from within just this one app.</h4>
+<h4 align="center">A mobile cross-platform app helping students to manage their whole education built with [Flutter](https://flutter.dev).</h4>
 
 <p align="center">
   
@@ -80,6 +80,12 @@ This app uses the following open source packages:
 - [shared_preferences](https://github.com/flutter/plugins)
 - [flutter_launcher_icons](https://github.com/fluttercommunity/flutter_launcher_icons)
 - [flutter_platform_widgets](https://github.com/stryder-dev/flutter_platform_widgets)
+
+## Contributors
+
+<a href="https://github.com/TobiasPrt/mate-app/graphs/contributors">
+    <img src="https://raw.githubusercontent.com/TobiasPrt/mate-app/master/images/contributors.png" alt="Contributors">
+</a>
 
 ## License
 
