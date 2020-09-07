@@ -8,7 +8,7 @@
   <br>
 </h1>
 
-<h4 align="center">A mobile cross-platform app helping students to manage their whole education built with [Flutter](https://flutter.dev).</h4>
+<h4 align="center">A mobile cross-platform app helping students to manage their whole education built with <a href="https://flutter.dev"> Flutter</a>.</h4>
 
 <p align="center">
   <a href="https://GitHub.com/TobiasPrt/mate-app/">
