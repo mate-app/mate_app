@@ -11,11 +11,11 @@
 <h4 align="center">A mobile cross-platform app helping students to manage their whole education built with <a href="https://flutter.dev"> Flutter</a>.</h4>
 
 <p align="center">
-  <a href="https://GitHub.com/TobiasPrt/mate-app/">
+  <a href="https://github.com/TobiasPrt/mate-app/">
     <img src="https://img.shields.io/github/workflow/status/TobiasPRt/mate-app/Check%20if%20App%20builds%20properly/master"
          alt="Build">
   </a>
-  <a href="https://GitHub.com/TobiasPrt/mate-app/issues/">
+  <a href="https://github.com/TobiasPrt/mate-app/issues/">
     <img src="https://img.shields.io/github/issues/TobiasPrt/mate-app"
          alt="Issues">
   </a>
@@ -23,7 +23,7 @@
     <img src="https://img.shields.io/github/contributors/TobiasPrt/mate-app"
          alt="Contributors">
   </a>
-  <a href="https://GitHub.com/TobiasPrt/mate-app/LICENSE.md">
+  <a href="https://github.com/TobiasPrt/mate-app/LICENSE.md">
     <img src="https://img.shields.io/github/license/TobiasPrt/mate-app"
          alt="License">
   </a>
