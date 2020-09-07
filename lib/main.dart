@@ -1,74 +1,94 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:mateapp/widgets/widgets.dart';
-import 'package:mateapp/services/services.dart';
-import 'package:mateapp/views/views.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:provider/provider.dart';
 
-// TODO: remove style import and use inheritance
-import 'package:mateapp/styles/styles.dart';
+import 'services/services.dart';
+import 'styles/styles.dart';
+import 'views/views.dart';
 
 FirebaseAnalytics analytics;
 
 void main() {
+  Crashlytics.instance.enableInDevMode = true; // TODO: disable in Production
+  FlutterError.onError = Crashlytics.instance.recordFlutterError;
   analytics = FirebaseAnalytics();
-  runApp(MateApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MainApp());
 }
 
-class MateApp extends StatelessWidget {
+class MainApp extends StatelessWidget {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
   @override
   Widget build(BuildContext context) {
     // set device to not rotate
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-    //
     return FutureBuilder(
         // Initialize Flutterfire
-        future: Firebase.initializeApp(),
+        future: _initialization,
         builder: (context, snapshot) {
           // check for error
-          if (snapshot.hasError) {
-            return null;
-          }
-
-          // show application
-          if (snapshot.connectionState == ConnectionState.done) {
-            return StreamProvider<User>.value(
-              value: AuthService().user,
-              child: CupertinoApp(
-                localizationsDelegates: [
-                  DefaultMaterialLocalizations.delegate,
-                  DefaultCupertinoLocalizations.delegate,
-                  DefaultWidgetsLocalizations.delegate,
-                ],
-                theme: CupertinoThemeData(
-                  barBackgroundColor: Color(0xddffffff),
-                  primaryColor: Styles.primary,
-                  scaffoldBackgroundColor: Styles.white,
-                  brightness: Brightness.light,
-                  textTheme: CupertinoTextThemeData(
-                    primaryColor: Styles.primary,
-                  ),
+          if (snapshot.hasError ||
+              snapshot.connectionState != ConnectionState.done) {
+            Crashlytics.instance
+                .recordError(snapshot.error, StackTrace.current);
+            return PlatformApp(
+              home: PlatformScaffold(
+                body: Center(
+                  child: PlatformCircularProgressIndicator(),
                 ),
-                debugShowCheckedModeBanner: false,
-                home: Wrapper(),
               ),
             );
           }
 
-          // show loading screen otherwise
-          return CupertinoApp(
-            home: LoadingScreen(),
-            navigatorObservers: [
-              FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
-            ],
-          );
+          return const App();
         });
+  }
+}
+
+class App extends StatelessWidget {
+  const App({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        StreamProvider<User>.value(value: AuthService().user),
+      ],
+      child: PlatformApp(
+        navigatorObservers: [
+          FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
+        ],
+        localizationsDelegates: [
+          DefaultMaterialLocalizations.delegate,
+          DefaultCupertinoLocalizations.delegate,
+          DefaultWidgetsLocalizations.delegate,
+        ],
+        debugShowCheckedModeBanner: true, // TODO: disable in Prod.
+        home: Wrapper(),
+        cupertino: (_, __) => CupertinoAppData(
+          theme: const CupertinoThemeData(
+            barBackgroundColor: Color(0xddffffff),
+            primaryColor: Styles.primary,
+            scaffoldBackgroundColor: Styles.white,
+            brightness: Brightness.light,
+            textTheme: CupertinoTextThemeData(
+              primaryColor: Styles.primary,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

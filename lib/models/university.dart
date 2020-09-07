@@ -11,18 +11,19 @@ class University {
   String zip;
   DateTime nextHolidays;
 
-  University(
-      {this.id,
-      this.city,
-      this.domain,
-      this.mail,
-      this.name,
-      this.shortName,
-      this.street,
-      this.phone,
-      this.website,
-      this.zip,
-      this.nextHolidays});
+  University({
+    this.id,
+    this.city,
+    this.domain,
+    this.mail,
+    this.name,
+    this.shortName,
+    this.street,
+    this.phone,
+    this.website,
+    this.zip,
+    this.nextHolidays,
+  });
   University.fromMap(doc) {
     id = doc.id;
     city = doc.data()['city'] ?? '';

@@ -1,5 +1,5 @@
 name: mateapp
-description: Mate App - Studienorganizer
+description: Mate App - Dev
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -23,6 +23,7 @@ dependencies:
   firebase_auth: ^0.18.0+1
   firebase_analytics: ^6.0.0
   cloud_firestore: ^0.14.0+1
+  firebase_crashlytics: ^0.1.4+1
 
   # Other dependencies
   timeago: ^2.0.26
@@ -33,11 +34,14 @@ dependencies:
   flutter_markdown: ^0.4.3
   shared_preferences: ^0.5.10
   flutter_launcher_icons: "^0.7.3"
+  # Plattform aware widgets
+  flutter_platform_widgets: ^0.60.2
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  lint: ^1.1.1
 
 flutter_icons:
   android: true
