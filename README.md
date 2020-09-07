@@ -48,6 +48,7 @@
 
 ## Key Features
 
+* for iOS and Android
 * clean and high-quality platform-aware design
 * individual schedule
   - Students can see where, when and what classes are coming up.
