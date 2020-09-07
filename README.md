@@ -22,7 +22,11 @@
   <a href="#license">License</a>
 </p>
 
-![Mate App Mockup](https://tobiaspoertner.com/img/matepreview.jpg "Mate App Mockup")
+<h1 align="center">
+    <a href="http://mate-app.de">
+      <img src="https://tobiaspoertner.com/img/matepreview.jpg" alt="mate mockup" width="800">
+  </a>
+</h1>
 
 
 ## Key Features
