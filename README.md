@@ -11,8 +11,24 @@
 <h4 align="center">A mobile cross-platform app helping students to manage their whole education built with [Flutter](https://flutter.dev).</h4>
 
 <p align="center">
-  [![GitHub issues](https://img.shields.io/github/issues/TobiasPrt/mate-app)](https://GitHub.com/TobiasPrt/mate-app/issues/)
-  [![GitHub license](https://img.shields.io/github/license/TobiasPrt/mate-app)](https://GitHub.com/TobiasPrt/mate-app/license)
+  <a href="https://GitHub.com/TobiasPrt/mate-app/">
+    <img src="https://github.com/TobiasPrt/mate-app/workflows/Check%20if%20App%20builds%20properly/badge.svg?branch=master"
+         alt="Build">
+  </a>
+  <a href="https://GitHub.com/TobiasPrt/mate-app/issues/">
+    <img src="https://img.shields.io/github/issues/TobiasPrt/mate-app"
+         alt="Issues">
+  </a>
+  <a href="https://github.com/TobiasPrt/mate-app/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/TobiasPrt/mate-app"
+         alt="Contributors">
+  </a>
+  <a href="https://GitHub.com/TobiasPrt/mate-app/LICENSE.md">
+    <img src="https://img.shields.io/github/license/TobiasPrt/mate-app"
+         alt="License">
+  </a>
+  
+  
 </p>
 
 <p align="center">
