@@ -98,12 +98,6 @@ This app uses the following open source packages:
 - [flutter_launcher_icons](https://github.com/fluttercommunity/flutter_launcher_icons)
 - [flutter_platform_widgets](https://github.com/stryder-dev/flutter_platform_widgets)
 
-## Contributors
-
-<a href="https://github.com/TobiasPrt/mate-app/graphs/contributors">
-    <img src="https://raw.githubusercontent.com/TobiasPrt/mate-app/master/images/contributors.png" alt="Contributors">
-</a>
-
 ## License
 
 MIT
