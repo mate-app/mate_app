@@ -24,7 +24,7 @@
          alt="Contributors">
   </a>
   <a href="https://github.com/TobiasPrt/mate-app/LICENSE.md">
-    <img src="https://img.shields.io/github/license/TobiasPrt/mate-app"
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg"
          alt="License">
   </a>
   
