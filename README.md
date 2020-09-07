@@ -1,7 +1,7 @@
 <h1 align="center">
   <br>
   <a href="http://mate-app.de">
-      <img src="https://github.com/TobiasPrt/mate-app/blob/master/mate_2020-07-21_AppLogo_v5%20(1).png" alt="mate" width="200">
+      <img src="https://github.com/TobiasPrt/mate-app/blob/master/readmeicon.png" alt="mate" width="200">
   </a>
   <br>
   mate
