@@ -46,7 +46,7 @@ class EinstellungsLinks extends StatelessWidget {
           children: <Widget>[
             Container(
               padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
-              child: Text("Allgemein", style: Styles.small),
+              child: Text("Allgemein", style: MateTextstyles.small),
             ),
 
             //Account
@@ -59,7 +59,7 @@ class EinstellungsLinks extends StatelessWidget {
             //Information
             Container(
               padding: EdgeInsets.fromLTRB(10, 35, 0, 10),
-              child: Text("Information", style: Styles.small),
+              child: Text("Information", style: MateTextstyles.small),
             ),
 
             //Code of Conduct
@@ -92,7 +92,7 @@ class EinstellungsLinks extends StatelessWidget {
               height: 80.0,
               child: Center(
                 child: CupertinoButton(
-                  color: Styles.primary,
+                  color: MateColors.primary,
                   padding: EdgeInsets.symmetric(vertical: 0, horizontal: 40),
                   child: Text('logout'),
                   onPressed: () async {

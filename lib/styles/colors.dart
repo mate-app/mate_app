@@ -7,22 +7,18 @@ class MateColors {
   static const white = Color(0xffffffff);
   static const grey = Color(0xff525252);
   static const lightGrey = Color(0xaa525252);
-}
 
-class EventColors {
-  static const eventColor = {
-    "VL": MateColors.primary,
-    "SE": MateColors.secondary,
-    "Ü": MateColors.secondary,
-    "Wahlmodul": MateColors.third,
-    "Praxis": MateColors.secondary,
-    "Vorlesung/Labor": MateColors.primary,
+  static const eventColors = {
+    "VL": primary,
+    "SE": secondary,
+    "Ü": secondary,
+    "Wahlmodul": third,
+    "Praxis": secondary,
+    "Vorlesung/Labor": primary,
   };
-}
 
-class StatusColors {
-  static const gradeStatus = {
+  static const statusColors = {
     'BE': Color(0xff03c838),
-    'NB': MateColors.secondary,
+    'NB': secondary,
   };
 }

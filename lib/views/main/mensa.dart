@@ -127,10 +127,10 @@ class _MensaPanelState extends State<MensaPanel> {
     return Container(
       decoration: BoxDecoration(
         boxShadow: [
-          Styles.boxShadow,
+          MateShadows.boxShadow,
         ],
-        borderRadius: Styles.roundedEdges,
-        gradient: Styles.gradientPrimary,
+        borderRadius: MateShapes.roundedEdges,
+        gradient: MateGradients.primary,
       ),
       height: 210,
       margin: EdgeInsets.all(15),
@@ -147,7 +147,7 @@ class _MensaPanelState extends State<MensaPanel> {
                 ),
                 height: 100,
                 child: Text(widget.dish.name,
-                    style: Styles.h2.apply(color: Styles.white)),
+                    style: MateTextstyles.h2.apply(color: MateColors.white)),
               ),
               Spacer(
                 flex: 2,
@@ -162,7 +162,8 @@ class _MensaPanelState extends State<MensaPanel> {
                       ),
                       Text(
                         widget.dish.price + ' €',
-                        style: Styles.small.apply(color: Styles.white),
+                        style:
+                            MateTextstyles.small.apply(color: MateColors.white),
                       )
                     ],
                   ))
@@ -176,7 +177,7 @@ class _MensaPanelState extends State<MensaPanel> {
                   padding: EdgeInsets.all(0),
                   child: Icon(
                     Icons.keyboard_arrow_up,
-                    color: upvoted ? Colors.white54 : Styles.white,
+                    color: upvoted ? Colors.white54 : MateColors.white,
                     size: 40.0,
                   ),
                   onPressed: _btnEnabled
@@ -223,14 +224,14 @@ class _MensaPanelState extends State<MensaPanel> {
                       : null),
               Text(
                 widget.dish.rating.toString(),
-                style: Styles.h2.apply(color: Styles.white),
+                style: MateTextstyles.h2.apply(color: MateColors.white),
               ),
               CupertinoButton(
                 padding: EdgeInsets.all(0),
                 child: Icon(
                   Icons.keyboard_arrow_down,
                   // TODO: change upvote and downvote color for arrow to something nice
-                  color: downvoted ? Colors.white54 : Styles.white,
+                  color: downvoted ? Colors.white54 : MateColors.white,
                   size: 40.0,
                 ),
                 onPressed: _btnEnabled

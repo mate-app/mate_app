@@ -13,7 +13,7 @@ class _EinstellungVersionState extends State<EinstellungVersion> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Styles.white,
+      color: MateColors.white,
       child: CustomScrollView(
         physics: const BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics()),
@@ -62,7 +62,7 @@ class VersionReport extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(15, 10, 15, 0),
             child: Text(
               versionNumber,
-              style: Styles.h2.apply(color: Styles.grey),
+              style: MateTextstyles.h2.apply(color: MateColors.grey),
               // textAlign: TextAlign.justify,
             ),
           ),
@@ -70,7 +70,7 @@ class VersionReport extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(15, 10, 15, 0),
             child: Text(
               releaseDate,
-              style: Styles.small.apply(color: Styles.grey),
+              style: MateTextstyles.small.apply(color: MateColors.grey),
               // textAlign: TextAlign.justify,
             ),
           ),
@@ -78,7 +78,7 @@ class VersionReport extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(15, 25, 15, 0),
             child: Text(
               text,
-              style: Styles.font.apply(color: Styles.grey),
+              style: MateTextstyles.font.apply(color: MateColors.grey),
               // textAlign: TextAlign.justify,
             ),
           ),

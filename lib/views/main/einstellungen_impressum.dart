@@ -16,7 +16,7 @@ class _EinstellungImpressumState extends State<EinstellungImpressum> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Styles.white,
+      color: MateColors.white,
       child: CustomScrollView(
         physics: const BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics()),
@@ -93,7 +93,7 @@ class AppNotesText extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(5, 25, 5, 0),
             child: Text(
               text,
-              style: Styles.font.apply(color: Styles.grey),
+              style: MateTextstyles.font.apply(color: MateColors.grey),
               // textAlign: TextAlign.justify,
             ),
           ),

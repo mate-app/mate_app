@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 import 'package:mateapp/models/models.dart';
 import 'package:mateapp/widgets/widgets.dart';
 
-
 // TODO: remove import and use inheritance
 import '../../styles/styles.dart';
 
@@ -76,10 +75,10 @@ class VerwaltungsPanel extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         boxShadow: [
-          Styles.boxShadow,
+          MateShadows.boxShadow,
         ],
-        borderRadius: Styles.roundedEdges,
-        gradient: Styles.gradientPrimary,
+        borderRadius: MateShapes.roundedEdges,
+        gradient: MateGradients.primary,
       ),
       height: 220,
       margin: EdgeInsets.all(15),
@@ -98,14 +97,14 @@ class VerwaltungsPanel extends StatelessWidget {
                   MediaQuery.of(context).size.width * 0.18,
                 ),
                 border: Border.all(
-                  color: Styles.white,
+                  color: MateColors.white,
                   width: 3.0,
                 ),
               ),
               child: Center(
                   child: Text(days.toString(),
-                      style: Styles.font
-                          .apply(color: Styles.grey, fontWeightDelta: 2))),
+                      style: MateTextstyles.font
+                          .apply(color: MateColors.grey, fontWeightDelta: 2))),
             ),
             Container(
                 constraints: BoxConstraints(
@@ -116,7 +115,7 @@ class VerwaltungsPanel extends StatelessWidget {
                 alignment: const Alignment(0.0, 1.0),
                 child: Text(
                   "Tage bis zu den Ferien",
-                  style: Styles.font.apply(color: Styles.white),
+                  style: MateTextstyles.font.apply(color: MateColors.white),
                   textAlign: TextAlign.center,
                 )),
           ]),
@@ -132,7 +131,7 @@ class VerwaltungsPanel extends StatelessWidget {
                   MediaQuery.of(context).size.width * 0.25,
                 ),
                 border: Border.all(
-                  color: Styles.white,
+                  color: MateColors.white,
                   width: 3.0,
                 ),
                 gradient: LinearGradient(
@@ -147,15 +146,15 @@ class VerwaltungsPanel extends StatelessWidget {
                   ],
                   colors: [
                     // Colors are easy thanks to Flutter's Colors class.
-                    Styles.white,
-                    Styles.white,
+                    MateColors.white,
+                    MateColors.white,
                     Colors.transparent,
                   ],
                 ),
               ),
               child: Center(
                 child: Text(roundet.toString(),
-                    style: Styles.h2.apply(color: Styles.grey)),
+                    style: MateTextstyles.h2.apply(color: MateColors.grey)),
               ),
             ),
             Container(
@@ -166,7 +165,7 @@ class VerwaltungsPanel extends StatelessWidget {
               ),
               child: Text(
                 'Fortschritt $roundet%',
-                style: Styles.h2.apply(color: Styles.white),
+                style: MateTextstyles.h2.apply(color: MateColors.white),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -183,14 +182,14 @@ class VerwaltungsPanel extends StatelessWidget {
                   MediaQuery.of(context).size.width * 0.18,
                 ),
                 border: Border.all(
-                  color: Styles.white,
+                  color: MateColors.white,
                   width: 3.0,
                 ),
               ),
               child: Center(
                   child: Text(user.average.toString(),
-                      style: Styles.font
-                          .apply(color: Styles.grey, fontWeightDelta: 2))),
+                      style: MateTextstyles.font
+                          .apply(color: MateColors.grey, fontWeightDelta: 2))),
             ),
             Container(
                 constraints: BoxConstraints(
@@ -201,7 +200,7 @@ class VerwaltungsPanel extends StatelessWidget {
                 alignment: const Alignment(0.0, 1.0),
                 child: Text(
                   "Dein Schnitt",
-                  style: Styles.font.apply(color: Styles.white),
+                  style: MateTextstyles.font.apply(color: MateColors.white),
                   textAlign: TextAlign.center,
                 )),
           ]),
@@ -227,10 +226,10 @@ class VerwaltungsLinks extends StatelessWidget {
                 border: Border(
                     bottom: BorderSide(
                   width: 1.0,
-                  color: Styles.grey,
+                  color: MateColors.grey,
                 )),
               ),
-              child: Text("Essential Links", style: Styles.small),
+              child: Text("Essential Links", style: MateTextstyles.small),
             ),
 
             // //Meine Module
@@ -247,12 +246,12 @@ class VerwaltungsLinks extends StatelessWidget {
             //     child: Row(children: <Widget>[
             //       Text(
             //         "Meine Module",
-            //         style: Styles.font.apply(color: Styles.grey),
+            //         style: MateTextstyles.font.apply(color: MateColors.grey),
             //       ),
             //       Spacer(),
             //       Icon(
             //         Icons.keyboard_arrow_right,
-            //         color: Styles.grey,
+            //         color: MateColors.grey,
             //         size: 20.0,
             //       ),
             //     ]),
@@ -273,12 +272,12 @@ class VerwaltungsLinks extends StatelessWidget {
             //     child: Row(children: <Widget>[
             //       Text(
             //         "Personen",
-            //         style: Styles.font.apply(color: Styles.grey),
+            //         style: MateTextstyles.font.apply(color: MateColors.grey),
             //       ),
             //       Spacer(),
             //       Icon(
             //         Icons.keyboard_arrow_right,
-            //         color: Styles.grey,
+            //         color: MateColors.grey,
             //         size: 20.0,
             //       ),
             //     ]),
@@ -299,12 +298,12 @@ class VerwaltungsLinks extends StatelessWidget {
                 child: Row(children: <Widget>[
                   Text(
                     "Notenübersicht",
-                    style: Styles.font.apply(color: Styles.grey),
+                    style: MateTextstyles.font.apply(color: MateColors.grey),
                   ),
                   Spacer(),
                   Icon(
                     Icons.keyboard_arrow_right,
-                    color: Styles.grey,
+                    color: MateColors.grey,
                     size: 20.0,
                   ),
                 ]),
@@ -325,12 +324,12 @@ class VerwaltungsLinks extends StatelessWidget {
             //     child: Row(children: <Widget>[
             //       Text(
             //         "Prüfungsordnung",
-            //         style: Styles.font.apply(color: Styles.grey),
+            //         style: MateTextstyles.font.apply(color: MateColors.grey),
             //       ),
             //       Spacer(),
             //       Icon(
             //         Icons.keyboard_arrow_right,
-            //         color: Styles.grey,
+            //         color: MateColors.grey,
             //         size: 20.0,
             //       ),
             //     ]),

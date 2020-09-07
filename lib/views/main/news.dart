@@ -100,10 +100,10 @@ class NewsPanel extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           boxShadow: [
-            Styles.boxShadow,
+            MateShadows.boxShadow,
           ],
-          borderRadius: Styles.roundedEdges,
-          color: Styles.white,
+          borderRadius: MateShapes.roundedEdges,
+          color: MateColors.white,
         ),
         height: 280,
         margin: EdgeInsets.all(15),
@@ -111,9 +111,9 @@ class NewsPanel extends StatelessWidget {
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
-                borderRadius: Styles.roundedEdges,
-                gradient: Styles.newsColor[news.category] ??
-                    Styles.newsColor['Allgemein'],
+                borderRadius: MateShapes.roundedEdges,
+                gradient: MateGradients.newsGradient[news.category] ??
+                    MateGradients.newsGradient['Allgemein'],
               ),
               height: 160,
               padding: EdgeInsets.all(20),
@@ -123,7 +123,8 @@ class NewsPanel extends StatelessWidget {
                   Container(
                     height: 80,
                     child: Text(news.title,
-                        style: Styles.h1.apply(color: Styles.white)),
+                        style:
+                            MateTextstyles.h1.apply(color: MateColors.white)),
                   ),
                   Spacer(
                     flex: 2,
@@ -139,7 +140,8 @@ class NewsPanel extends StatelessWidget {
                       Spacer(flex: 2),
                       Text(
                         convertDateToString(news.date),
-                        style: Styles.tiny.apply(color: Styles.white),
+                        style:
+                            MateTextstyles.tiny.apply(color: MateColors.white),
                       )
                     ],
                   ))
@@ -155,7 +157,8 @@ class NewsPanel extends StatelessWidget {
                       height: 60,
                       child: Text(
                         news.teaser != '' ? news.teaser : news.text,
-                        style: Styles.font.apply(color: Styles.grey),
+                        style:
+                            MateTextstyles.font.apply(color: MateColors.grey),
                         textAlign: TextAlign.left,
                       ),
                     ),
@@ -165,7 +168,7 @@ class NewsPanel extends StatelessWidget {
                           Spacer(),
                           Icon(
                             Icons.keyboard_arrow_right,
-                            color: Styles.grey,
+                            color: MateColors.grey,
                             size: 30.0,
                           )
                         ],

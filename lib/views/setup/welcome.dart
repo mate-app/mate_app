@@ -33,7 +33,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           padding: const EdgeInsets.fromLTRB(30, 12.5, 30, 0),
           child: Text(
             'Lege sofort los und beantworte nur ein paar Fragen, damit Mate dir genau das zeigt, was für dich wichtig ist.',
-            style: Styles.font.apply(color: Styles.grey),
+            style: MateTextstyles.font.apply(color: MateColors.grey),
             textAlign: TextAlign.center,
           ),
         ),

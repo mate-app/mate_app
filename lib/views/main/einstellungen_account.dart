@@ -27,7 +27,7 @@ class _EinstellungAccountState extends State<EinstellungAccount> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Styles.white,
+      color: MateColors.white,
       child: CustomScrollView(
         physics: const BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics()),
@@ -72,7 +72,7 @@ class AccountData extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
             child: Text(
               'Account Informationen',
-              style: Styles.small,
+              style: MateTextstyles.small,
             ),
           ),
           Container(
@@ -120,11 +120,11 @@ class AccountData extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Legend(
-                              color: Styles.primary,
+                              color: MateColors.primary,
                               title: 'Upvotes',
                             ),
                             Legend(
-                              color: Styles.secondary,
+                              color: MateColors.secondary,
                               title: 'Downvotes',
                             ),
                           ],
@@ -139,7 +139,7 @@ class AccountData extends StatelessWidget {
                     border: Border(
                         bottom: BorderSide(
                       width: 1.0,
-                      color: Styles.grey,
+                      color: MateColors.grey,
                     )),
                   ),
                 ),
@@ -179,7 +179,7 @@ class Legend extends StatelessWidget {
           ),
           Text(
             title,
-            style: Styles.small.apply(color: Styles.grey),
+            style: MateTextstyles.small.apply(color: MateColors.grey),
           ),
         ],
       ),
@@ -204,11 +204,13 @@ class AccountListItem extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Text(title,
-              style: Styles.font.apply(color: Styles.grey, fontWeightDelta: 2)),
+              style: MateTextstyles.font
+                  .apply(color: MateColors.grey, fontWeightDelta: 2)),
           Spacer(
             flex: 2,
           ),
-          Text(userData, style: Styles.font.apply(color: Styles.grey))
+          Text(userData,
+              style: MateTextstyles.font.apply(color: MateColors.grey))
         ],
       ),
     );
@@ -245,8 +247,8 @@ class _AccountPieChart extends State<AccountPieChart> {
   final downvotes;
 
   List<Color> colorList = [
-    Styles.primary,
-    Styles.secondary,
+    MateColors.primary,
+    MateColors.secondary,
   ];
   Map<String, double> dataMap = Map();
 
@@ -276,7 +278,7 @@ class _AccountPieChart extends State<AccountPieChart> {
           showChartValueLabel: true,
           initialAngle: 0,
           chartValueStyle: defaultChartValueStyle.copyWith(
-            color: Styles.white,
+            color: MateColors.white,
           ),
           chartType: ChartType.disc,
         ),
@@ -312,7 +314,7 @@ class _AnalyticsSettingsState extends State<AnalyticsSettings> {
             padding: EdgeInsets.fromLTRB(10, 50, 0, 10),
             child: Text(
               'Datenschutz Einstellungen',
-              style: Styles.small,
+              style: MateTextstyles.small,
             ),
           ),
           Container(
@@ -321,8 +323,8 @@ class _AnalyticsSettingsState extends State<AnalyticsSettings> {
               children: [
                 Text(
                   'Analyse Aktivieren',
-                  style:
-                      Styles.font.apply(color: Styles.grey, fontWeightDelta: 2),
+                  style: MateTextstyles.font
+                      .apply(color: MateColors.grey, fontWeightDelta: 2),
                 ),
                 Spacer(
                   flex: 2,

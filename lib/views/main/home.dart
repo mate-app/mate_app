@@ -131,11 +131,10 @@ class HomeDate extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         boxShadow: [
-          Styles.boxShadow,
+          MateShadows.boxShadow,
         ],
-        borderRadius: Styles.roundedEdges,
-        gradient:
-            isToday ? Styles.gradientPrimary : Styles.lightGradientPrimary,
+        borderRadius: MateShapes.roundedEdges,
+        gradient: isToday ? MateGradients.primary : MateGradients.primary,
       ),
       height: 30,
       width: MediaQuery.of(context).size.width * 0.95,
@@ -148,8 +147,8 @@ class HomeDate extends StatelessWidget {
       ),
       child: Text(
         isToday ? 'Heute' : convertDateToString(date),
-        style: Styles.font.apply(
-            color: Styles.white,
+        style: MateTextstyles.font.apply(
+            color: MateColors.white,
             fontWeightDelta: isToday ? 4 : 1,
             fontSizeDelta: isToday ? 2 : 1),
       ),
@@ -184,10 +183,12 @@ class HomeAppointments extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Text(event.getStartsAt,
-                      style: Styles.small.apply(color: Styles.grey)),
+                      style:
+                          MateTextstyles.small.apply(color: MateColors.grey)),
                   Padding(padding: EdgeInsetsDirectional.only(top: 5)),
                   Text(event.getEndsAt,
-                      style: Styles.small.apply(color: Styles.lightGrey))
+                      style: MateTextstyles.small
+                          .apply(color: MateColors.lightGrey))
                 ],
               ),
             ),
@@ -196,8 +197,8 @@ class HomeAppointments extends StatelessWidget {
                 width: 2,
                 margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
                 decoration: BoxDecoration(
-                  borderRadius: Styles.roundedEdges,
-                  color: Styles.eventColor[event.getType],
+                  borderRadius: MateShapes.roundedEdges,
+                  color: MateColors.eventColors[event.getType],
                 )),
             Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -209,20 +210,22 @@ class HomeAppointments extends StatelessWidget {
                     ),
                     child: Text(
                       event.courseName,
-                      style: Styles.font.apply(
-                        color: Styles.grey,
+                      style: MateTextstyles.font.apply(
+                        color: MateColors.grey,
                         fontWeightDelta: 2,
                       ),
                     ),
                   ),
                   Text(
                     event.location,
-                    style: Styles.font.apply(color: Styles.lightGrey),
+                    style:
+                        MateTextstyles.font.apply(color: MateColors.lightGrey),
                   )
                 ]),
             Spacer(),
             Column(children: <Widget>[
-              Text(event.getType, style: Styles.font.apply(color: Styles.grey))
+              Text(event.getType,
+                  style: MateTextstyles.font.apply(color: MateColors.grey))
             ]),
           ],
         ),

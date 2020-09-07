@@ -21,7 +21,7 @@ class _NewsDetailTab extends State<NewsDetailTab> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Styles.white,
+      color: MateColors.white,
       child: CustomScrollView(
         physics: const BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics()),
@@ -59,8 +59,8 @@ class NewsDetailPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: Styles.roundedEdges,
-        gradient: Styles.newsColor[news.category],
+        borderRadius: MateShapes.roundedEdges,
+        gradient: MateGradients.newsGradient[news.category],
       ),
       height: 160,
       margin: EdgeInsets.all(15),
@@ -70,8 +70,8 @@ class NewsDetailPanel extends StatelessWidget {
         children: <Widget>[
           Container(
             height: 80,
-            child:
-                Text(news.title, style: Styles.h1.apply(color: Styles.white)),
+            child: Text(news.title,
+                style: MateTextstyles.h1.apply(color: MateColors.white)),
           ),
           Spacer(
             flex: 2,
@@ -116,18 +116,18 @@ class NewsDetailText extends StatelessWidget {
               border: Border(
                   bottom: BorderSide(
                 width: 1.0,
-                color: Styles.grey,
+                color: MateColors.grey,
               )),
             ),
             child: Row(
               children: <Widget>[
                 Text(
                   news.author,
-                  style: Styles.small.apply(color: Styles.grey),
+                  style: MateTextstyles.small.apply(color: MateColors.grey),
                 ),
                 Spacer(),
                 Text(convertDateToString(news.date),
-                    style: Styles.small.apply(color: Styles.grey)),
+                    style: MateTextstyles.small.apply(color: MateColors.grey)),
               ],
             ),
           ),
@@ -135,7 +135,7 @@ class NewsDetailText extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(15, 25, 15, 0),
             child: Text(
               news.teaser,
-              style: Styles.font.apply(color: Styles.grey),
+              style: MateTextstyles.font.apply(color: MateColors.grey),
               // textAlign: TextAlign.justify,
             ),
           ),
@@ -143,7 +143,7 @@ class NewsDetailText extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(15, 25, 15, 0),
             child: Text(
               news.text,
-              style: Styles.font.apply(color: Styles.grey),
+              style: MateTextstyles.font.apply(color: MateColors.grey),
               // textAlign: TextAlign.justify,
             ),
           ),

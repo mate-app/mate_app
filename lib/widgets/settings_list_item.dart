@@ -27,7 +27,7 @@ class _SettingsListItemState extends State<SettingsListItem> {
         border: Border(
             bottom: BorderSide(
           width: 1.0,
-          color: Styles.grey,
+          color: MateColors.grey,
         )),
       ),
       margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -43,20 +43,20 @@ class _SettingsListItemState extends State<SettingsListItem> {
         child: Row(children: <Widget>[
           Icon(
             widget.iconData ?? Icons.brightness_1,
-            color: Styles.grey,
+            color: MateColors.grey,
             size: 15.0,
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
             child: Text(
               widget.title,
-              style: Styles.font.apply(color: Styles.grey),
+              style: MateTextstyles.font.apply(color: MateColors.grey),
             ),
           ),
           Spacer(),
           Icon(
             Icons.keyboard_arrow_right,
-            color: Styles.grey,
+            color: MateColors.grey,
             size: 15.0,
           ),
         ]),

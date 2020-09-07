@@ -20,7 +20,7 @@ class _HomeVeranstaltungState extends State<HomeVeranstaltung> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Styles.white,
+      color: MateColors.white,
       child: CustomScrollView(
         physics: const BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics()),
@@ -58,8 +58,8 @@ class EventDetailPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: Styles.roundedEdges,
-        gradient: Styles.eventGradient[event.getType],
+        borderRadius: MateShapes.roundedEdges,
+        gradient: MateGradients.eventGradient[event.getType],
       ),
       height: 160,
       margin: EdgeInsets.all(15),
@@ -69,7 +69,7 @@ class EventDetailPanel extends StatelessWidget {
         children: <Widget>[
           Container(
             child: Text(event.courseName,
-                style: Styles.h1.apply(color: Styles.white)),
+                style: MateTextstyles.h1.apply(color: MateColors.white)),
           ),
           Spacer(
             flex: 1,
@@ -82,16 +82,16 @@ class EventDetailPanel extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(3, 0, 0, 0),
                 child: Text(
                   convertDateToString(event.date),
-                  style: Styles.font.apply(
-                    color: Styles.white,
+                  style: MateTextstyles.font.apply(
+                    color: MateColors.white,
                     fontWeightDelta: 2,
                   ),
                 ),
               ),
               Text(
                 event.getStartsAt + ' - ' + event.getEndsAt,
-                style: Styles.font.apply(
-                  color: Styles.white,
+                style: MateTextstyles.font.apply(
+                  color: MateColors.white,
                 ),
               ),
             ],
@@ -128,21 +128,21 @@ class EventDetailText extends StatelessWidget {
               border: Border(
                   bottom: BorderSide(
                 width: 1.0,
-                color: Styles.grey,
+                color: MateColors.grey,
               )),
             ),
             child: Row(
               children: <Widget>[
                 Text(
                   'Veranstaltungsart',
-                  style: Styles.small.apply(
-                    color: Styles.grey,
+                  style: MateTextstyles.small.apply(
+                    color: MateColors.grey,
                   ),
                 ),
                 Spacer(),
                 Text(event.type,
-                    style: Styles.small.apply(
-                      color: Styles.eventColor[event.getType],
+                    style: MateTextstyles.small.apply(
+                      color: MateColors.eventColors[event.getType],
                     )),
               ],
             ),
@@ -203,13 +203,13 @@ class EventListItem extends StatelessWidget {
               children: <Widget>[
                 Text(
                   title,
-                  style: Styles.font.apply(
-                    color: Styles.grey,
+                  style: MateTextstyles.font.apply(
+                    color: MateColors.grey,
                   ),
                 ),
                 Text(event,
-                    style: Styles.font
-                        .apply(color: Styles.grey, fontWeightDelta: 2)),
+                    style: MateTextstyles.font
+                        .apply(color: MateColors.grey, fontWeightDelta: 2)),
               ],
             ),
           ),

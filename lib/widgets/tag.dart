@@ -23,14 +23,14 @@ class Tag extends StatelessWidget {
     return Container(
       margin: new EdgeInsets.only(right: margin_right, bottom: margin_bottom),
       decoration: BoxDecoration(
-          border: Border.all(color: Styles.white, width: 1.0),
-          borderRadius: Styles.roundedEdges),
+          border: Border.all(color: MateColors.white, width: 1.0),
+          borderRadius: MateShapes.roundedEdges),
       padding: EdgeInsets.all(5),
       child: Row(
         children: <Widget>[
           Icon(
             Icons.fiber_manual_record,
-            color: Styles.white,
+            color: MateColors.white,
             size: 12.0,
             semanticLabel: 'dot',
           ),
@@ -38,7 +38,7 @@ class Tag extends StatelessWidget {
             margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
             child: Text(
               tag,
-              style: Styles.tiny.apply(color: Styles.white),
+              style: MateTextstyles.tiny.apply(color: MateColors.white),
             ),
           )
         ],

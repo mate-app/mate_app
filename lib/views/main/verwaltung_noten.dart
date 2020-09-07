@@ -33,7 +33,7 @@ class _VerwaltungNotenState extends State<VerwaltungNoten> {
     UserModel user = Provider.of<UserModel>(context);
 
     return Container(
-      color: Styles.white,
+      color: MateColors.white,
       child: CustomScrollView(
         slivers: <Widget>[
           SliverPersistentHeader(
@@ -104,14 +104,15 @@ class CourseGradesEntry extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.8,
             child: Text(
               grade.course ?? 'Kursname Ladefehler',
-              style: Styles.font.apply(color: Styles.grey),
+              style: MateTextstyles.font.apply(color: MateColors.grey),
               overflow: TextOverflow.ellipsis,
             ),
           ),
           Spacer(),
           Text(
             grade.grade ?? 0,
-            style: Styles.font.apply(color: Styles.gradeStatus[grade.status]),
+            style: MateTextstyles.font
+                .apply(color: MateColors.statusColors[grade.status]),
           ),
         ]),
       ),

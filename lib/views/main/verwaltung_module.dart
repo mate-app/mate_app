@@ -16,7 +16,7 @@ class _VerwaltungModuleState extends State<VerwaltungModule> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Styles.white,
+      color: MateColors.white,
       child: CustomScrollView(
         slivers: <Widget>[
           SliverPersistentHeader(
@@ -57,37 +57,37 @@ class ModulGrid extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(8),
             child: const Text("He'd have you all unravel at the"),
-            color: Styles.primary,
+            color: MateColors.primary,
           ),
           Container(
             padding: const EdgeInsets.all(8),
             child: const Text('Heed not the rabble'),
-            color: Styles.primary,
+            color: MateColors.primary,
           ),
           Container(
             padding: const EdgeInsets.all(8),
             child: const Text('Sound of screams but the'),
-            color: Styles.primary,
+            color: MateColors.primary,
           ),
           Container(
             padding: const EdgeInsets.all(8),
             child: const Text('Who scream'),
-            color: Styles.primary,
+            color: MateColors.primary,
           ),
           Container(
             padding: const EdgeInsets.all(8),
             child: const Text('Revolution is coming...'),
-            color: Styles.primary,
+            color: MateColors.primary,
           ),
           Container(
             padding: const EdgeInsets.all(8),
             child: const Text('Revolution, they...'),
-            color: Styles.primary,
+            color: MateColors.primary,
           ),
           Container(
             padding: const EdgeInsets.all(8),
             child: const Text('Revolution, they...'),
-            color: Styles.primary,
+            color: MateColors.primary,
           ),
         ],
       ),

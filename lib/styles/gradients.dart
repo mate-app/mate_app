@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 
 class MateGradients {
-  static const gradientPrimary = LinearGradient(
+  static const primary = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment(0.8, 0.0),
     stops: [0.0, 0.12, 0.78, 1.0],
@@ -14,7 +14,7 @@ class MateGradients {
       MateColors.primary,
     ],
   );
-  static const lightGradientPrimary = LinearGradient(
+  static const lightPrimary = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment(0.8, 0.0),
     stops: [0.0, 0.12, 0.78, 1.0],
@@ -25,7 +25,7 @@ class MateGradients {
       Color(0xAAFF9933),
     ],
   );
-  static const gradientSecondary = LinearGradient(
+  static const secondary = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment(0.8, 0.0),
     stops: [0.0, 0.12, 0.78, 1.0],
@@ -36,7 +36,7 @@ class MateGradients {
       MateColors.secondary,
     ],
   );
-  static const gradientThird = LinearGradient(
+  static const third = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment(0.8, 0.0),
     stops: [0.0, 0.12, 0.78, 1.0],
@@ -47,27 +47,23 @@ class MateGradients {
       MateColors.third,
     ],
   );
-}
 
-class NewsGradients {
-  static const newsColor = {
-    "Allgemein": MateGradients.gradientPrimary,
-    "Wirtschaft": MateGradients.gradientSecondary,
-    "Maschinenwesen": MateGradients.gradientSecondary,
-    "Soziale Arbeit und Gesundheit": MateGradients.gradientSecondary,
-    "Informatik und Elektrotechnik": MateGradients.gradientSecondary,
-    "Medien / Bauwesen": MateGradients.gradientSecondary,
-    "Agrarwirtschaft": MateGradients.gradientSecondary,
+  static const newsGradient = {
+    "Allgemein": primary,
+    "Wirtschaft": secondary,
+    "Maschinenwesen": secondary,
+    "Soziale Arbeit und Gesundheit": secondary,
+    "Informatik und Elektrotechnik": secondary,
+    "Medien / Bauwesen": secondary,
+    "Agrarwirtschaft": secondary,
   };
-}
 
-class EventGradients {
   static const eventGradient = {
-    "VL": MateGradients.gradientPrimary,
-    "SE": MateGradients.gradientSecondary,
-    "Ü": MateGradients.gradientSecondary,
-    "Wahlmodul": MateGradients.gradientThird,
-    "Praxis": MateGradients.gradientSecondary,
-    "Vorlesung/Labor": MateGradients.gradientPrimary,
+    "VL": primary,
+    "SE": secondary,
+    "Ü": secondary,
+    "Wahlmodul": third,
+    "Praxis": secondary,
+    "Vorlesung/Labor": primary,
   };
 }

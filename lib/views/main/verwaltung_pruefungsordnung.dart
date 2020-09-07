@@ -294,7 +294,7 @@ Wahlpflichtmodul 7 siehe § 6, Abs. 2 5
 2) Gewichtung nach ECTS-Leistungspunkten 
 ''';
     return Container(
-      color: Styles.white,
+      color: MateColors.white,
       child: CustomScrollView(
         physics: const BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics()),
