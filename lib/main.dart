@@ -33,25 +33,30 @@ class MainApp extends StatelessWidget {
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
     return FutureBuilder(
-        // Initialize Flutterfire
-        future: _initialization,
-        builder: (context, snapshot) {
-          // check for error
-          if (snapshot.hasError ||
-              snapshot.connectionState != ConnectionState.done) {
-            Crashlytics.instance
-                .recordError(snapshot.error, StackTrace.current);
-            return PlatformApp(
-              home: PlatformScaffold(
-                body: Center(
-                  child: PlatformCircularProgressIndicator(),
-                ),
+      // Initialize Flutterfire
+      future: _initialization,
+      builder: (context, snapshot) {
+        // check for error
+        if (snapshot.hasError ||
+            snapshot.connectionState != ConnectionState.done) {
+          Crashlytics.instance.recordError(snapshot.error, StackTrace.current);
+          return PlatformApp(
+            home: PlatformScaffold(
+              body: Center(
+                child: PlatformCircularProgressIndicator(),
               ),
-            );
-          }
+            ),
+          );
+        }
 
-          return const App();
-        });
+        return MultiProvider(
+          providers: [
+            StreamProvider<User>.value(value: AuthService().user),
+          ],
+          child: const App(),
+        );
+      },
+    );
   }
 }
 
@@ -62,33 +67,33 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        StreamProvider<User>.value(value: AuthService().user),
+    return PlatformApp(
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
       ],
-      child: PlatformApp(
-        navigatorObservers: [
-          FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
-        ],
-        localizationsDelegates: [
-          DefaultMaterialLocalizations.delegate,
-          DefaultCupertinoLocalizations.delegate,
-          DefaultWidgetsLocalizations.delegate,
-        ],
-        debugShowCheckedModeBanner: true, // TODO: disable in Prod.
-        home: Wrapper(),
-        cupertino: (_, __) => CupertinoAppData(
-          theme: const CupertinoThemeData(
-            barBackgroundColor: Color(0xddffffff),
-            primaryColor: Styles.primary,
-            scaffoldBackgroundColor: Styles.white,
-            brightness: Brightness.light,
-            textTheme: CupertinoTextThemeData(
-              primaryColor: Styles.primary,
-            ),
+      localizationsDelegates: [
+        DefaultMaterialLocalizations.delegate,
+        DefaultCupertinoLocalizations.delegate,
+        DefaultWidgetsLocalizations.delegate,
+      ],
+      debugShowCheckedModeBanner: true, // TODO: disable in Prod.
+      home: Wrapper(),
+      cupertino: (_, __) => CupertinoAppData(
+        theme: const CupertinoThemeData(
+          barBackgroundColor: MateColors.white,
+          primaryColor: MateColors.primary,
+          scaffoldBackgroundColor: MateColors.white,
+          brightness: Brightness.light,
+          textTheme: CupertinoTextThemeData(
+            primaryColor: MateColors.primary,
           ),
         ),
       ),
+      material: (_, __) => MaterialAppData(
+          theme: ThemeData(
+        scaffoldBackgroundColor: MateColors.white,
+        brightness: Brightness.light,
+      )),
     );
   }
 }
