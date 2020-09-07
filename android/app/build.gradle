@@ -71,6 +71,22 @@ android {
     }
 }
 
+flavorDimensions "app"
+
+productFlavors {
+    dev {
+        dimension "app"
+        resValue "string", "app_name", "Dev mate"
+        versionNameSuffix "-dev"
+    }
+    prod {
+        dimension "app"
+        resValue "string", "app_name", "mate"
+        applicationId "com.mate.mateprod"
+    }
+}
+
+
 flutter {
     source '../..'
 }

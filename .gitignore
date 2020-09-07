@@ -48,3 +48,5 @@ ios/Runner/GoogleService-Info.plist
 ios/Flutter/.last_build_id
 android/app/google-services.json
 android/key.properties
+android/app/src/dev/google-services.json
+android/app/src/prod/google-services.json
