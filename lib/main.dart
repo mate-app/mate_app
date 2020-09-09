@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:mateapp/widgets/loading_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'services/services.dart';
@@ -40,13 +41,7 @@ class MainApp extends StatelessWidget {
         if (snapshot.hasError ||
             snapshot.connectionState != ConnectionState.done) {
           Crashlytics.instance.recordError(snapshot.error, StackTrace.current);
-          return PlatformApp(
-            home: PlatformScaffold(
-              body: Center(
-                child: PlatformCircularProgressIndicator(),
-              ),
-            ),
-          );
+          return const LoadingScreen();
         }
 
         return MultiProvider(
@@ -77,7 +72,7 @@ class App extends StatelessWidget {
         DefaultWidgetsLocalizations.delegate,
       ],
       debugShowCheckedModeBanner: true, // TODO: disable in Prod.
-      home: Wrapper(),
+      home: Welcome(),
       cupertino: (_, __) => CupertinoAppData(
         theme: const CupertinoThemeData(
           barBackgroundColor: MateColors.white,
