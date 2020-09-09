@@ -9,15 +9,11 @@ class StaticNavigationBar extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      child: CupertinoNavigationBar(
-        middle: Container(
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 15.5,
-            ),
-          ),
+    return CupertinoNavigationBar(
+      middle: Text(
+        title,
+        style: const TextStyle(
+          fontSize: 15.5,
         ),
       ),
     );

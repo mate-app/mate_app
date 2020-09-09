@@ -5,7 +5,6 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import '../models/models.dart';
 import '../services/services.dart';
 import '../widgets/widgets.dart';
-import 'home.dart';
 
 class Universities extends StatelessWidget {
   @override
@@ -40,23 +39,23 @@ class UniversityList extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         PlatformWidget(
-          material: (context, platform) => const SliverAppBar(
+          material: (context, platform) => SliverAppBar(
             pinned: true,
             forceElevated: true,
             expandedHeight: 150.0,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text('Organisation wählen'),
+              title: PlatformText('Organisation wählen'),
             ),
           ),
-          cupertino: (context, platform) => const CupertinoSliverNavigationBar(
-            largeTitle: Text('Organisation wählen'),
+          cupertino: (context, platform) => CupertinoSliverNavigationBar(
+            largeTitle: PlatformText('Organisation wählen'),
           ),
         ),
         SliverList(
           delegate:
               SliverChildBuilderDelegate((BuildContext context, int index) {
             return ListTile(
-              title: Text(
+              title: PlatformText(
                   '${universities[index].name} (${universities[index].city})'),
               onTap: () {},
             );

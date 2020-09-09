@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:mateapp/services/auth.dart';
-import 'package:mateapp/styles/styles.dart';
-import 'package:mateapp/views/universities.dart';
 import 'package:provider/provider.dart';
 
+import '../services/auth.dart';
+import '../styles/styles.dart';
 import 'home.dart';
+import 'universities.dart';
 
 class Welcome extends StatefulWidget {
   @override
@@ -41,7 +41,7 @@ class _WelcomeState extends State<Welcome> {
               )),
           Padding(
             padding: const EdgeInsets.fromLTRB(30, 12.5, 30, 0),
-            child: Text(
+            child: PlatformText(
               'Lege sofort los und genieße dein ganzes Studium in nur einer App.',
               style: MateTextstyles.font.apply(color: MateColors.grey),
               textAlign: TextAlign.center,

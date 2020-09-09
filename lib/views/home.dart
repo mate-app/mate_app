@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'calendar/calendar.dart';
+
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -17,7 +19,7 @@ class _HomeState extends State<Home> {
     'Einstellungen'
   ];
   List<Widget> tabs = [
-    Calender(),
+    Calendar(),
     Cafeteria(),
     News(),
     Organisation(),
@@ -49,7 +51,24 @@ class _HomeState extends State<Home> {
 
   Widget tabBuilder(BuildContext context, int index) => CupertinoTabView(
         builder: (context) => CupertinoPageScaffold(
-          child: tabs[index],
+          child: CustomScrollView(
+            slivers: <Widget>[
+              PlatformWidget(
+                material: (context, platform) => SliverAppBar(
+                  pinned: true,
+                  forceElevated: true,
+                  expandedHeight: 150.0,
+                  flexibleSpace: FlexibleSpaceBar(
+                    title: Text(titles[index]),
+                  ),
+                ),
+                cupertino: (context, platform) => CupertinoSliverNavigationBar(
+                  largeTitle: Text(titles[index]),
+                ),
+              ),
+              tabs[index],
+            ],
+          ),
         ),
       );
 
