@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:mateapp/styles/styles.dart';
-import 'package:mateapp/utils/utils.dart';
+
+import '../../../styles/styles.dart';
+import '../../../utils/utils.dart';
 
 class CalendarListDate extends StatelessWidget {
   final DateTime date;

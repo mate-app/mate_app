@@ -4,6 +4,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'calendar/calendar.dart';
+import 'views.dart';
 
 class Home extends StatefulWidget {
   @override

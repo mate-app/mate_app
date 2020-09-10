@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mateapp/models/models.dart';
-import 'package:mateapp/widgets/widgets.dart';
+
+import '../../../models/models.dart';
+import '../../../widgets/widgets.dart';
 import 'local_widgets/local_widgets.dart';
 
 class CalendarEvent extends StatelessWidget {

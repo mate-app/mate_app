@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mateapp/models/models.dart';
 
+import '../../../models/models.dart';
 import 'local_widgets.dart';
 
 class CalendarList extends StatelessWidget {
