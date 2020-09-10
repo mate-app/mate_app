@@ -5,7 +5,11 @@ class FormFieldContent {
   FormFieldContent(this.fieldContent);
 
   bool checkIfFieldsAreEmpty() {
-    return fieldContent.isEmpty ? true : false;
+    if (fieldContent.isEmpty) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 
@@ -14,7 +18,11 @@ class MailFieldContent extends FormFieldContent {
   MailFieldContent(String fieldContent) : super(fieldContent);
 
   bool checkIfDomainMatches(String domain) {
-    return fieldContent.endsWith(domain) ? true : false;
+    if (fieldContent.endsWith(domain)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 
