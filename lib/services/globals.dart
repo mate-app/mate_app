@@ -8,7 +8,7 @@ class Global {
   static final Map models = {
     Dish: (data) => Dish.fromMap(data),
     Event: (data) => Event.fromMap(data),
-    News: (data) => News.fromMap(data),
+    Article: (data) => Article.fromMap(data),
     Subject: (data) => Subject.fromMap(data),
     University: (data) => University.fromMap(data),
     UserModel: (data) => UserModel.fromMap(data),

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../styles/styles.dart';
+import '../../../styles/styles.dart';
 
 class VerwaltungPersonen extends StatefulWidget {
   @override

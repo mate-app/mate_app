@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:mateapp/widgets/widgets.dart';
-// TODO: remove import and use inheritance
-import '../../styles/styles.dart';
+
+import '../../../styles/styles.dart';
+import '../../../widgets/widgets.dart';
 
 class VerwaltungPruefungsOrdnung extends StatefulWidget {
   @override
@@ -16,7 +16,8 @@ class _VerwaltungPruefungsOrdnungState
     extends State<VerwaltungPruefungsOrdnung> {
   @override
   Widget build(BuildContext context) {
-    const String _markdownData = '''NBl. MBW Schl.-H. 6/2012, S. 60
+    const String _markdownData = '''
+    NBl. MBW Schl.-H. 6/2012, S. 60
 Tag der Bekanntmachung: 04. Oktober 2012
 Prüfungsordnung (Satzung) für den Bachelorstudiengang Multimedia
 Production am Fachbereich Medien der Fachhochschule Kiel
@@ -306,7 +307,7 @@ Wahlpflichtmodul 7 siehe § 6, Abs. 2 5
           ),
           SliverList(
               delegate: SliverChildListDelegate([
-            ExaminationRegulationText(
+            const ExaminationRegulationText(
               text: _markdownData,
             ),
           ])),
@@ -321,20 +322,20 @@ class ExaminationRegulationText extends StatelessWidget {
 
   //Constructor
 
-  ExaminationRegulationText({
+  const ExaminationRegulationText({
     Key key,
     this.text,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(20, 20, 20, 60),
+      margin: const EdgeInsets.fromLTRB(20, 20, 20, 60),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-              padding: EdgeInsets.fromLTRB(5, 25, 5, 0),
+              padding: const EdgeInsets.fromLTRB(5, 25, 5, 0),
               child: MarkdownBody(data: text)),
           // // Comment until Website Ready
           // Center(
