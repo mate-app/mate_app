@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mateapp/styles/colors.dart';
 import 'package:provider/provider.dart';
 
 import '../models/models.dart';
@@ -15,8 +16,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int _currentIndex;
+
   static final titles = [
-    'Home',
+    'Termine',
     'Mensa',
     'News',
     'Verwaltung',
@@ -32,24 +35,44 @@ class _HomeState extends State<Home> {
 
   List<BottomNavigationBarItem> items(BuildContext context) => [
         BottomNavigationBarItem(
-          icon: const Icon(Icons.home),
-          title: PlatformText(titles[0]),
+          icon: const Icon(Icons.calendar_today),
+          title: PlatformWidget(
+            cupertino: (_, __) => PlatformText(titles[0]),
+            material: (_, __) =>
+                _currentIndex == 0 ? PlatformText(titles[0]) : Container(),
+          ),
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.restaurant),
-          title: PlatformText(titles[1]),
+          title: PlatformWidget(
+            cupertino: (_, __) => PlatformText(titles[1]),
+            material: (_, __) =>
+                _currentIndex == 1 ? PlatformText(titles[1]) : Container(),
+          ),
         ),
         BottomNavigationBarItem(
           icon: const Icon(FontAwesomeIcons.newspaper),
-          title: PlatformText(titles[2]),
+          title: PlatformWidget(
+            cupertino: (_, __) => PlatformText(titles[2]),
+            material: (_, __) =>
+                _currentIndex == 2 ? PlatformText(titles[2]) : Container(),
+          ),
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.school),
-          title: PlatformText(titles[3]),
+          title: PlatformWidget(
+            cupertino: (_, __) => PlatformText(titles[3]),
+            material: (_, __) =>
+                _currentIndex == 3 ? PlatformText(titles[3]) : Container(),
+          ),
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.settings),
-          title: PlatformText(titles[4]),
+          title: PlatformWidget(
+            cupertino: (_, __) => PlatformText(titles[4]),
+            material: (_, __) =>
+                _currentIndex == 4 ? PlatformText(titles[4]) : Container(),
+          ),
         ),
       ];
 
@@ -81,18 +104,26 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    _currentIndex = 0;
     tabController ??= PlatformTabController();
+  }
+
+  void _changeTab(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamProvider<UserModel>.value(
       value: UserData<UserModel>(collection: 'users').documentStream,
-      child: PlatformTabScaffold(
-        iosContentPadding: true,
-        tabController: tabController,
-        bodyBuilder: (context, index) => tabBuilder(context, index),
-        items: items(context),
+      child: CupertinoTabScaffold(
+        tabBar: CupertinoTabBar(
+          items: items(context),
+          onTap: (index) => _changeTab(index),
+        ),
+        tabBuilder: (context, index) => tabBuilder(context, index),
       ),
     );
   }
