@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mateapp/styles/colors.dart';
+import 'package:mateapp/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 import '../models/models.dart';
@@ -82,15 +85,24 @@ class _HomeState extends State<Home> {
             slivers: <Widget>[
               PlatformWidget(
                 material: (context, platform) => SliverAppBar(
-                  // pinned: true,
-                  // forceElevated: true,
+                  pinned: true,
+                  forceElevated: true,
                   expandedHeight: 120.0,
                   flexibleSpace: FlexibleSpaceBar(
                     title: PlatformText(titles[index]),
                   ),
+                  elevation: 1,
                 ),
                 cupertino: (context, platform) => CupertinoSliverNavigationBar(
                   largeTitle: PlatformText(titles[index]),
+                ),
+              ),
+              PlatformWidget(
+                material: (_, __) => SliverToBoxAdapter(
+                  child: Container(),
+                ),
+                cupertino: (_, __) => const CupertinoSliverRefreshControl(
+                  onRefresh: handleRefresh,
                 ),
               ),
               tabs[index],
