@@ -13,7 +13,7 @@ class SettingsVersion extends StatelessWidget {
             parent: AlwaysScrollableScrollPhysics()),
         slivers: <Widget>[
           SliverPersistentHeader(
-            delegate: StaticNavigationBar('Versionen'),
+            delegate: StaticNavigationBar(title: 'Versionen'),
             pinned: true,
             floating: true,
           ),

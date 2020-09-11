@@ -10,24 +10,28 @@ class Organisation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final UserModel user = Provider.of<UserModel>(context);
-    return SliverList(
-      delegate: SliverChildListDelegate(
-        [
-          StreamBuilder(
-            stream: Document<University>(
-              path: 'hochschulen/${user.university}',
-            ).streamData(),
-            builder:
-                (BuildContext context, AsyncSnapshot<University> snapshot) {
-              if (snapshot.hasData) {
-                return OrganisationPanel(user: user, university: snapshot.data);
-              }
-              return const SliverLoadingIndicator();
-            },
-          ),
-          OrganisationList(),
-        ],
-      ),
-    );
+    if (user != null) {
+      return SliverList(
+        delegate: SliverChildListDelegate(
+          [
+            StreamBuilder(
+              stream: Document<University>(
+                path: 'hochschulen/${user.university}',
+              ).streamData(),
+              builder:
+                  (BuildContext context, AsyncSnapshot<University> snapshot) {
+                if (snapshot.hasData) {
+                  return OrganisationPanel(
+                      user: user, university: snapshot.data);
+                }
+                return const SliverLoadingIndicator();
+              },
+            ),
+            OrganisationList(),
+          ],
+        ),
+      );
+    }
+    return const SliverLoadingIndicator();
   }
 }

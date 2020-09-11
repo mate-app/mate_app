@@ -15,7 +15,7 @@ class CalendarEvent extends StatelessWidget {
           const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       slivers: <Widget>[
         SliverPersistentHeader(
-          delegate: StaticNavigationBar('Mitteilung'),
+          delegate: StaticNavigationBar(title: 'Mitteilung'),
           pinned: true,
           floating: true,
         ),

@@ -301,7 +301,7 @@ Wahlpflichtmodul 7 siehe § 6, Abs. 2 5
             parent: AlwaysScrollableScrollPhysics()),
         slivers: <Widget>[
           SliverPersistentHeader(
-            delegate: StaticNavigationBar('Prüfungsordnung'),
+            delegate: StaticNavigationBar(title: 'Prüfungsordnung'),
             pinned: true,
             floating: true,
           ),
@@ -337,17 +337,6 @@ class ExaminationRegulationText extends StatelessWidget {
           Container(
               padding: const EdgeInsets.fromLTRB(5, 25, 5, 0),
               child: MarkdownBody(data: text)),
-          // // Comment until Website Ready
-          // Center(
-          //   child: Container(
-          //     margin: EdgeInsets.fromLTRB(0, 0, 0, 50),
-          //     child: CupertinoButton(
-          //       padding: EdgeInsets.zero,
-          //       child: PlatformText('zur Webseite'),
-          //       onPressed: () => launchURL('www.mate-app.de/datenschutz'),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );

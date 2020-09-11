@@ -19,7 +19,7 @@ class SettingsAccount extends StatelessWidget {
             parent: AlwaysScrollableScrollPhysics()),
         slivers: <Widget>[
           SliverPersistentHeader(
-            delegate: StaticNavigationBar('Account'),
+            delegate: StaticNavigationBar(title: 'Account'),
             pinned: true,
             floating: true,
           ),

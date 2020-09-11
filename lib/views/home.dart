@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
+import '../models/models.dart';
+import '../services/services.dart';
 import 'calendar/calendar.dart';
 import 'views.dart';
 
@@ -56,9 +59,9 @@ class _HomeState extends State<Home> {
             slivers: <Widget>[
               PlatformWidget(
                 material: (context, platform) => SliverAppBar(
-                  pinned: true,
-                  forceElevated: true,
-                  expandedHeight: 150.0,
+                  // pinned: true,
+                  // forceElevated: true,
+                  expandedHeight: 120.0,
                   flexibleSpace: FlexibleSpaceBar(
                     title: PlatformText(titles[index]),
                   ),
@@ -76,12 +79,21 @@ class _HomeState extends State<Home> {
   PlatformTabController tabController;
 
   @override
+  void initState() {
+    super.initState();
+    tabController ??= PlatformTabController();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return PlatformTabScaffold(
-      iosContentPadding: true,
-      tabController: tabController,
-      bodyBuilder: tabBuilder,
-      items: items(context),
+    return StreamProvider<UserModel>.value(
+      value: UserData<UserModel>(collection: 'users').documentStream,
+      child: PlatformTabScaffold(
+        iosContentPadding: true,
+        tabController: tabController,
+        bodyBuilder: (context, index) => tabBuilder(context, index),
+        items: items(context),
+      ),
     );
   }
 }

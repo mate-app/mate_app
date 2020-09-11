@@ -21,7 +21,7 @@ class _VerwaltungModuleState extends State<VerwaltungModule> {
       child: CustomScrollView(
         slivers: <Widget>[
           SliverPersistentHeader(
-            delegate: StaticNavigationBar('Module'),
+            delegate: StaticNavigationBar(title: 'Module'),
             pinned: true,
             floating: true,
           ),

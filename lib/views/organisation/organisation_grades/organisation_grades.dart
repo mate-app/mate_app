@@ -43,7 +43,7 @@ class OrganisationGrades extends StatelessWidget {
         child: CustomScrollView(
           slivers: <Widget>[
             SliverPersistentHeader(
-              delegate: StaticNavigationBar('Noten'),
+              delegate: StaticNavigationBar(title: 'Noten'),
               pinned: true,
               floating: true,
             ),

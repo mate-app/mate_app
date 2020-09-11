@@ -18,7 +18,7 @@ class NewsArticle extends StatelessWidget {
             parent: AlwaysScrollableScrollPhysics()),
         slivers: <Widget>[
           SliverPersistentHeader(
-            delegate: StaticNavigationBar('Mitteilung'),
+            delegate: StaticNavigationBar(title: 'Mitteilung'),
             pinned: true,
             floating: true,
           ),

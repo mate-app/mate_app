@@ -14,7 +14,7 @@ class SettingsCodeofconduct extends StatelessWidget {
             parent: AlwaysScrollableScrollPhysics()),
         slivers: <Widget>[
           SliverPersistentHeader(
-            delegate: StaticNavigationBar('Code of Cunduct'),
+            delegate: StaticNavigationBar(title: 'Code of Cunduct'),
             pinned: true,
             floating: true,
           ),

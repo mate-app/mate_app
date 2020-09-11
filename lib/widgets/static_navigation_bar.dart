@@ -5,13 +5,15 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 class StaticNavigationBar extends SliverPersistentHeaderDelegate {
   String title;
 
-  StaticNavigationBar(this.title);
+  StaticNavigationBar({
+    this.title,
+  });
 
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return CupertinoNavigationBar(
-      middle: PlatformText(
+    return PlatformAppBar(
+      title: PlatformText(
         title,
         style: const TextStyle(
           fontSize: 15.5,

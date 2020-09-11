@@ -14,7 +14,7 @@ class SettingsPrivacy extends StatelessWidget {
             parent: AlwaysScrollableScrollPhysics()),
         slivers: <Widget>[
           SliverPersistentHeader(
-            delegate: StaticNavigationBar('Datenschutz'),
+            delegate: StaticNavigationBar(title: 'Datenschutz'),
             pinned: true,
             floating: true,
           ),
