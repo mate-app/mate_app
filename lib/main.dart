@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:mateapp/views/authenticator.dart';
 import 'package:provider/provider.dart';
 
 import 'services/services.dart';
@@ -72,23 +73,11 @@ class App extends StatelessWidget {
         DefaultWidgetsLocalizations.delegate,
       ],
       debugShowCheckedModeBanner: true, // TODO: disable in Prod.
-      home: Welcome(),
+      home: Authenticator(),
       cupertino: (_, __) => CupertinoAppData(
-        theme: const CupertinoThemeData(
-          barBackgroundColor: MateColors.white,
-          primaryColor: MateColors.primary,
-          scaffoldBackgroundColor: MateColors.white,
-          brightness: Brightness.light,
-          textTheme: CupertinoTextThemeData(
-            primaryColor: MateColors.primary,
-          ),
-        ),
+        theme: buildCupertinoThemeData(),
       ),
-      material: (_, __) => MaterialAppData(
-          theme: ThemeData(
-        scaffoldBackgroundColor: MateColors.white,
-        brightness: Brightness.light,
-      )),
+      material: (_, __) => MaterialAppData(theme: buildThemeData()),
     );
   }
 }

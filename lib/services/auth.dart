@@ -1,9 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:http/http.dart';
 import 'dart:convert';
-import 'package:mateapp/models/models.dart';
-import 'package:mateapp/services/services.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../models/models.dart';
+import 'services.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -16,16 +19,17 @@ class AuthService {
 
   Future<bool> _saveCredentials(String email, String password) async {
     final credentials = await SharedPreferences.getInstance();
-    bool emailSet = await credentials.setString('email', email);
-    bool passwordSet = await credentials.setString('password', password);
+    final bool emailSet = await credentials.setString('email', email);
+    final bool passwordSet = await credentials.setString('password', password);
     final analyticsStorage = await SharedPreferences.getInstance();
-    bool analyticsOn = await analyticsStorage.setBool('analyticsOn', true);
-    return (emailSet && passwordSet && analyticsOn) ? true : false;
+    final bool analyticsOn =
+        await analyticsStorage.setBool('analyticsOn', true);
+    return (emailSet && passwordSet && analyticsOn) ?? false;
   }
 
   // checks whether the credentials are valid
   Future<bool> _checkCredentials(String email, String password) async {
-    Response response = await post(
+    final Response response = await post(
         'https://us-central1-mate-app-e8033.cloudfunctions.net/validateUserdata',
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         body:
@@ -42,7 +46,7 @@ class AuthService {
     String errorMessage;
 
     try {
-      UserCredential result = await _auth.signInWithEmailAndPassword(
+      final UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       user = result.user;
       await _saveCredentials(email, password);
@@ -85,7 +89,7 @@ class AuthService {
     try {
       await _checkCredentials(email, password);
 
-      UserCredential result = await _auth.createUserWithEmailAndPassword(
+      final UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       user = result.user;
       await UserData(collection: 'users').upsert({
@@ -132,7 +136,7 @@ class AuthService {
     try {
       return await _auth.signOut();
     } catch (e) {
-      print(e.toString());
+      Crashlytics.instance.recordError(e.toString(), StackTrace.current);
       return null;
     }
   }

@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// TODO: remove import use inheritance
-import '../styles/styles.dart';
+
+import '../../../styles/styles.dart';
 
 class SettingsListItem extends StatefulWidget {
   final String title;
   final IconData iconData;
-  final route;
+  final Widget route;
 
   const SettingsListItem({
     Key key,
@@ -23,16 +23,15 @@ class _SettingsListItemState extends State<SettingsListItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         border: Border(
             bottom: BorderSide(
-          width: 1.0,
           color: MateColors.grey,
         )),
       ),
-      margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+      margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
       child: CupertinoButton(
-        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
         onPressed: () {
           Navigator.of(context).push(
             CupertinoPageRoute(builder: (context) {
@@ -53,8 +52,8 @@ class _SettingsListItemState extends State<SettingsListItem> {
               style: MateTextstyles.font.apply(color: MateColors.grey),
             ),
           ),
-          Spacer(),
-          Icon(
+          const Spacer(),
+          const Icon(
             Icons.keyboard_arrow_right,
             color: MateColors.grey,
             size: 15.0,

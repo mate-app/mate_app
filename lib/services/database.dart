@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:mateapp/models/models.dart';
-import 'package:mateapp/services/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+
+import '../models/models.dart';
+import 'services.dart';
 
 class Document<T> {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -22,15 +24,15 @@ class Document<T> {
   }
 
   Future<void> upsert(Map data) {
-    return ref
-        .update(Map<String, dynamic>.from(data))
-        .catchError((err) => print('error: $err'));
+    return ref.update(Map<String, dynamic>.from(data)).catchError((err) =>
+        Crashlytics.instance.recordError('error: $err', StackTrace.current));
   }
 
   Future<void> createAndMerge(Map data) {
     return ref
         .set(Map<String, dynamic>.from(data), SetOptions(merge: true))
-        .catchError((err) => print('error: $err'));
+        .catchError((err) => Crashlytics.instance
+            .recordError('error: $err', StackTrace.current));
   }
 }
 
@@ -56,7 +58,7 @@ class Collection<T> {
   void _addOrder(List<String> order) {
     ref = order.isEmpty
         ? ref
-        : ref.orderBy(order[0], descending: order[1] == 'ASC' ? false : true);
+        : ref.orderBy(order[0], descending: !(order[1] == 'ASC') ?? false);
   }
 
   void _addLimit(int limit) {
@@ -64,11 +66,12 @@ class Collection<T> {
   }
 
   void _addFilter(List<CustomQuery> queries, int loops) {
+    int i = loops;
     if (loops > 0) {
-      loops--;
-      String field = queries[loops].field;
-      String operation = queries[loops].operation;
-      dynamic value = queries[loops].value;
+      i--;
+      final String field = queries[i].field;
+      final String operation = queries[i].operation;
+      final dynamic value = queries[i].value;
 
       switch (operation) {
         case '==':
@@ -90,13 +93,13 @@ class Collection<T> {
           ref = ref.where(field, arrayContains: value);
           break;
         case 'arrayContainsAny':
-          ref = ref.where(field, arrayContainsAny: value);
+          ref = ref.where(field, arrayContainsAny: value as List<dynamic>);
           break;
         case 'isNull':
-          ref = ref.where(field, isNull: value);
+          ref = ref.where(field, isNull: value as bool);
           break;
         case 'whereIn':
-          ref = ref.where(field, whereIn: value);
+          ref = ref.where(field, whereIn: value as List<dynamic>);
           break;
         default:
           ref = ref;
@@ -106,7 +109,7 @@ class Collection<T> {
   }
 
   Future<List<T>> getData() async {
-    var snapshots = await ref.get();
+    final QuerySnapshot snapshots = await ref.get();
     return snapshots.docs.map((doc) => Global.models[T](doc) as T).toList();
   }
 
@@ -124,7 +127,7 @@ class UserData<T> {
 
   Stream<T> get documentStream {
     if (_auth.currentUser != null) {
-      Document<T> doc =
+      final Document<T> doc =
           Document<T>(path: '$collection/${_auth.currentUser.uid}');
       return doc.streamData();
     } else {
@@ -133,8 +136,8 @@ class UserData<T> {
   }
 
   Future<void> upsert(Map data) async {
-    User user = _auth.currentUser;
-    Document<T> ref = Document(path: '$collection/${user.uid}');
+    final User user = _auth.currentUser;
+    final Document<T> ref = Document(path: '$collection/${user.uid}');
     return ref.createAndMerge(data);
   }
 }

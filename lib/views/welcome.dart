@@ -1,31 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:provider/provider.dart';
 
-import '../services/auth.dart';
 import '../styles/styles.dart';
-import 'home.dart';
 import 'universities.dart';
 
-class Welcome extends StatefulWidget {
-  @override
-  _WelcomeState createState() => _WelcomeState();
-}
-
-class _WelcomeState extends State<Welcome> {
-  AuthService auth = AuthService();
-
-  @override
-  void initState() {
-    super.initState();
-    final User user = Provider.of<User>(context);
-    if (user != null) {
-      Navigator.pushReplacement(
-          context, platformPageRoute(context: context, builder: (_) => Home()));
-    }
-  }
-
+class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
