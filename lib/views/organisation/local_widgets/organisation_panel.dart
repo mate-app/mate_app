@@ -89,7 +89,7 @@ class OrganisationPanel extends StatelessWidget {
                     percentOfStudyDone / 100,
                     percentOfStudyDone / 100 + 0.001,
                   ],
-                  colors: [
+                  colors: const [
                     // Colors are easy thanks to Flutter's Colors class.
                     MateColors.white,
                     MateColors.white,

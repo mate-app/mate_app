@@ -60,8 +60,8 @@ class NewsListPanel extends StatelessWidget {
                     children: <Widget>[
                       Tag(
                         tag: article.category,
-                        margin_bottom: 0,
-                        margin_right: 0,
+                        marginBottom: 0,
+                        marginRight: 0,
                       ),
                       const Spacer(flex: 2),
                       Text(

@@ -7,12 +7,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:mateapp/views/authenticator.dart';
 import 'package:provider/provider.dart';
 
 import 'services/services.dart';
 import 'styles/styles.dart';
-import 'views/views.dart';
+import 'views/authenticator.dart';
 import 'widgets/loading_screen.dart';
 
 FirebaseAnalytics analytics;
