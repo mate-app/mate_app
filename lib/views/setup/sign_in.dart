@@ -62,11 +62,11 @@
 //         context: context,
 //         builder: (BuildContext context) {
 //           return CupertinoAlertDialog(
-//             title: Text('Fehler'),
-//             content: Text(message),
+//             title: PlatformText('Fehler'),
+//             content: PlatformText(message),
 //             actions: <Widget>[
 //               CupertinoDialogAction(
-//                   child: Text('nochmal versuchen'),
+//                   child: PlatformText('nochmal versuchen'),
 //                   onPressed: () {
 //                     setState(() => _btnEnabled = false);
 //                     Navigator.pop(context);
@@ -100,13 +100,13 @@
 //                   child: Column(
 //                 children: <Widget>[
 //                   SizedBox(height: 40),
-//                   Text(
+//                   PlatformText(
 //                     'Anmeldung',
 //                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
 //                   ),
 //                   SizedBox(height: 20),
-//                   Text('Melde dich mit den Zugangsdaten'),
-//                   Text('von deiner Hochschule an.'),
+//                   PlatformText('Melde dich mit den Zugangsdaten'),
+//                   PlatformText('von deiner Hochschule an.'),
 //                   SizedBox(height: 30),
 //                   Container(
 //                     width: 300,
@@ -114,7 +114,7 @@
 //                     child: CupertinoTextField(
 //                       autofocus: true,
 //                       placeholder: 'mail' + widget.university.domain,
-//                       suffix: Text(widget.university.domain),
+//                       suffix: PlatformText(widget.university.domain),
 //                       suffixMode: OverlayVisibilityMode.editing,
 //                       expands: false,
 //                       clearButtonMode: OverlayVisibilityMode.editing,
@@ -161,7 +161,7 @@
 //                   SizedBox(height: 20),
 //                   CupertinoButton.filled(
 //                     padding: EdgeInsets.symmetric(vertical: 0, horizontal: 112),
-//                     child: Text('Anmelden'),
+//                     child: PlatformText('Anmelden'),
 //                     onPressed: _btnEnabled
 //                         ? () {
 //                             setState(() => _loading = true);
@@ -171,7 +171,7 @@
 //                   ),
 //                   CupertinoButton(
 //                     padding: EdgeInsets.symmetric(vertical: 0),
-//                     child: Text(
+//                     child: PlatformText(
 //                       'Neu? Jetzt Registrieren',
 //                       style: TextStyle(fontSize: 14),
 //                     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class StaticNavigationBar extends SliverPersistentHeaderDelegate {
   String title;
@@ -10,7 +11,7 @@ class StaticNavigationBar extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return CupertinoNavigationBar(
-      middle: Text(
+      middle: PlatformText(
         title,
         style: const TextStyle(
           fontSize: 15.5,

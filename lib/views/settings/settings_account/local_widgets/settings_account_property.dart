@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../../../styles/styles.dart';
 
@@ -15,13 +16,14 @@ class SettingsAccountProperty extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
       child: Row(
         children: <Widget>[
-          Text(propertyName,
+          PlatformText(propertyName,
               style: MateTextstyles.font
                   .apply(color: MateColors.grey, fontWeightDelta: 2)),
           const Spacer(
             flex: 2,
           ),
-          Text(value, style: MateTextstyles.font.apply(color: MateColors.grey))
+          PlatformText(value,
+              style: MateTextstyles.font.apply(color: MateColors.grey))
         ],
       ),
     );

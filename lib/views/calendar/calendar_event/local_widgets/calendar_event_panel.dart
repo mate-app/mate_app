@@ -23,7 +23,7 @@ class CalendarEventPanel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(event.courseName,
+          PlatformText(event.courseName,
               style: MateTextstyles.h1.apply(color: MateColors.white)),
           const Spacer(),
           Column(
@@ -31,7 +31,7 @@ class CalendarEventPanel extends StatelessWidget {
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.fromLTRB(3, 0, 0, 0),
-                child: Text(
+                child: PlatformText(
                   convertDateToString(event.date),
                   style: MateTextstyles.font.apply(
                     color: MateColors.white,

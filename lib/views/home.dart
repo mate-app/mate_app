@@ -30,23 +30,23 @@ class _HomeState extends State<Home> {
   List<BottomNavigationBarItem> items(BuildContext context) => [
         BottomNavigationBarItem(
           icon: const Icon(Icons.home),
-          title: Text(titles[0]),
+          title: PlatformText(titles[0]),
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.restaurant),
-          title: Text(titles[1]),
+          title: PlatformText(titles[1]),
         ),
         BottomNavigationBarItem(
           icon: const Icon(FontAwesomeIcons.newspaper),
-          title: Text(titles[2]),
+          title: PlatformText(titles[2]),
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.school),
-          title: Text(titles[3]),
+          title: PlatformText(titles[3]),
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.settings),
-          title: Text(titles[4]),
+          title: PlatformText(titles[4]),
         ),
       ];
 
@@ -60,11 +60,11 @@ class _HomeState extends State<Home> {
                   forceElevated: true,
                   expandedHeight: 150.0,
                   flexibleSpace: FlexibleSpaceBar(
-                    title: Text(titles[index]),
+                    title: PlatformText(titles[index]),
                   ),
                 ),
                 cupertino: (context, platform) => CupertinoSliverNavigationBar(
-                  largeTitle: Text(titles[index]),
+                  largeTitle: PlatformText(titles[index]),
                 ),
               ),
               tabs[index],

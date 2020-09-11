@@ -343,7 +343,7 @@ class ExaminationRegulationText extends StatelessWidget {
           //     margin: EdgeInsets.fromLTRB(0, 0, 0, 50),
           //     child: CupertinoButton(
           //       padding: EdgeInsets.zero,
-          //       child: Text('zur Webseite'),
+          //       child: PlatformText('zur Webseite'),
           //       onPressed: () => launchURL('www.mate-app.de/datenschutz'),
           //     ),
           //   ),

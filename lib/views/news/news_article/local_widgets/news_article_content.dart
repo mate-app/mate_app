@@ -29,19 +29,19 @@ class NewsArticleContent extends StatelessWidget {
             ),
             child: Row(
               children: <Widget>[
-                Text(
+                PlatformText(
                   article.author,
                   style: MateTextstyles.small.apply(color: MateColors.grey),
                 ),
                 const Spacer(),
-                Text(convertDateToString(article.date),
+                PlatformText(convertDateToString(article.date),
                     style: MateTextstyles.small.apply(color: MateColors.grey)),
               ],
             ),
           ),
           Container(
             padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
-            child: Text(
+            child: PlatformText(
               article.teaser,
               style: MateTextstyles.font.apply(color: MateColors.grey),
               // textAlign: TextAlign.justify,
@@ -49,7 +49,7 @@ class NewsArticleContent extends StatelessWidget {
           ),
           Container(
             padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
-            child: Text(
+            child: PlatformText(
               article.text,
               style: MateTextstyles.font.apply(color: MateColors.grey),
               // textAlign: TextAlign.justify,

@@ -42,7 +42,7 @@ class _SettingsAccountAnalyticsState extends State<SettingsAccountAnalytics> {
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
             child: Row(
               children: [
-                Text(
+                PlatformText(
                   'Analyse Aktivieren',
                   style: MateTextstyles.font
                       .apply(color: MateColors.grey, fontWeightDelta: 2),

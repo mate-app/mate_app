@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../../styles/styles.dart';
 
@@ -47,7 +48,7 @@ class _SettingsListItemState extends State<SettingsListItem> {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-            child: Text(
+            child: PlatformText(
               widget.title,
               style: MateTextstyles.font.apply(color: MateColors.grey),
             ),

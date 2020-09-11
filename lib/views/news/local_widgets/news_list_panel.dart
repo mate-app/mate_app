@@ -49,7 +49,7 @@ class NewsListPanel extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     height: 80,
-                    child: Text(article.title,
+                    child: PlatformText(article.title,
                         style:
                             MateTextstyles.h1.apply(color: MateColors.white)),
                   ),
@@ -64,7 +64,7 @@ class NewsListPanel extends StatelessWidget {
                         marginRight: 0,
                       ),
                       const Spacer(flex: 2),
-                      Text(
+                      PlatformText(
                         convertDateToString(article.date),
                         style:
                             MateTextstyles.tiny.apply(color: MateColors.white),
@@ -81,7 +81,7 @@ class NewsListPanel extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       height: 60,
-                      child: Text(
+                      child: PlatformText(
                         article.teaser != '' ? article.teaser : article.text,
                         style:
                             MateTextstyles.font.apply(color: MateColors.grey),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:mateapp/styles/styles.dart';
 import 'package:mateapp/widgets/widgets.dart';
 
@@ -36,7 +37,7 @@ class SettingsImprint extends StatelessWidget {
                   ),
                   Container(
                     padding: const EdgeInsets.fromLTRB(5, 25, 5, 0),
-                    child: Text(
+                    child: PlatformText(
                       '''
                         Verantwortliche: 
 

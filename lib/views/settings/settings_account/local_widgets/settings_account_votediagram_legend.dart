@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../../../styles/styles.dart';
 
@@ -24,7 +25,7 @@ class SettingsAccountVotediagramLegend extends StatelessWidget {
               color: color,
             ),
           ),
-          Text(
+          PlatformText(
             title,
             style: MateTextstyles.small.apply(color: MateColors.grey),
           ),

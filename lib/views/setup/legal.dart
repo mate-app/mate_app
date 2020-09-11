@@ -28,16 +28,16 @@
 //         context: context,
 //         builder: (BuildContext context) {
 //           return CupertinoAlertDialog(
-//             title: Text('Akzeptieren?'),
-//             content: Text('Du musst die lesen und bestätigen.'),
+//             title: PlatformText('Akzeptieren?'),
+//             content: PlatformText('Du musst die lesen und bestätigen.'),
 //             actions: <Widget>[
 //               CupertinoDialogAction(
-//                   child: Text('zurück'),
+//                   child: PlatformText('zurück'),
 //                   onPressed: () {
 //                     Navigator.pop(context);
 //                   }),
 //               CupertinoDialogAction(
-//                 child: Text('Bestätigen'),
+//                 child: PlatformText('Bestätigen'),
 //                 isDefaultAction: true,
 //                 onPressed: () {
 //                   Navigator.pop(context);
@@ -66,9 +66,9 @@
 
 //     return CupertinoPageScaffold(
 //       navigationBar: CupertinoNavigationBar(
-//         middle: Text('Datenschutzerklärung'),
+//         middle: PlatformText('Datenschutzerklärung'),
 //         trailing: CupertinoButton(
-//           child: Text('Weiter'),
+//           child: PlatformText('Weiter'),
 //           padding: EdgeInsets.all(0),
 //           onPressed: () => {_legalDialog(universities)},
 //         ),

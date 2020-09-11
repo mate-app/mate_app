@@ -18,7 +18,7 @@
 //           order: ['name', 'ASC']).streamData(),
 //       child: CupertinoPageScaffold(
 //         navigationBar: CupertinoNavigationBar(
-//           middle: Text('Wähle dein Modul'),
+//           middle: PlatformText('Wähle dein Modul'),
 //         ),
 //         child: SubjectList(
 //           university: university,
@@ -48,7 +48,7 @@
 //             child: Container(
 //               color: CupertinoColors.white,
 //               child: ListTile(
-//                 title: Text(subjects[index].name),
+//                 title: PlatformText(subjects[index].name),
 //                 trailing: Icon(CupertinoIcons.right_chevron),
 //                 onTap: () {
 //                   Navigator.push(

@@ -14,7 +14,7 @@
 //   Widget build(BuildContext context) {
 //     return CupertinoPageScaffold(
 //       navigationBar: CupertinoNavigationBar(
-//         middle: Text(subject.name),
+//         middle: PlatformText(subject.name),
 //       ),
 //       child: SemesterList(
 //         university: university,
@@ -45,7 +45,7 @@
 //             child: Container(
 //               color: CupertinoColors.white,
 //               child: ListTile(
-//                 title: Text("${index + 1}. Fachsemester"),
+//                 title: PlatformText("${index + 1}. Fachsemester"),
 //                 trailing: Icon(CupertinoIcons.right_chevron),
 //                 onTap: () {
 //                   Navigator.push(
