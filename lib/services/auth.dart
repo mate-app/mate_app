@@ -51,6 +51,7 @@ class AuthService {
       user = result.user;
       await _saveCredentials(email, password);
     } on FirebaseAuthException catch (error) {
+      Crashlytics.instance.recordError(error, StackTrace.current);
       switch (error.code) {
         case 'invalid-email':
           errorMessage =
@@ -67,9 +68,11 @@ class AuthService {
           errorMessage = 'Dein Passwort ist leider nicht korrekt.';
           break;
         default:
-          errorMessage = 'Ein unbekannter Fehler ist aufgetreten.';
+          errorMessage =
+              'Ein Serverfehler ist aufgetreten. Wir arbeiten bereits dran!';
       }
     } catch (error) {
+      Crashlytics.instance.recordError(error, StackTrace.current);
       errorMessage = 'Ein unbekannter Fehler ist aufgetreten.';
     }
 
@@ -92,19 +95,10 @@ class AuthService {
       final UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       user = result.user;
-      await UserData(collection: 'users').upsert({
-        'user_id': user.uid,
-        'mail': email,
-        'university': university.shortName,
-        'subject': subject.name,
-        'semester': semester,
-        'department': subject.department,
-        'language': 'german',
-        'upvotes': [],
-        'downvotes': []
-      });
+      await _updateUserdata(user, email, university, subject, semester);
       await _saveCredentials(email, password);
     } on FirebaseAuthException catch (error) {
+      Crashlytics.instance.recordError(error, StackTrace.current);
       switch (error.code) {
         case 'invalid-email':
           errorMessage =
@@ -118,9 +112,101 @@ class AuthService {
           errorMessage = 'Du bist bei uns bereits registriert.';
           break;
         default:
-          errorMessage = 'Ein unbekannter Fehler ist aufgetreten.';
+          errorMessage =
+              'Ein Serverfehler ist aufgetreten. Wir arbeiten bereits dran!';
       }
-    } catch (e) {
+    } catch (error) {
+      Crashlytics.instance.recordError(error, StackTrace.current);
+      errorMessage = 'Ein unbekannter Fehler ist aufgetreten.';
+    }
+
+    if (errorMessage != null) {
+      return Future.error(errorMessage);
+    }
+
+    return user;
+  }
+
+  Future<void> _updateUserdata(User user, String email, University university,
+      Subject subject, int semester) async {
+    return UserData(collection: 'users').upsert({
+      'user_id': user.uid,
+      'mail': email,
+      'university': university.shortName,
+      'subject': subject.name,
+      'semester': semester,
+      'department': subject.department,
+      'language': 'german',
+      'upvotes': [],
+      'downvotes': []
+    });
+  }
+
+  // Anonymous Firebase Login
+  Future anonLogin(University university, Subject subject, int semester) async {
+    User user;
+    String errorMessage;
+    try {
+      final UserCredential result = await _auth.signInAnonymously();
+      user = result.user;
+      await _updateUserdata(user, '', university, subject, semester);
+    } on FirebaseAuthException catch (error) {
+      Crashlytics.instance.recordError(error, StackTrace.current);
+      if (error.code == 'operation-not-allowed ') {
+        errorMessage =
+            'Ein Serverfehler ist aufgetreten. Wir arbeiten bereits dran!';
+      }
+    } catch (error) {
+      Crashlytics.instance.recordError(error, StackTrace.current);
+      errorMessage = 'Ein unbekannter Fehler ist aufgetreten.';
+    }
+
+    if (errorMessage != null) {
+      return Future.error(errorMessage);
+    }
+
+    return user;
+  }
+
+  // convert anonymous user to full user
+  Future upgradeUserAccount(String email, String password) async {
+    final User user = _auth.currentUser;
+    String errorMessage;
+
+    final AuthCredential credential =
+        EmailAuthProvider.credential(email: email, password: password);
+
+    try {
+      await user.linkWithCredential(credential);
+      await UserData(collection: 'users').upsert({
+        'mail': email,
+      });
+    } on FirebaseAuthException catch (error) {
+      Crashlytics.instance.recordError(error, StackTrace.current);
+      switch (error.code) {
+        case 'provider-already-linked':
+          errorMessage = 'Der Provider ist bereits verlinkt.';
+          break;
+        case 'invalid-credential':
+          errorMessage = 'Deine Authentifizierungsdaten sind leider ungültig.';
+          break;
+        case 'credential-already-in-use':
+          errorMessage =
+              'Deine Logindaten sind bereits in Verwendung. Versuche dich einzuloggen';
+          break;
+        case 'invalid-email':
+          errorMessage =
+              'Deine eingegebene E-Mail-Adresse ist leider ungültig.';
+          break;
+        case 'email-already-in-use':
+          errorMessage = 'Du bist bei uns bereits registriert.';
+          break;
+        default:
+          errorMessage =
+              'Ein Serverfehler ist aufgetreten. Wir arbeiten bereits dran!';
+      }
+    } catch (error) {
+      Crashlytics.instance.recordError(error, StackTrace.current);
       errorMessage = 'Ein unbekannter Fehler ist aufgetreten.';
     }
 

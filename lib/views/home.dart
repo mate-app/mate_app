@@ -1,15 +1,12 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mateapp/styles/colors.dart';
-import 'package:mateapp/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 import '../models/models.dart';
 import '../services/services.dart';
+import '../utils/utils.dart';
 import 'calendar/calendar.dart';
 import 'views.dart';
 
