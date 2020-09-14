@@ -38,9 +38,11 @@ class MainApp extends StatelessWidget {
       future: _initialization,
       builder: (context, snapshot) {
         // check for error
-        if (snapshot.hasError ||
-            snapshot.connectionState != ConnectionState.done) {
+        if (snapshot.hasError) {
           Crashlytics.instance.recordError(snapshot.error, StackTrace.current);
+        }
+
+        if (snapshot.connectionState != ConnectionState.done) {
           return const LoadingScreen();
         }
 
