@@ -40,8 +40,10 @@ class University {
     website =
         doc.data()['website'] is String ? doc.data()['website'] as String : '';
     zip = doc.data()['zip'] is String ? doc.data()['zip'] as String : '';
-    nextHolidays = doc.data()['next_holidays'].toDate() is DateTime
-        ? doc.data()['next_holidays'].toDate() as DateTime
+    nextHolidays = doc.data()['next_holidays'] != null
+        ? doc.data()['next_holidays'].toDate() is DateTime
+            ? doc.data()['next_holidays'].toDate() as DateTime
+            : DateTime.utc(1970)
         : DateTime.utc(1970);
   }
 }

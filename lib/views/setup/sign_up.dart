@@ -42,24 +42,24 @@
 //       setState(() => _btnEnabled = true);
 //   }
 
-//   void sendForm() async {
-//     await _auth
-//         .registerWithEmailAndPassword(
-//             email.fieldContent + widget.university.domain,
-//             password.fieldContent,
-//             widget.university,
-//             widget.subject,
-//             widget.semester)
-//         .then((value) {
-//       Navigator.pushAndRemoveUntil(
-//           context,
-//           CupertinoPageRoute(builder: (context) => Wrapper()),
-//           (route) => false);
-//     }, onError: (error) {
-//       setState(() => _loading = false);
-//       _registerAlert(message: error);
-//     });
-//   }
+// void sendForm() async {
+//   await _auth
+//       .registerWithEmailAndPassword(
+//           email.fieldContent + widget.university.domain,
+//           password.fieldContent,
+//           widget.university,
+//           widget.subject,
+//           widget.semester)
+//       .then((value) {
+//     Navigator.pushAndRemoveUntil(
+//         context,
+//         CupertinoPageRoute(builder: (context) => Wrapper()),
+//         (route) => false);
+//   }, onError: (error) {
+//     setState(() => _loading = false);
+//     _registerAlert(message: error);
+//   });
+// }
 
 //   Future<void> _registerAlert(
 //       {String message = 'Ein unbekannter Fehler ist aufgetreten.'}) async {

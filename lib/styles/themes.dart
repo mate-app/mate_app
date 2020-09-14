@@ -19,5 +19,7 @@ ThemeData buildThemeData() {
     accentColor: MateColors.primary,
     primaryColor: MateColors.white,
     cupertinoOverrideTheme: buildCupertinoThemeData(),
+    backgroundColor: MateColors.white,
+    scaffoldBackgroundColor: MateColors.white,
   );
 }

@@ -47,48 +47,51 @@ class SettingsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(10, 20, 10, 60),
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            // Allgemein
-            Container(
-              padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
-              child: PlatformText("Allgemein", style: MateTextstyles.small),
-            ),
+    return SliverToBoxAdapter(
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(10, 20, 10, 60),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              // Allgemein
+              Container(
+                padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
+                child: PlatformText("Allgemein", style: MateTextstyles.small),
+              ),
 
-            SliverList(
-                delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) => generalItems[index])),
+              SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) =>
+                          generalItems[index])),
 
-            //Information
-            Container(
-              padding: const EdgeInsets.fromLTRB(10, 35, 0, 10),
-              child: PlatformText("Information", style: MateTextstyles.small),
-            ),
-            SliverList(
-                delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) =>
-                        informationItems[index])),
-            Container(
-              color: MateColors.white,
-              height: 80.0,
-              child: Center(
-                child: PlatformButton(
-                  color: MateColors.primary,
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
-                  onPressed: () async {
-                    final credentials = await SharedPreferences.getInstance();
-                    credentials.remove('email');
-                    credentials.remove('password');
-                    await _auth.signOut();
-                  },
-                  child: PlatformText('logout'),
+              //Information
+              Container(
+                padding: const EdgeInsets.fromLTRB(10, 35, 0, 10),
+                child: PlatformText("Information", style: MateTextstyles.small),
+              ),
+              SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) =>
+                          informationItems[index])),
+              Container(
+                color: MateColors.white,
+                height: 80.0,
+                child: Center(
+                  child: PlatformButton(
+                    color: MateColors.primary,
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    onPressed: () async {
+                      final credentials = await SharedPreferences.getInstance();
+                      credentials.remove('email');
+                      credentials.remove('password');
+                      await _auth.signOut();
+                    },
+                    child: PlatformText('logout'),
+                  ),
                 ),
               ),
-            ),
-          ]),
+            ]),
+      ),
     );
   }
 }

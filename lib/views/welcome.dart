@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:mateapp/widgets/widgets.dart';
 
 import '../styles/styles.dart';
 import 'universities.dart';
@@ -20,8 +21,8 @@ class Welcome extends StatelessWidget {
               )),
           Padding(
             padding: const EdgeInsets.fromLTRB(30, 12.5, 30, 0),
-            child: PlatformText(
-              'Lege sofort los und genieße dein ganzes Studium in nur einer App.',
+            child: DynamicText(
+              'Lege sofort los und genieße dein ganzes \nStudium in nur einer App.',
               style: MateTextstyles.font.apply(color: MateColors.grey),
               textAlign: TextAlign.center,
             ),
@@ -31,14 +32,24 @@ class Welcome extends StatelessWidget {
           ),
           Container(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-            child: PlatformButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    platformPageRoute(
-                        context: context, builder: (_) => Universities()));
-              },
-              child: PlatformText('Loslegen'),
+            child: ButtonTheme(
+              minWidth: MediaQuery.of(context).size.width * 0.6,
+              child: PlatformButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      platformPageRoute(
+                          context: context, builder: (_) => Universities()));
+                },
+                cupertinoFilled: (_, __) => CupertinoFilledButtonData(),
+                material: (_, __) => MaterialRaisedButtonData(
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: MateShapes.roundedEdges),
+                  color: MateColors.primary,
+                  textColor: MateColors.white,
+                ),
+                child: PlatformText('Loslegen'),
+              ),
             ),
           ),
           const SizedBox(height: 20)
