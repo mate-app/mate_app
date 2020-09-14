@@ -41,7 +41,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  lint: ^1.1.1
+  lint: ^1.2.0
 
 flutter_icons:
   android: true

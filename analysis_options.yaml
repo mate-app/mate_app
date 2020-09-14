@@ -5,6 +5,7 @@ analyzer:
     missing_required_param: error
     parameter_assignments: error
     missing_return: error
+    todo: info
 
 linter:
   rules:

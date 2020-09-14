@@ -162,7 +162,6 @@ class _CafeteriaListPanelState extends State<CafeteriaListPanel> {
                 onPressed: _btnEnabled && !upvoted ? _downvote : null,
                 child: Icon(
                   Icons.keyboard_arrow_down,
-                  // TODO: change upvote and downvote color for arrow to something nice
                   color: downvoted ? Colors.white54 : MateColors.white,
                   size: 40.0,
                 ),

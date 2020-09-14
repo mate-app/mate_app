@@ -8,7 +8,6 @@ class Tag extends StatelessWidget {
   final double marginRight;
   final double marginBottom;
 
-// TODO: 0 default margin, turn around with mensa screen
   // Constructor
   const Tag(
       {Key key,
