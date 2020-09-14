@@ -122,13 +122,14 @@ class Collection<T> {
 class UserData<T> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final String collection;
+  User user;
 
-  UserData({this.collection});
+  UserData({this.collection, this.user});
 
   Stream<T> get documentStream {
+    user = _auth.currentUser;
     if (_auth.currentUser != null) {
-      final Document<T> doc =
-          Document<T>(path: '$collection/${_auth.currentUser.uid}');
+      final Document<T> doc = Document<T>(path: '$collection/${user.uid}');
       return doc.streamData();
     } else {
       return Stream<T>.value(null);

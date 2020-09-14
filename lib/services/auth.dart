@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:http/http.dart';
@@ -95,7 +96,17 @@ class AuthService {
       final UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       user = result.user;
-      await _updateUserdata(user, email, university, subject, semester);
+      await UserData(collection: 'users').upsert({
+        'user_id': user.uid,
+        'mail': email,
+        'university': university.shortName,
+        'subject': subject.name,
+        'semester': semester,
+        'department': subject.department,
+        'language': 'german',
+        'upvotes': [],
+        'downvotes': []
+      });
       await _saveCredentials(email, password);
     } on FirebaseAuthException catch (error) {
       Crashlytics.instance.recordError(error, StackTrace.current);
@@ -127,29 +138,17 @@ class AuthService {
     return user;
   }
 
-  Future<void> _updateUserdata(User user, String email, University university,
-      Subject subject, int semester) async {
-    return UserData(collection: 'users').upsert({
-      'user_id': user.uid,
-      'mail': email,
-      'university': university.shortName,
-      'subject': subject.name,
-      'semester': semester,
-      'department': subject.department,
-      'language': 'german',
-      'upvotes': [],
-      'downvotes': []
-    });
-  }
-
   // Anonymous Firebase Login
-  Future anonLogin(University university, Subject subject, int semester) async {
+  Future anonLogin(University university) async {
     User user;
     String errorMessage;
     try {
       final UserCredential result = await _auth.signInAnonymously();
       user = result.user;
-      await _updateUserdata(user, '', university, subject, semester);
+      await updateUserData(
+        user,
+        {'university': university, 'language': 'german'},
+      );
     } on FirebaseAuthException catch (error) {
       Crashlytics.instance.recordError(error, StackTrace.current);
       if (error.code == 'operation-not-allowed ') {
@@ -169,7 +168,8 @@ class AuthService {
   }
 
   // convert anonymous user to full user
-  Future upgradeUserAccount(String email, String password) async {
+  Future upgradeUserAccount(
+      String email, String password, Subject subject, int semester) async {
     final User user = _auth.currentUser;
     String errorMessage;
 
@@ -178,9 +178,8 @@ class AuthService {
 
     try {
       await user.linkWithCredential(credential);
-      await UserData(collection: 'users').upsert({
-        'mail': email,
-      });
+      await UserData(collection: 'users').upsert(
+          {'mail': email, 'subject': subject.name, 'semester': semester});
     } on FirebaseAuthException catch (error) {
       Crashlytics.instance.recordError(error, StackTrace.current);
       switch (error.code) {
@@ -215,6 +214,11 @@ class AuthService {
     }
 
     return user;
+  }
+
+  Future<void> updateUserData(User user, Map<String, dynamic> data) async {
+    final DocumentReference reportRef = Document(path: 'users/${user.uid}').ref;
+    return reportRef.set(data, SetOptions(merge: true));
   }
 
   // sign out
