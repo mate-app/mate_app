@@ -10,7 +10,7 @@ class News extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final UserModel user = Provider.of<UserModel>(context);
-    if (user != null) {
+    if (!AuthService().getUser.isAnonymous) {
       return StreamBuilder<List<Article>>(
         stream: Collection<Article>(
             path: 'hochschulen/${user.university}/news',

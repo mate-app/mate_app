@@ -10,7 +10,7 @@ class Organisation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final UserModel user = Provider.of<UserModel>(context);
-    if (user != null) {
+    if (!AuthService().getUser.isAnonymous) {
       return SliverList(
         delegate: SliverChildListDelegate(
           [

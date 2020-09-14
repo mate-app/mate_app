@@ -4,7 +4,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../../styles/styles.dart';
 
-class SettingsListItem extends StatefulWidget {
+class SettingsListItem extends StatelessWidget {
   final String title;
   final IconData iconData;
   final Widget route;
@@ -17,50 +17,35 @@ class SettingsListItem extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _SettingsListItemState createState() => _SettingsListItemState();
-}
-
-class _SettingsListItemState extends State<SettingsListItem> {
-  @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        border: Border(
-            bottom: BorderSide(
+    return PlatformButton(
+      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+      onPressed: () {
+        Navigator.push(
+          context,
+          platformPageRoute(context: context, builder: (_) => route),
+        );
+      },
+      child: Row(children: <Widget>[
+        Icon(
+          iconData ?? Icons.brightness_1,
           color: MateColors.grey,
-        )),
-      ),
-      margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-      child: CupertinoButton(
-        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-        onPressed: () {
-          Navigator.of(context).push(
-            CupertinoPageRoute(builder: (context) {
-              return widget.route;
-            }),
-          );
-        },
-        child: Row(children: <Widget>[
-          Icon(
-            widget.iconData ?? Icons.brightness_1,
-            color: MateColors.grey,
-            size: 15.0,
+          size: 15.0,
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+          child: PlatformText(
+            title,
+            style: MateTextstyles.font.apply(color: MateColors.grey),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-            child: PlatformText(
-              widget.title,
-              style: MateTextstyles.font.apply(color: MateColors.grey),
-            ),
-          ),
-          const Spacer(),
-          const Icon(
-            Icons.keyboard_arrow_right,
-            color: MateColors.grey,
-            size: 15.0,
-          ),
-        ]),
-      ),
+        ),
+        const Spacer(),
+        const Icon(
+          Icons.keyboard_arrow_right,
+          color: MateColors.grey,
+          size: 15.0,
+        ),
+      ]),
     );
   }
 }

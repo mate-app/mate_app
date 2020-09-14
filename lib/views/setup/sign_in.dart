@@ -64,14 +64,14 @@
 //           return CupertinoAlertDialog(
 //             title: PlatformText('Fehler'),
 //             content: PlatformText(message),
-//             actions: <Widget>[
-//               CupertinoDialogAction(
-//                   child: PlatformText('nochmal versuchen'),
-//                   onPressed: () {
-//                     setState(() => _btnEnabled = false);
-//                     Navigator.pop(context);
-//                   }),
-//             ],
+// actions: <Widget>[
+//   CupertinoDialogAction(
+//       child: PlatformText('nochmal versuchen'),
+//       onPressed: () {
+//         setState(() => _btnEnabled = false);
+//         Navigator.pop(context);
+//       }),
+// ],
 //           );
 //         });
 //   }

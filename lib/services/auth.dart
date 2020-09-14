@@ -18,6 +18,10 @@ class AuthService {
     return _auth.authStateChanges();
   }
 
+  User get getUser {
+    return _auth.currentUser;
+  }
+
   Future<bool> _saveCredentials(String email, String password) async {
     final credentials = await SharedPreferences.getInstance();
     final bool emailSet = await credentials.setString('email', email);
@@ -147,7 +151,13 @@ class AuthService {
       user = result.user;
       await updateUserData(
         user,
-        {'university': university, 'language': 'german'},
+        {
+          'university': university.shortName,
+          'language': 'german',
+          'votes': [],
+          'upvotes': [],
+          'downvotes': []
+        },
       );
     } on FirebaseAuthException catch (error) {
       Crashlytics.instance.recordError(error, StackTrace.current);
@@ -217,8 +227,11 @@ class AuthService {
   }
 
   Future<void> updateUserData(User user, Map<String, dynamic> data) async {
-    final DocumentReference reportRef = Document(path: 'users/${user.uid}').ref;
-    return reportRef.set(data, SetOptions(merge: true));
+    final DocumentReference reportRef =
+        FirebaseFirestore.instance.collection('users').doc(user.uid);
+    await reportRef.set(data);
+
+    return;
   }
 
   // sign out

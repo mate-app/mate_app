@@ -17,8 +17,8 @@ class OrganisationListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return PlatformButton(
       onPressed: () {
-        Navigator.push(context,
-            platformPageRoute(context: context, builder: (context) => page));
+        Navigator.push(
+            context, platformPageRoute(context: context, builder: (_) => page));
       },
       child: Container(
         padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),

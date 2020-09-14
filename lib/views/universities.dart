@@ -68,6 +68,14 @@ class _UniversityListState extends State<UniversityList> {
         builder: (_) => PlatformAlertDialog(
               title: const Text('Fehler'),
               content: Text(message),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: DynamicText('nochmal versuchen'),
+                )
+              ],
             ));
   }
 
