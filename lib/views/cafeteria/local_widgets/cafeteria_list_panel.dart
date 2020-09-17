@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 
 import '../../../models/models.dart';
 import '../../../services/services.dart';
+import '../../../shared/widgets.dart';
 import '../../../styles/styles.dart';
-import '../../../widgets/widgets.dart';
 
 class CafeteriaListPanel extends StatefulWidget {
   final Dish dish;

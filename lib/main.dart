@@ -10,9 +10,9 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
 import 'services/services.dart';
+import 'shared/widgets.dart';
 import 'styles/styles.dart';
 import 'views/authenticator.dart';
-import 'widgets/loading_screen.dart';
 
 FirebaseAnalytics analytics;
 
@@ -43,7 +43,7 @@ class MainApp extends StatelessWidget {
         }
 
         if (snapshot.connectionState != ConnectionState.done) {
-          return const LoadingScreen();
+          return LoadingScreen();
         }
 
         return MultiProvider(

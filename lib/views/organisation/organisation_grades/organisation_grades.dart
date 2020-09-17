@@ -4,14 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:http/http.dart';
-import 'package:mateapp/views/organisation/organisation_grades/local_widgets/local_widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../models/models.dart';
 import '../../../services/services.dart';
+import '../../../shared/widgets.dart';
 import '../../../styles/styles.dart';
-import '../../../widgets/widgets.dart';
+import 'local_widgets/local_widgets.dart';
 
 class OrganisationGrades extends StatelessWidget {
   Future<Response> _updateGrades(String id) async {

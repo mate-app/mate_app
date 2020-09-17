@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:mateapp/styles/styles.dart';
-import 'package:mateapp/widgets/widgets.dart';
+import 'package:mateapp/shared/widgets.dart';
 
 class SettingsImprint extends StatelessWidget {
   @override

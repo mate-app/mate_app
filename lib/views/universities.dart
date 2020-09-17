@@ -3,12 +3,12 @@ import 'dart:math' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:mateapp/views/views.dart';
 
 import '../models/models.dart';
 import '../services/services.dart';
+import '../shared/widgets.dart';
 import '../styles/styles.dart';
-import '../widgets/widgets.dart';
+import 'views.dart';
 
 class Universities extends StatelessWidget {
   @override

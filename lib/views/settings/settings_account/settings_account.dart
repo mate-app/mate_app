@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mateapp/styles/styles.dart';
 import 'package:mateapp/views/settings/settings_account/local_widgets/local_widgets.dart';
-import 'package:mateapp/widgets/widgets.dart';
+import 'package:mateapp/shared/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsAccount extends StatelessWidget {

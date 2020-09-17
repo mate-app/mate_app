@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../models/models.dart';
+import '../../../shared/widgets.dart';
 import '../../../styles/styles.dart';
-import '../../../widgets/widgets.dart';
 import 'local_widgets/local_widgets.dart';
 
 class NewsArticle extends StatelessWidget {

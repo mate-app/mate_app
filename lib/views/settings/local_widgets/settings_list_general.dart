@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mateapp/styles/styles.dart';
-import 'package:mateapp/widgets/widgets.dart';
+import 'package:mateapp/shared/widgets.dart';
 
 import '../settings_account/settings_account.dart';
 import 'local_widgets.dart';

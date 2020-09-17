@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mateapp/styles/styles.dart';
-import 'package:mateapp/widgets/widgets.dart';
+import 'package:mateapp/shared/widgets.dart';
 
 import '../settings_codeofconduct/settings_codeofconduct.dart';
 import '../settings_imprint/settings_imprint.dart';

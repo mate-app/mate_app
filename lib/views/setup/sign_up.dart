@@ -2,7 +2,7 @@
 // import 'package:flutter/material.dart';
 // import 'package:mateapp/models/models.dart';
 // import 'package:mateapp/services/services.dart';
-// import 'package:mateapp/widgets/widgets.dart';
+// import 'package:mateapp/shared/widgets.dart';
 // import 'package:mateapp/views/views.dart';
 
 // class RegisterScreen extends StatefulWidget {

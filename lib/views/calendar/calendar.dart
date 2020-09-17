@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/models.dart';
 import '../../services/services.dart';
-import '../../widgets/widgets.dart';
+import '../../shared/widgets.dart';
 import 'local_widgets/local_widgets.dart';
 
 class Calendar extends StatelessWidget {
@@ -37,6 +37,6 @@ class Calendar extends StatelessWidget {
         },
       );
     }
-    return const SliverLoadingIndicator();
+    return RegisterButton();
   }
 }

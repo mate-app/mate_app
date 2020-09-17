@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
+import '../../../shared/widgets.dart';
 import '../../../styles/styles.dart';
-import '../../../widgets/widgets.dart';
 
 class SettingsPrivacy extends StatelessWidget {
   @override
