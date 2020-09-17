@@ -10,10 +10,7 @@ class Tag extends StatelessWidget {
 
   // Constructor
   const Tag(
-      {Key key,
-      this.tag = '',
-      this.marginRight = 10.0,
-      this.marginBottom = 20.0})
+      {Key key, this.tag = '', this.marginRight = 0, this.marginBottom = 0})
       : super(key: key);
 
   @override

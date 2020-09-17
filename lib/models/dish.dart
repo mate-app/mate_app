@@ -10,8 +10,8 @@ class Dish {
   Dish.fromMap(doc) {
     id = doc.id is String ? doc.id as String : '';
     name = doc.data()['name'] is String ? doc.data()['name'] as String : '';
-    tags = doc.data()['tags'] is List<String>
-        ? doc.data()['tags'] as List<String>
+    tags = doc.data()['tags'] is List
+        ? List<String>.from(doc.data()['tags'] as List)
         : [];
     price = doc.data()['price'] is String ? doc.data()['price'] as String : '';
     date = doc.data()['date'].toDate() is DateTime

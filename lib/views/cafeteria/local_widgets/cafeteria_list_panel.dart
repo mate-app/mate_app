@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:provider/provider.dart';
 
 import '../../../models/models.dart';
 import '../../../services/services.dart';
@@ -10,8 +9,9 @@ import '../../../styles/styles.dart';
 
 class CafeteriaListPanel extends StatefulWidget {
   final Dish dish;
+  final UserModel user;
 
-  const CafeteriaListPanel({Key key, this.dish}) : super(key: key);
+  const CafeteriaListPanel({Key key, this.dish, this.user}) : super(key: key);
 
   @override
   _CafeteriaListPanelState createState() => _CafeteriaListPanelState();
@@ -20,30 +20,22 @@ class CafeteriaListPanel extends StatefulWidget {
 class _CafeteriaListPanelState extends State<CafeteriaListPanel> {
   bool upvoted;
   bool downvoted;
-  bool _btnEnabled;
-  UserModel user;
+  bool _btnEnabled = false;
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      user = Provider.of<UserModel>(context);
+      _btnEnabled = false;
+      downvoted = widget.user.downvotes.contains(widget.dish.id) ?? false;
+      upvoted = widget.user.upvotes.contains(widget.dish.id) ?? false;
     });
-    if (user.downvotes.contains(widget.dish.id)) {
-      setState(() {
-        downvoted = true;
-      });
-    }
-    if (user.upvotes.contains(widget.dish.id)) {
-      setState(() {
-        upvoted = true;
-      });
-    }
   }
 
   Future<void> _vote(Map increment, Map userVotes) async {
     await Document(
-            path: 'hochschulen/${user.university}/mensa/${widget.dish.id}')
+            path:
+                'hochschulen/${widget.user.university}/mensa/${widget.dish.id}')
         .upsert(increment);
     return UserData(collection: 'users').upsert(userVotes);
   }
@@ -117,27 +109,35 @@ class _CafeteriaListPanelState extends State<CafeteriaListPanel> {
                   maxWidth: MediaQuery.of(context).size.width * 0.64,
                 ),
                 height: 100,
-                child: PlatformText(widget.dish.name,
+                child: DynamicText(widget.dish.name,
                     style: MateTextstyles.h2.apply(color: MateColors.white)),
               ),
               const Spacer(
                 flex: 2,
               ),
               Container(
-                  height: 70,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: [for (var i in tags) Tag(tag: i)],
-                      ),
-                      PlatformText(
-                        '${widget.dish.price} €',
-                        style:
-                            MateTextstyles.small.apply(color: MateColors.white),
-                      )
-                    ],
-                  ))
+                height: 70,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      children: [
+                        for (var i in tags)
+                          Tag(
+                            tag: i,
+                            marginBottom: 20,
+                            marginRight: 10,
+                          )
+                      ],
+                    ),
+                    PlatformText(
+                      '${widget.dish.price} €',
+                      style:
+                          MateTextstyles.small.apply(color: MateColors.white),
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
           const Spacer(),
@@ -153,7 +153,7 @@ class _CafeteriaListPanelState extends State<CafeteriaListPanel> {
                   size: 40.0,
                 ),
               ),
-              PlatformText(
+              DynamicText(
                 widget.dish.rating.toString(),
                 style: MateTextstyles.h2.apply(color: MateColors.white),
               ),

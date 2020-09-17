@@ -104,7 +104,7 @@ class Collection<T> {
         default:
           ref = ref;
       }
-      _addFilter(queries, loops);
+      _addFilter(queries, i);
     }
   }
 
