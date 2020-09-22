@@ -10,25 +10,48 @@ class News extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final UserModel user = Provider.of<UserModel>(context);
-    if (!AuthService().getUser.isAnonymous) {
-      return StreamBuilder<List<Article>>(
-        stream: Collection<Article>(
-            path: 'hochschulen/${user.university}/news',
-            queries: [
-              CustomQuery(
-                  field: 'category',
-                  operation: 'whereIn',
-                  value: ['Allgemein', user.department])
-            ],
-            limit: 30,
-            order: ['date', 'DESC']).streamData(),
-        builder: (BuildContext context, AsyncSnapshot<List<Article>> snapshot) {
-          if (snapshot.hasData) {
-            return NewsList(news: snapshot.data);
-          }
-          return const SliverLoadingIndicator();
-        },
-      );
+    if (user != null) {
+      if (!AuthService().getUser.isAnonymous) {
+        return StreamBuilder<List<Article>>(
+          stream: Collection<Article>(
+              path: 'hochschulen/${user.university}/news',
+              queries: [
+                CustomQuery(
+                    field: 'category',
+                    operation: 'whereIn',
+                    value: ['Allgemein', user.department])
+              ],
+              limit: 30,
+              order: ['date', 'DESC']).streamData(),
+          builder:
+              (BuildContext context, AsyncSnapshot<List<Article>> snapshot) {
+            if (snapshot.hasData) {
+              return NewsList(news: snapshot.data);
+            }
+            return const SliverLoadingIndicator();
+          },
+        );
+      } else {
+        return StreamBuilder<List<Article>>(
+          stream: Collection<Article>(
+              path: 'hochschulen/${user.university}/news',
+              queries: [
+                CustomQuery(
+                    field: 'category',
+                    operation: 'whereIn',
+                    value: ['Allgemein'])
+              ],
+              limit: 30,
+              order: ['date', 'DESC']).streamData(),
+          builder:
+              (BuildContext context, AsyncSnapshot<List<Article>> snapshot) {
+            if (snapshot.hasData) {
+              return NewsList(news: snapshot.data);
+            }
+            return const SliverLoadingIndicator();
+          },
+        );
+      }
     }
     return const SliverLoadingIndicator();
   }
