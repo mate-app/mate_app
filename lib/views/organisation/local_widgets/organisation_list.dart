@@ -1,25 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:mateapp/services/services.dart';
 import 'package:mateapp/views/organisation/organisation_grades/organisation_grades.dart';
 
 import '../../../styles/styles.dart';
 import 'local_widgets.dart';
 
 class OrganisationList extends StatelessWidget {
-  static final titles = [
-    // 'Meine Module',
-    // 'Personen',
-    'Notenübersicht',
-    // 'Prüfungsordnung'
-  ];
-
-  final List<Widget> pages = [
-    // OrganisationModules(),
-    // OrganisationStaff(),
-    OrganisationGrades(),
-    // OrganisationExamregulations(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,13 +27,11 @@ class OrganisationList extends StatelessWidget {
               child:
                   PlatformText("Essential Links", style: MateTextstyles.small),
             ),
-            SliverList(delegate:
-                SliverChildBuilderDelegate((BuildContext context, int index) {
-              return OrganisationListItem(
-                page: pages[index],
-                title: titles[index],
-              );
-            })),
+            if (!AuthService().getUser.isAnonymous)
+              OrganisationListItem(
+                page: OrganisationGrades(),
+                title: 'Notenübersicht',
+              )
           ]),
     );
   }
