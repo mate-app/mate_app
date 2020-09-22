@@ -28,6 +28,16 @@ class Cafeteria extends StatelessWidget {
           ]).streamData(),
       builder: (BuildContext context, AsyncSnapshot<List<Dish>> snapshot) {
         if (snapshot.hasData) {
+          if (snapshot.data.isEmpty) {
+            return const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 50,
+                child: Center(
+                  child: Text('Heute gibt es keine Gerichte.'),
+                ),
+              ),
+            );
+          }
           return CafeteriaList(user: user, dishes: snapshot.data);
         }
         return const SliverLoadingIndicator();
