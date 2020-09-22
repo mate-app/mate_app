@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:mateapp/services/services.dart';
+import 'package:mateapp/shared/widgets.dart';
 import 'package:mateapp/views/organisation/organisation_grades/organisation_grades.dart';
 
 import '../../../styles/styles.dart';
@@ -32,6 +33,8 @@ class OrganisationList extends StatelessWidget {
                 page: OrganisationGrades(),
                 title: 'Notenübersicht',
               )
+            else
+              RegisterButton(),
           ]),
     );
   }

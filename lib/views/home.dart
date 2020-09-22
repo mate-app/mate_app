@@ -98,9 +98,13 @@ class _HomeState extends State<Home> {
                 material: (_, __) => SliverToBoxAdapter(
                   child: Container(),
                 ),
-                cupertino: (_, __) => const CupertinoSliverRefreshControl(
-                  onRefresh: handleRefresh,
-                ),
+                cupertino: (_, __) => index < 3
+                    ? const CupertinoSliverRefreshControl(
+                        onRefresh: handleRefresh,
+                      )
+                    : SliverToBoxAdapter(
+                        child: Container(),
+                      ),
               ),
               tabs[index],
             ],

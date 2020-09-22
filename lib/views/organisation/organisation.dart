@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/models.dart';
@@ -24,7 +25,12 @@ class Organisation extends StatelessWidget {
                   return OrganisationPanel(
                       user: user, university: snapshot.data);
                 }
-                return const SliverLoadingIndicator();
+                return SizedBox(
+                  height: 50,
+                  child: Center(
+                    child: PlatformCircularProgressIndicator(),
+                  ),
+                );
               },
             ),
             OrganisationList(),

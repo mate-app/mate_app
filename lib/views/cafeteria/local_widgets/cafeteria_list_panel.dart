@@ -26,7 +26,7 @@ class _CafeteriaListPanelState extends State<CafeteriaListPanel> {
   void initState() {
     super.initState();
     setState(() {
-      _btnEnabled = false;
+      _btnEnabled = true;
       downvoted = widget.user.downvotes.contains(widget.dish.id) ?? false;
       upvoted = widget.user.upvotes.contains(widget.dish.id) ?? false;
     });

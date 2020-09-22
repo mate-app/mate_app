@@ -43,7 +43,7 @@ class MainApp extends StatelessWidget {
         }
 
         if (snapshot.connectionState != ConnectionState.done) {
-          return LoadingScreen();
+          return const LoadingScreen();
         }
 
         return MultiProvider(

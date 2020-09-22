@@ -37,6 +37,8 @@ class Calendar extends StatelessWidget {
         },
       );
     }
-    return RegisterButton();
+    return SliverToBoxAdapter(
+      child: RegisterButton(),
+    );
   }
 }
