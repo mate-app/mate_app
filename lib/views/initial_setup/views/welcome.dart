@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-import '../../shared/shared.dart';
-import '../../styles/styles.dart';
+import '../../../shared/shared.dart';
+import '../../../styles/styles.dart';
 import 'universities.dart';
 
 class Welcome extends StatelessWidget {
