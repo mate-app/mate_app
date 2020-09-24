@@ -8,7 +8,7 @@ on:
 
 env:
   java_version: "12.x"
-  flutter_version: "1.20.4"
+  flutter_version: "1.20.4-stable"
   FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
   FIREBASE_CONFIG_IOS: ${{ secrets.FIREBASE_CONFIG_IOS }}
 
@@ -61,7 +61,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Decode google-services.json
-        run: 'echo "${{ env.FIREBASE_CONFIG }}" > android/app/src/prod/google-services.json'
+        run: mkdir android/app/src/prod && 'echo "${{ env.FIREBASE_CONFIG }}" > android/app/src/prod/google-services.json'
         shell: bash
       - name: Cache Flutter dependencies
         uses: actions/cache@v2
