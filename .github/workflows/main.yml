@@ -60,7 +60,7 @@ jobs:
     needs: setup
     runs-on: macos-latest
     steps:
-      - run: ls
+      - uses: actions/checkout@v1
       - name: Decode google-services.json
         run: echo ${{ env.FIREBASE_CONFIG }} > android/app/src/prod/google-services.json
         shell: bash
@@ -77,6 +77,7 @@ jobs:
     needs: setup
     runs-on: macos-latest
     steps:
+      - uses: actions/checkout@v1
       - name: Decode GoogleService-Info.plist
         run: echo '${{ env.FIREBASE_CONFIG_IOS }}' > ios/Runner/GoogleService-Info.plist
         shell: bash
