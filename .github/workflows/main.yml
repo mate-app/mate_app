@@ -62,7 +62,7 @@ jobs:
     steps:
       - run: ls
       - name: Decode google-services.json
-        run: mkdir android/app/src/prod && 'echo "${{ env.FIREBASE_CONFIG }}" > android/app/src/prod/google-services.json'
+        run: eval 'echo "${{ env.FIREBASE_CONFIG }}" > android/app/src/prod/google-services.json'
         shell: bash
       - name: Cache Flutter dependencies
         uses: actions/cache@v2
