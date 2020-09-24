@@ -4,7 +4,8 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../../models/models.dart';
 import '../../../services/services.dart';
-import '../../../styles/styles.dart';
+import '../../../shared/shared.dart';
+import 'local_widgets/local_widgets.dart';
 
 class Subjects extends StatelessWidget {
   final UserModel user;
@@ -22,12 +23,16 @@ class Subjects extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<List<Subject>> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
-              return SubjectList();
+              return SubjectList(subjects: snapshot.data);
             }
           }
           return PlatformScaffold(
             body: Center(
-              child: Text('snapshot has no data'),
+              child: DynamicText('''
+                  Sorry, wir haben leider keine Studiengänge gefunden. 
+                  Prüfe deine Internetverbindung und probiere es nochmal 
+                  oder wende dich an den Support unter support@mate-app.de.
+                  '''),
             ),
           );
         },
@@ -35,31 +40,12 @@ class Subjects extends StatelessWidget {
     } else {
       return PlatformScaffold(
         body: Center(
-          child: Text('user not anonymous'),
+          child: DynamicText('''
+              Du scheinst bereits eingeloggt zu sein.
+              Probiere es nochmal oder wende dich an den Support unter support@mate-app.de.
+          '''),
         ),
       );
     }
-  }
-}
-
-class SubjectList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return PlatformScaffold(
-      appBar: PlatformAppBar(
-        title: PlatformText('Studiengang wählen'),
-      ),
-      body: Container(
-          decoration: const BoxDecoration(
-            color: MateColors.white,
-          ),
-          child: CustomScrollView(
-            slivers: [
-              SliverList(
-                delegate: SliverChildBuilderDelegate(),
-              ),
-            ],
-          )),
-    );
   }
 }
