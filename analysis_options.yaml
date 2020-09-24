@@ -1,0 +1,14 @@
+include: package:lint/analysis_options.yaml
+
+analyzer:
+  errors:
+    missing_required_param: error
+    parameter_assignments: error
+    missing_return: error
+    todo: info
+
+linter:
+  rules:
+    - parameter_assignments
+
+    

@@ -1,9 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:http/http.dart';
 import 'dart:convert';
-import 'package:mateapp/models/models.dart';
-import 'package:mateapp/services/services.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../models/models.dart';
+import 'services.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -14,18 +18,23 @@ class AuthService {
     return _auth.authStateChanges();
   }
 
+  User get getUser {
+    return _auth.currentUser;
+  }
+
   Future<bool> _saveCredentials(String email, String password) async {
     final credentials = await SharedPreferences.getInstance();
-    bool emailSet = await credentials.setString('email', email);
-    bool passwordSet = await credentials.setString('password', password);
+    final bool emailSet = await credentials.setString('email', email);
+    final bool passwordSet = await credentials.setString('password', password);
     final analyticsStorage = await SharedPreferences.getInstance();
-    bool analyticsOn = await analyticsStorage.setBool('analyticsOn', true);
-    return (emailSet && passwordSet && analyticsOn) ? true : false;
+    final bool analyticsOn =
+        await analyticsStorage.setBool('analyticsOn', true);
+    return (emailSet && passwordSet && analyticsOn) ?? false;
   }
 
   // checks whether the credentials are valid
   Future<bool> _checkCredentials(String email, String password) async {
-    Response response = await post(
+    final Response response = await post(
         'https://us-central1-mate-app-e8033.cloudfunctions.net/validateUserdata',
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         body:
@@ -42,11 +51,12 @@ class AuthService {
     String errorMessage;
 
     try {
-      UserCredential result = await _auth.signInWithEmailAndPassword(
+      final UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       user = result.user;
       await _saveCredentials(email, password);
     } on FirebaseAuthException catch (error) {
+      Crashlytics.instance.recordError(error, StackTrace.current);
       switch (error.code) {
         case 'invalid-email':
           errorMessage =
@@ -63,9 +73,11 @@ class AuthService {
           errorMessage = 'Dein Passwort ist leider nicht korrekt.';
           break;
         default:
-          errorMessage = 'Ein unbekannter Fehler ist aufgetreten.';
+          errorMessage =
+              'Ein Serverfehler ist aufgetreten. Wir arbeiten bereits dran!';
       }
     } catch (error) {
+      Crashlytics.instance.recordError(error, StackTrace.current);
       errorMessage = 'Ein unbekannter Fehler ist aufgetreten.';
     }
 
@@ -85,7 +97,7 @@ class AuthService {
     try {
       await _checkCredentials(email, password);
 
-      UserCredential result = await _auth.createUserWithEmailAndPassword(
+      final UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       user = result.user;
       await UserData(collection: 'users').upsert({
@@ -101,6 +113,7 @@ class AuthService {
       });
       await _saveCredentials(email, password);
     } on FirebaseAuthException catch (error) {
+      Crashlytics.instance.recordError(error, StackTrace.current);
       switch (error.code) {
         case 'invalid-email':
           errorMessage =
@@ -114,9 +127,11 @@ class AuthService {
           errorMessage = 'Du bist bei uns bereits registriert.';
           break;
         default:
-          errorMessage = 'Ein unbekannter Fehler ist aufgetreten.';
+          errorMessage =
+              'Ein Serverfehler ist aufgetreten. Wir arbeiten bereits dran!';
       }
-    } catch (e) {
+    } catch (error) {
+      Crashlytics.instance.recordError(error, StackTrace.current);
       errorMessage = 'Ein unbekannter Fehler ist aufgetreten.';
     }
 
@@ -127,12 +142,104 @@ class AuthService {
     return user;
   }
 
+  // Anonymous Firebase Login
+  Future anonLogin(University university) async {
+    User user;
+    String errorMessage;
+    try {
+      final UserCredential result = await _auth.signInAnonymously();
+      user = result.user;
+      await updateUserData(
+        user,
+        {
+          'university': university.shortName,
+          'language': 'german',
+          'votes': [],
+          'upvotes': [],
+          'downvotes': []
+        },
+      );
+    } on FirebaseAuthException catch (error) {
+      Crashlytics.instance.recordError(error, StackTrace.current);
+      if (error.code == 'operation-not-allowed ') {
+        errorMessage =
+            'Ein Serverfehler ist aufgetreten. Wir arbeiten bereits dran!';
+      }
+    } catch (error) {
+      Crashlytics.instance.recordError(error, StackTrace.current);
+      errorMessage = 'Ein unbekannter Fehler ist aufgetreten.';
+    }
+
+    if (errorMessage != null) {
+      return Future.error(errorMessage);
+    }
+
+    return user;
+  }
+
+  // convert anonymous user to full user
+  Future upgradeUserAccount(
+      String email, String password, Subject subject, int semester) async {
+    final User user = _auth.currentUser;
+    String errorMessage;
+
+    final AuthCredential credential =
+        EmailAuthProvider.credential(email: email, password: password);
+
+    try {
+      await user.linkWithCredential(credential);
+      await UserData(collection: 'users').upsert(
+          {'mail': email, 'subject': subject.name, 'semester': semester});
+    } on FirebaseAuthException catch (error) {
+      Crashlytics.instance.recordError(error, StackTrace.current);
+      switch (error.code) {
+        case 'provider-already-linked':
+          errorMessage = 'Der Provider ist bereits verlinkt.';
+          break;
+        case 'invalid-credential':
+          errorMessage = 'Deine Authentifizierungsdaten sind leider ungültig.';
+          break;
+        case 'credential-already-in-use':
+          errorMessage =
+              'Deine Logindaten sind bereits in Verwendung. Versuche dich einzuloggen';
+          break;
+        case 'invalid-email':
+          errorMessage =
+              'Deine eingegebene E-Mail-Adresse ist leider ungültig.';
+          break;
+        case 'email-already-in-use':
+          errorMessage = 'Du bist bei uns bereits registriert.';
+          break;
+        default:
+          errorMessage =
+              'Ein Serverfehler ist aufgetreten. Wir arbeiten bereits dran!';
+      }
+    } catch (error) {
+      Crashlytics.instance.recordError(error, StackTrace.current);
+      errorMessage = 'Ein unbekannter Fehler ist aufgetreten.';
+    }
+
+    if (errorMessage != null) {
+      return Future.error(errorMessage);
+    }
+
+    return user;
+  }
+
+  Future<void> updateUserData(User user, Map<String, dynamic> data) async {
+    final DocumentReference reportRef =
+        FirebaseFirestore.instance.collection('users').doc(user.uid);
+    await reportRef.set(data);
+
+    return;
+  }
+
   // sign out
   Future signOut() async {
     try {
       return await _auth.signOut();
     } catch (e) {
-      print(e.toString());
+      Crashlytics.instance.recordError(e.toString(), StackTrace.current);
       return null;
     }
   }

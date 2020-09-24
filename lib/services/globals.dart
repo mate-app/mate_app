@@ -2,13 +2,13 @@ import 'package:mateapp/models/models.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:mateapp/services/services.dart';
 
-class Global {
+mixin Global {
   static final FirebaseAnalytics analytics = FirebaseAnalytics();
 
   static final Map models = {
     Dish: (data) => Dish.fromMap(data),
     Event: (data) => Event.fromMap(data),
-    News: (data) => News.fromMap(data),
+    Article: (data) => Article.fromMap(data),
     Subject: (data) => Subject.fromMap(data),
     University: (data) => University.fromMap(data),
     UserModel: (data) => UserModel.fromMap(data),

@@ -18,13 +18,21 @@ class Grade {
       this.status,
       this.tries});
   Grade.fromMap(doc) {
-    id = doc.id;
-    course = doc.data()['course'] ?? '';
-    creditPoints = doc.data()['credit_points'] ?? 0;
-    grade = doc.data()['grade'] ?? '';
-    percentage = doc.data()['percentage'] ?? 0;
-    semester = doc.data()['semester'] ?? '';
-    status = doc.data()['status'] ?? '';
-    tries = doc.data()['tries'] ?? 0;
+    id = doc.id is String ? doc.id as String : '';
+    course =
+        doc.data()['course'] is String ? doc.data()['course'] as String : '';
+    creditPoints = doc.data()['credit_points'] is String
+        ? doc.data()['credit_points'] as String
+        : '';
+    grade = doc.data()['grade'] is String ? doc.data()['grade'] as String : '';
+    percentage = doc.data()['percentage'] is String
+        ? doc.data()['percentage'] as String
+        : '';
+    semester = doc.data()['semester'] is String
+        ? doc.data()['semester'] as String
+        : '';
+    status =
+        doc.data()['status'] is String ? doc.data()['status'] as String : '';
+    tries = doc.data()['tries'] is int ? doc.data()['tries'] as int : 0;
   }
 }

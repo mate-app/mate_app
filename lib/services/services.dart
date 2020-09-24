@@ -1,3 +1,5 @@
 export 'auth.dart';
-export 'database.dart';
+export 'collection.dart';
+export 'document.dart';
 export 'globals.dart';
+export 'user_data.dart';
