@@ -62,7 +62,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Decode google-services.json
-        run: echo '${{ env.FIREBASE_CONFIG }}' > android/app/src/prod/google-services.json
+        run: mkdir android/app/src/prod && echo '${{ env.FIREBASE_CONFIG }}' > android/app/src/prod/google-services.json
         shell: bash
       - name: Cache Flutter dependencies
         uses: actions/cache@v2
@@ -93,4 +93,4 @@ jobs:
         with:
           flutter-version: ${{ env.flutter_version }}
       - name: install dependencies and build for ios
-        run: flutter pub get && flutter build ios --release --no-codesign --flavor prod
+        run: flutter pub get && flutter build ios --release --no-codesign
