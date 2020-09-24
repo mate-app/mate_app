@@ -63,6 +63,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Decode google-services.json
         run: mkdir android/app/src/prod && echo '${{ env.FIREBASE_CONFIG }}' > android/app/google-services.json
+
         shell: bash
       - name: Cache Flutter dependencies
         uses: actions/cache@v2
@@ -84,6 +85,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Decode GoogleService-Info.plist
         run: mkdir -p ios/config/prod && echo '${{ env.FIREBASE_CONFIG_IOS }}' > ios/config/prod/GoogleService-Info.plist
+
         shell: bash
       - name: Cache Flutter dependencies
         uses: actions/cache@v2
