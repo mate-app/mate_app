@@ -1,40 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 import '../models/models.dart';
 import 'services.dart';
-
-class Document<T> {
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
-  final String path;
-  DocumentReference ref;
-
-  Document({this.path}) {
-    ref = _db.doc(path);
-    // implement optional filter
-  }
-
-  Future<T> getData() {
-    return ref.get().then((doc) => Global.models[T](doc) as T);
-  }
-
-  Stream<T> streamData() {
-    return ref.snapshots().map((doc) => Global.models[T](doc) as T);
-  }
-
-  Future<void> upsert(Map data) {
-    return ref.update(Map<String, dynamic>.from(data)).catchError((err) =>
-        Crashlytics.instance.recordError('error: $err', StackTrace.current));
-  }
-
-  Future<void> createAndMerge(Map data) {
-    return ref
-        .set(Map<String, dynamic>.from(data), SetOptions(merge: true))
-        .catchError((err) => Crashlytics.instance
-            .recordError('error: $err', StackTrace.current));
-  }
-}
 
 class Collection<T> {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -116,29 +83,5 @@ class Collection<T> {
   Stream<List<T>> streamData() {
     return ref.snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => Global.models[T](doc) as T).toList());
-  }
-}
-
-class UserData<T> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final String collection;
-  User user;
-
-  UserData({this.collection, this.user});
-
-  Stream<T> get documentStream {
-    user = _auth.currentUser;
-    if (_auth.currentUser != null) {
-      final Document<T> doc = Document<T>(path: '$collection/${user.uid}');
-      return doc.streamData();
-    } else {
-      return Stream<T>.value(null);
-    }
-  }
-
-  Future<void> upsert(Map data) async {
-    final User user = _auth.currentUser;
-    final Document<T> ref = Document(path: '$collection/${user.uid}');
-    return ref.createAndMerge(data);
   }
 }
