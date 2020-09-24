@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../models/models.dart';
 import '../../../services/services.dart';
-import '../../../shared/widgets.dart';
+import '../../../shared/shared.dart';
 import '../../../styles/styles.dart';
 import 'local_widgets/local_widgets.dart';
 

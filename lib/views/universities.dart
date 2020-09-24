@@ -6,7 +6,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../models/models.dart';
 import '../services/services.dart';
-import '../shared/widgets.dart';
+import '../shared/shared.dart';
 import '../styles/styles.dart';
 import 'views.dart';
 
@@ -24,7 +24,7 @@ class Universities extends StatelessWidget {
             return UniversityList(universities: snapshot.data);
           }
         }
-        return LoadingScreen();
+        return const LoadingScreen();
       },
     );
   }
@@ -82,7 +82,7 @@ class _UniversityListState extends State<UniversityList> {
   @override
   Widget build(BuildContext context) {
     return _loading
-        ? LoadingScreen()
+        ? const LoadingScreen()
         : PlatformScaffold(
             appBar: PlatformAppBar(
               title: PlatformText('Organisation wählen'),
@@ -98,50 +98,11 @@ class _UniversityListState extends State<UniversityList> {
                         (BuildContext context, int index) {
                       final int itemIndex = index ~/ 2;
                       if (index.isEven) {
-                        return PlatformWidget(
-                          cupertino: (_, __) => Container(
-                            decoration: const BoxDecoration(
-                              color: MateColors.white,
-                            ),
-                            child: CupertinoButton(
-                              onPressed: () async {
-                                await sendForm(widget.universities[itemIndex]);
-                              },
-                              child: Row(
-                                children: [
-                                  PlatformText(
-                                    '${widget.universities[itemIndex].name} (${widget.universities[itemIndex].city})',
-                                    style: MateTextstyles.font.apply(
-                                      color: MateColors.grey,
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  const Icon(
-                                    Icons.keyboard_arrow_right,
-                                    color: MateColors.lightGrey,
-                                    size: 30,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          material: (_, __) => Material(
-                            color: MateColors.white,
-                            child: ListTile(
-                              title: DynamicText(
-                                '${widget.universities[itemIndex].name} (${widget.universities[itemIndex].city})',
-                                style: MateTextstyles.font,
-                              ),
-                              onTap: () async {
-                                await sendForm(widget.universities[itemIndex]);
-                              },
-                              trailing: const Icon(
-                                Icons.keyboard_arrow_right,
-                                color: MateColors.lightGrey,
-                                size: 30,
-                              ),
-                            ),
-                          ),
+                        return PlatformListItem(
+                          itemIndex: itemIndex,
+                          action: sendForm(widget.universities[itemIndex]),
+                          text:
+                              '${widget.universities[itemIndex].name} (${widget.universities[itemIndex].city})',
                         );
                       }
                       return const Divider(

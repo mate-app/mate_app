@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/models.dart';
 import '../../services/services.dart';
-import '../../shared/widgets.dart';
+import '../../shared/shared.dart';
 import 'local_widgets/local_widgets.dart';
 
 class Organisation extends StatelessWidget {
@@ -25,12 +24,7 @@ class Organisation extends StatelessWidget {
                   return OrganisationPanel(
                       user: user, university: snapshot.data);
                 }
-                return SizedBox(
-                  height: 50,
-                  child: Center(
-                    child: PlatformCircularProgressIndicator(),
-                  ),
-                );
+                return const LoadingIndicator();
               },
             ),
             OrganisationList(),

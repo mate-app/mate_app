@@ -1,68 +1,65 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter/cupertino.dart';
-// import 'package:provider/provider.dart';
-// import 'package:mateapp/models/models.dart';
-// import 'package:mateapp/services/services.dart';
-// import 'package:mateapp/views/views.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-// class SubjectScreen extends StatelessWidget {
-//   final University university;
+import '../../models/models.dart';
+import '../../services/services.dart';
+import '../../styles/styles.dart';
 
-//   SubjectScreen({Key key, @required this.university}) : super(key: key);
+class Subjects extends StatelessWidget {
+  final UserModel user;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return StreamProvider<List<Subject>>.value(
-//       value: Collection<Subject>(
-//           path: 'hochschulen/${university.shortName}/subjects',
-//           order: ['name', 'ASC']).streamData(),
-//       child: CupertinoPageScaffold(
-//         navigationBar: CupertinoNavigationBar(
-//           middle: PlatformText('Wähle dein Modul'),
-//         ),
-//         child: SubjectList(
-//           university: university,
-//         ),
-//       ),
-//     );
-//   }
-// }
+  const Subjects({Key key, this.user}) : super(key: key);
 
-// class SubjectList extends StatefulWidget {
-//   final University university;
+  @override
+  Widget build(BuildContext context) {
+    if (AuthService().getUser.isAnonymous) {
+      return FutureBuilder<List<Subject>>(
+        future: Collection<Subject>(
+          path: 'hochschulen/${user.university}/subjects',
+          order: ['name', 'ASC'],
+        ).getData(),
+        builder: (BuildContext context, AsyncSnapshot<List<Subject>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasData) {
+              return SubjectList();
+            }
+          }
+          return PlatformScaffold(
+            body: Center(
+              child: Text('snapshot has no data'),
+            ),
+          );
+        },
+      );
+    } else {
+      return PlatformScaffold(
+        body: Center(
+          child: Text('user not anonymous'),
+        ),
+      );
+    }
+  }
+}
 
-//   SubjectList({Key key, @required this.university});
-
-//   @override
-//   _SubjectListState createState() => _SubjectListState();
-// }
-
-// class _SubjectListState extends State<SubjectList> {
-//   @override
-//   Widget build(BuildContext context) {
-//     final subjects = Provider.of<List<Subject>>(context) ?? [];
-
-//     return ListView.separated(
-//         itemBuilder: (context, index) {
-//           return Material(
-//             child: Container(
-//               color: CupertinoColors.white,
-//               child: ListTile(
-//                 title: PlatformText(subjects[index].name),
-//                 trailing: Icon(CupertinoIcons.right_chevron),
-//                 onTap: () {
-//                   Navigator.push(
-//                       context,
-//                       CupertinoPageRoute(
-//                           builder: (context) => SemesterScreen(
-//                               university: widget.university,
-//                               subject: subjects[index])));
-//                 },
-//               ),
-//             ),
-//           );
-//         },
-//         separatorBuilder: (BuildContext context, int index) => const Divider(),
-//         itemCount: subjects?.length ?? 2);
-//   }
-// }
+class SubjectList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return PlatformScaffold(
+      appBar: PlatformAppBar(
+        title: PlatformText('Studiengang wählen'),
+      ),
+      body: Container(
+          decoration: const BoxDecoration(
+            color: MateColors.white,
+          ),
+          child: CustomScrollView(
+            slivers: [
+              SliverList(
+                delegate: SliverChildBuilderDelegate(),
+              ),
+            ],
+          )),
+    );
+  }
+}

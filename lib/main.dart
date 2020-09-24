@@ -10,7 +10,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
 import 'services/services.dart';
-import 'shared/widgets.dart';
+import 'shared/shared.dart';
 import 'styles/styles.dart';
 import 'views/authenticator.dart';
 

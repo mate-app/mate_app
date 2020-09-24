@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mateapp/styles/styles.dart';
-import 'package:mateapp/views/settings/settings_account/local_widgets/local_widgets.dart';
-import 'package:mateapp/shared/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../models/models.dart';
+import '../../../shared/shared.dart';
+import '../../../styles/styles.dart';
+import 'local_widgets/local_widgets.dart';
 
 class SettingsAccount extends StatelessWidget {
   Future<bool> _checkIfAnalyticsIsOn() async {
@@ -12,6 +15,7 @@ class SettingsAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UserModel user = Provider.of<UserModel>(context);
     return Container(
       color: MateColors.white,
       child: CustomScrollView(
@@ -25,7 +29,9 @@ class SettingsAccount extends StatelessWidget {
           ),
           SliverList(
               delegate: SliverChildListDelegate([
-            const SettingsAccountProperties(),
+            SettingsAccountProperties(
+              user: user,
+            ),
             FutureBuilder<bool>(
                 future: _checkIfAnalyticsIsOn(),
                 builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
@@ -33,7 +39,11 @@ class SettingsAccount extends StatelessWidget {
                     return SettingsAccountAnalytics(
                         isAnalyticsOn: snapshot.data);
                   }
-                  return const SliverLoadingIndicator();
+                  if (!snapshot.hasData &&
+                      snapshot.connectionState == ConnectionState.done) {
+                    return const SettingsAccountAnalytics(isAnalyticsOn: true);
+                  }
+                  return const LoadingIndicator();
                 }),
           ])),
         ],

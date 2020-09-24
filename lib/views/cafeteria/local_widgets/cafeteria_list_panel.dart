@@ -4,7 +4,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../../models/models.dart';
 import '../../../services/services.dart';
-import '../../../shared/widgets.dart';
+import '../../../shared/shared.dart';
 import '../../../styles/styles.dart';
 
 class CafeteriaListPanel extends StatefulWidget {

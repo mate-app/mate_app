@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
-import '../../../shared/widgets.dart';
+import '../../../shared/shared.dart';
 import '../../../styles/styles.dart';
 
 class SettingsCodeofconduct extends StatelessWidget {

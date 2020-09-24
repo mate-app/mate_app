@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:provider/provider.dart';
 
-import '../shared/widgets.dart';
+import '../models/models.dart';
 import '../styles/colors.dart';
 import '../styles/styles.dart';
+import '../views/setup/setup.dart';
+import 'shared.dart';
 
 class RegisterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final UserModel user = Provider.of<UserModel>(context);
     return Column(
       children: [
         Container(
           height: 60,
           child: Center(
             child: DynamicText(
-              'Nichts zu sehen? Melde dich kostenlos an, um alle Funktionen nutzen zu können',
+              'Melde dich kostenlos an, um mate im vollen Funktionsumfang nutzen zu können',
               style: MateTextstyles.font,
               textAlign: TextAlign.center,
             ),
@@ -25,7 +29,9 @@ class RegisterButton extends StatelessWidget {
           child: Center(
             child: PlatformButton(
               color: MateColors.primary,
-              onPressed: () => null,
+              onPressed: () => Navigator.of(context, rootNavigator: true).push(
+                  platformPageRoute(
+                      context: context, builder: (_) => Subjects(user: user))),
               cupertinoFilled: (_, __) => CupertinoFilledButtonData(),
               child: PlatformText('Registrieren'),
             ),

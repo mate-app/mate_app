@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../../../models/models.dart';
-import '../../../../shared/widgets.dart';
+import '../../../../shared/shared.dart';
 import '../../../../styles/styles.dart';
 
 class NewsArticlePanel extends StatelessWidget {
@@ -35,8 +35,6 @@ class NewsArticlePanel extends StatelessWidget {
             children: <Widget>[
               Tag(
                 tag: article.category,
-                marginBottom: 0,
-                marginRight: 0,
               ),
             ],
           )

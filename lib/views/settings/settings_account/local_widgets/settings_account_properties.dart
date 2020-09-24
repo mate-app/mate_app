@@ -13,28 +13,6 @@ class SettingsAccountProperties extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final int votes = user.upvotes.length + user.downvotes.length;
-    final List<SettingsAccountProperty> settingsAccountProperties = [
-      SettingsAccountProperty(
-        value: user.mail,
-        propertyName: 'E-Mail:',
-      ),
-      SettingsAccountProperty(
-        value: user.university,
-        propertyName: 'Universität:',
-      ),
-      SettingsAccountProperty(
-        value: user.department,
-        propertyName: 'Fachbereich:',
-      ),
-      SettingsAccountProperty(
-        value: user.subject,
-        propertyName: 'Studiengang:',
-      ),
-      SettingsAccountProperty(
-        value: votes.toString(),
-        propertyName: 'Deine Mensa-Votes:',
-      ),
-    ];
     return Container(
       margin: const EdgeInsets.fromLTRB(10, 20, 10, 0),
       child: Column(
@@ -51,10 +29,26 @@ class SettingsAccountProperties extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
             child: Column(
               children: <Widget>[
-                SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) =>
-                            settingsAccountProperties[index])),
+                SettingsAccountProperty(
+                  value: user.mail,
+                  propertyName: 'E-Mail:',
+                ),
+                SettingsAccountProperty(
+                  value: user.university,
+                  propertyName: 'Universität:',
+                ),
+                SettingsAccountProperty(
+                  value: user.department,
+                  propertyName: 'Fachbereich:',
+                ),
+                SettingsAccountProperty(
+                  value: user.subject,
+                  propertyName: 'Studiengang:',
+                ),
+                SettingsAccountProperty(
+                  value: votes.toString(),
+                  propertyName: 'Deine Mensa-Votes:',
+                ),
                 SettingsAccountVotediagram(user: user),
                 Container(
                   margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:mateapp/services/services.dart';
-import 'package:mateapp/shared/widgets.dart';
-import 'package:mateapp/views/organisation/organisation_grades/organisation_grades.dart';
 
+import '../../../services/services.dart';
+import '../../../shared/shared.dart';
 import '../../../styles/styles.dart';
+import '../organisation_grades/organisation_grades.dart';
 import 'local_widgets.dart';
 
 class OrganisationList extends StatelessWidget {

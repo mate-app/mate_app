@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:mateapp/styles/styles.dart';
-import 'package:mateapp/shared/widgets.dart';
+
+import '../../../shared/shared.dart';
+import '../../../styles/styles.dart';
 
 class SettingsVersion extends StatelessWidget {
   @override

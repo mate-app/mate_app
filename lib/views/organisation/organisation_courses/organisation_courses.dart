@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-import '../../../shared/widgets.dart';
+import '../../../shared/shared.dart';
 import '../../../styles/styles.dart';
 
 class VerwaltungModule extends StatefulWidget {

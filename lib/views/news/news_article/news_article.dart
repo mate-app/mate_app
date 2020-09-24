@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../models/models.dart';
-import '../../../shared/widgets.dart';
+import '../../../shared/shared.dart';
 import '../../../styles/styles.dart';
 import 'local_widgets/local_widgets.dart';
 

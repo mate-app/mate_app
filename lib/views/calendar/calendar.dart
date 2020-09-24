@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/models.dart';
 import '../../services/services.dart';
-import '../../shared/widgets.dart';
+import '../../shared/shared.dart';
 import 'local_widgets/local_widgets.dart';
 
 class Calendar extends StatelessWidget {

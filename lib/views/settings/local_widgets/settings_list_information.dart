@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mateapp/styles/styles.dart';
-import 'package:mateapp/shared/widgets.dart';
 
+import '../../../shared/shared.dart';
+import '../../../styles/styles.dart';
 import '../settings_codeofconduct/settings_codeofconduct.dart';
 import '../settings_imprint/settings_imprint.dart';
 import '../settings_privacy/settings_privacy.dart';
@@ -13,7 +13,7 @@ class SettingsListInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(20, 20, 20, 60),
+      margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
       child: Column(
         children: [
           Container(
@@ -25,7 +25,7 @@ class SettingsListInformation extends StatelessWidget {
                 color: MateColors.grey,
               )),
             ),
-            child: DynamicText("Allgemein", style: MateTextstyles.small),
+            child: DynamicText("Information", style: MateTextstyles.small),
           ),
           SettingsListItem(
             title: 'Code of Conduct',

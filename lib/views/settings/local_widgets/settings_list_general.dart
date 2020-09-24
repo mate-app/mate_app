@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mateapp/styles/styles.dart';
-import 'package:mateapp/shared/widgets.dart';
 
+import '../../../shared/shared.dart';
+import '../../../styles/styles.dart';
 import '../settings_account/settings_account.dart';
 import 'local_widgets.dart';
 
@@ -9,7 +9,7 @@ class SettingsListGeneral extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(20, 20, 20, 60),
+      margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
