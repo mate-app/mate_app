@@ -6,31 +6,94 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  java_version: "12.x"
+  flutter_version: "1.20.4"
+  FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
+  FIREBASE_CONFIG_IOS: ${{ secrets.FIREBASE_CONFIG_IOS }}
+
 jobs:
-  build:
+  setup:
     runs-on: macos-latest
-      
-    steps: 
+    steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-java@v1
         with:
-          java-version: '12.x'
+          java-version: ${{ env.java_version }}
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: flutter-cache
+        with: 
+          path: /Users/runner/hostedtoolcache/flutter
+          key: ${{ runner.OS }}-flutter-install-cache-${{ env.flutter_version }}
+      
       - uses: subosito/flutter-action@v1
         with:
-          flutter-version: '1.20.2'
-      - run: flutter upgrade
-      - run: flutter pub get
+          flutter-version: ${{ env.flutter_version }}
+      - name: install dependencies
+        run: flutter pub get
         
+  lint:
+    needs: setup
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-java@v1
+        with:
+          java-version: ${{ env.java_version }}
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: flutter-cache
+        with: 
+          path: /Users/runner/hostedtoolcache/flutter
+          key: ${{ runner.OS }}-flutter-install-cache-${{ env.flutter_version }}
+      
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: ${{ env.flutter_version }}
+      - name: lint
+        run: flutter analyze
+  
+  build_android:
+    needs: setup
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v1
       - name: Decode google-services.json
+        run: mkdir android/app/src/prod && echo '${{ env.FIREBASE_CONFIG }}' > android/app/google-services.json
+        shell: bash
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v2
         env:
-          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
-        run: echo $FIREBASE_CONFIG > android/app/google-services.json
+          cache-name: flutter-cache
+        with: 
+          path: /Users/runner/hostedtoolcache/flutter
+          key: ${{ runner.OS }}-flutter-install-cache-${{ env.flutter_version }}
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: ${{ env.flutter_version }}
+      - name: install dependencies and build apk
+        run: flutter pub get && flutter build apk --flavor prod
         
-      - run: flutter build apk
-        
+  build_ios:
+    needs: setup
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v1
       - name: Decode GoogleService-Info.plist
+        run: mkdir -p ios/config/prod && echo '${{ env.FIREBASE_CONFIG_IOS }}' > ios/config/prod/GoogleService-Info.plist
+        shell: bash
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v2
         env:
-          FIREBASE_CONFIG_IOS: ${{ secrets.FIREBASE_CONFIG_IOS }}
-        run: echo $FIREBASE_CONFIG_IOS > ios/Runner/GoogleService-Info.plist
-        
-      - run: flutter build ios --release --no-codesign
+          cache-name: flutter-cache
+        with: 
+          path: /Users/runner/hostedtoolcache/flutter
+          key: ${{ runner.OS }}-flutter-install-cache-${{ env.flutter_version }}
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: ${{ env.flutter_version }}
+      - name: install dependencies and build for ios
+        run: flutter pub get && flutter build ios --release --no-codesign --flaver prod
