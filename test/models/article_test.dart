@@ -1,0 +1,27 @@
+import 'package:mateapp/models/article.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore_mocks/cloud_firestore_mocks.dart';
+
+void main() {
+  group('Test Article Model', () {
+    test('Should return a valid Article instance', () async {
+      //
+      final firestore = MockFirestoreInstance();
+      final mockDocRef = await firestore.collection('news').add({
+        'author': 'author',
+        'category': 'Allgemein',
+        'date': FieldValue.serverTimestamp(),
+        'id': 'id',
+        'link': 'link',
+        'teaser': 'teaser',
+        'text': 'text',
+        'title': 'title',
+      });
+
+      final mockDocSnapshot = await firestore.doc(mockDocRef.path).get();
+
+      expect(Article.fromMap(mockDocSnapshot), isInstanceOf<Article>());
+    });
+  });
+}
