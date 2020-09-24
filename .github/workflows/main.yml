@@ -7,11 +7,16 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  setup:
     runs-on: macos-latest
-      
-    steps: 
-      - uses: actions/checkout@v1
+    steps:
+      - name: Cache Dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: flutter-cache
+        with: 
+          path: /Users/runner/hostedtoolcache/flutter
+          key: ${{ runner.os }}-flutter
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
@@ -21,16 +26,30 @@ jobs:
       - run: flutter upgrade
       - run: flutter pub get
         
+  lint:
+    needs: setup
+    runs-on: macos-latest
+    steps: 
+      - name: lint
+        run: flutter analyze
+  
+  build_android:
+    needs: setup
+    runs-on: macos-latest
+    steps:
       - name: Decode google-services.json
         env:
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
-        run: echo $FIREBASE_CONFIG > android/app/google-services.json
+        run: echo $FIREBASE_CONFIG > android/app/src/prod/google-services.json
+      - run: flutter build apk --flavor prod
         
-      - run: flutter build apk
-        
+  build_ios:
+    needs: setup
+    runs-on: macos-latest
+    steps:
       - name: Decode GoogleService-Info.plist
         env:
           FIREBASE_CONFIG_IOS: ${{ secrets.FIREBASE_CONFIG_IOS }}
         run: echo $FIREBASE_CONFIG_IOS > ios/Runner/GoogleService-Info.plist
         
-      - run: flutter build ios --release --no-codesign
+      - run: flutter build ios --release --no-codesign --flavor prod
