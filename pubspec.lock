@@ -92,13 +92,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
-  coverage:
-    dependency: transitive
-    description:
-      name: coverage
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.13.11"
   crypto:
     dependency: transitive
     description:
@@ -209,6 +202,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_coverage_badge:
+    dependency: "direct dev"
+    description:
+      name: flutter_coverage_badge
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1+1"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
@@ -310,13 +310,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
-  logging:
-    dependency: transitive
-    description:
-      name: logging
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.11.4"
   markdown:
     dependency: transitive
     description:
@@ -366,13 +359,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.1"
-  package_config:
-    dependency: transitive
-    description:
-      name: package_config
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.9.3"
   path:
     dependency: transitive
     description:
@@ -504,13 +490,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
-  source_maps:
-    dependency: transitive
-    description:
-      name: source_maps
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.10.9"
   source_span:
     dependency: transitive
     description:
@@ -553,13 +532,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.17"
-  test_coverage:
-    dependency: "direct dev"
-    description:
-      name: test_coverage
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.3"
   timeago:
     dependency: "direct main"
     description:
@@ -616,13 +588,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.8"
-  vm_service:
-    dependency: transitive
-    description:
-      name: vm_service
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.2.0"
   xdg_directories:
     dependency: transitive
     description:
