@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../models/models.dart';
 import '../styles/colors.dart';
 import '../styles/styles.dart';
-import '../views/setup/setup.dart';
+import '../views/full_setup/subjects.dart';
 import 'shared.dart';
 
 class RegisterButton extends StatelessWidget {

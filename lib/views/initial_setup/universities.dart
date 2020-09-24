@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-import '../models/models.dart';
-import '../services/services.dart';
-import '../shared/shared.dart';
-import '../styles/styles.dart';
-import 'views.dart';
+import '../../models/models.dart';
+import '../../services/services.dart';
+import '../../shared/shared.dart';
+import '../../styles/styles.dart';
+import '../views.dart';
 
 class Universities extends StatelessWidget {
   @override

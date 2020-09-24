@@ -10,7 +10,7 @@ class Document<T> {
 
   Document({this.path}) {
     ref = _db.doc(path);
-    // implement optional filter
+    // TODO: implement optional filter
   }
 
   Future<T> getData() {
