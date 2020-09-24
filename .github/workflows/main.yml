@@ -96,4 +96,4 @@ jobs:
         with:
           flutter-version: ${{ env.flutter_version }}
       - name: install dependencies and build for ios
-        run: flutter pub get && flutter build ios --release --no-codesign --flaver prod
+        run: flutter pub get && flutter build ios --release --no-codesign --flavor prod
