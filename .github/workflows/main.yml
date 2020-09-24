@@ -60,6 +60,7 @@ jobs:
     needs: setup
     runs-on: macos-latest
     steps:
+      - run: ls
       - name: Decode google-services.json
         run: mkdir android/app/src/prod && 'echo "${{ env.FIREBASE_CONFIG }}" > android/app/src/prod/google-services.json'
         shell: bash
