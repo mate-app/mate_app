@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../models/models.dart';
+import 'local_widgets/local_widgets.dart';
 
 class Semester extends StatelessWidget {
   final Subject subject;
@@ -9,6 +10,6 @@ class Semester extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return SemesterList(subject: subject);
   }
 }
