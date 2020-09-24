@@ -6,9 +6,9 @@ import 'package:cloud_firestore_mocks/cloud_firestore_mocks.dart';
 void main() {
   group('Test Article Model', () {
     test('Should return a valid Article instance', () async {
-      //
+      // populate mock database
       final firestore = MockFirestoreInstance();
-      final mockDocRef = await firestore.collection('news').add({
+      final docRef = await firestore.collection('news').add({
         'author': 'author',
         'category': 'Allgemein',
         'date': FieldValue.serverTimestamp(),
@@ -19,9 +19,9 @@ void main() {
         'title': 'title',
       });
 
-      final mockDocSnapshot = await firestore.doc(mockDocRef.path).get();
+      final docSnapshot = await firestore.doc(docRef.path).get();
 
-      expect(Article.fromMap(mockDocSnapshot), isInstanceOf<Article>());
+      expect(Article.fromMap(docSnapshot), isInstanceOf<Article>());
     });
   });
 }
