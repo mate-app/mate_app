@@ -62,7 +62,7 @@ jobs:
     steps:
       - run: ls
       - name: Decode google-services.json
-        run: echo ${{ env.FIREBASE_CONFIG }} > android/app/src/prod/google-services.json
+        run: echo '${{ env.FIREBASE_CONFIG }}' > android/app/src/prod/google-services.json
         shell: bash
       - name: Cache Flutter dependencies
         uses: actions/cache@v2
@@ -78,7 +78,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Decode GoogleService-Info.plist
-        run: echo ${{ env.FIREBASE_CONFIG_IOS }} > ios/Runner/GoogleService-Info.plist
+        run: echo '${{ env.FIREBASE_CONFIG_IOS }}' > ios/Runner/GoogleService-Info.plist
         shell: bash
       - name: Cache Flutter dependencies
         uses: actions/cache@v2
