@@ -1,27 +1,29 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../models/models.dart';
 import 'services.dart';
 
-class UserData<T> {
+class UserData {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final String collection;
   User user;
 
   UserData({this.collection, this.user});
 
-  Stream<T> get documentStream {
+  Stream<UserModel> get documentStream {
     user = _auth.currentUser;
     if (_auth.currentUser != null) {
-      final Document<T> doc = Document<T>(path: '$collection/${user.uid}');
+      final Document<UserModel> doc =
+          Document<UserModel>(path: '$collection/${user.uid}');
       return doc.streamData();
     } else {
-      return Stream<T>.value(null);
+      return Stream<UserModel>.value(null);
     }
   }
 
   Future<void> upsert(Map data) async {
     final User user = _auth.currentUser;
-    final Document<T> ref = Document(path: '$collection/${user.uid}');
+    final Document<UserModel> ref = Document(path: '$collection/${user.uid}');
     return ref.createAndMerge(data);
   }
 }

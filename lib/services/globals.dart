@@ -15,8 +15,7 @@ mixin Global {
     Grade: (data) => Grade.fromMap(data),
   };
 
-  static final UserData<UserModel> userModelRef =
-      UserData<UserModel>(collection: 'users');
+  static final UserData userModelRef = UserData(collection: 'users');
 
   static final Collection<University> universityRef =
       Collection<University>(path: 'hochschulen');

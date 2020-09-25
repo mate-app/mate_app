@@ -10,15 +10,26 @@ class Document<T> {
 
   Document({this.path}) {
     ref = _db.doc(path);
-    // TODO: implement optional filter
   }
 
   Future<T> getData() {
-    return ref.get().then((doc) => Global.models[T](doc) as T);
+    return ref.get().then((doc) {
+      try {
+        return Global.models[T](doc.data()) as T;
+      } catch (e) {
+        return Samples.models[T] as T;
+      }
+    });
   }
 
   Stream<T> streamData() {
-    return ref.snapshots().map((doc) => Global.models[T](doc) as T);
+    return ref.snapshots().map((doc) {
+      try {
+        return Global.models[T](doc.data()) as T;
+      } catch (e) {
+        return Samples.models[T] as T;
+      }
+    });
   }
 
   Future<void> upsert(Map data) {
