@@ -80,7 +80,8 @@ jobs:
       - name: create file to write to
         run: file=test/coverage_helper_test.dart
       - name: create file with untested dart files
-        run: find lib -name '*.dart' | cut -c4- | awk -v package=mateapp '{printf "// ignore: unused_import \n import '\''package:%s%s'\'';\n", package, $1}' >> $file;
+        run: find lib -name '*.dart' | cut -c4- | awk -v package=mateapp '{printf > 
+          "// ignore: unused_import \n import '\''package:%s%s'\'';\n", package, $1}' >> $file;
       - name: create main function in file
         run: echo "void main(){}" >> $file
       - name: Create Code Coverage Report
