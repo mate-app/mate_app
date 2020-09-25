@@ -19,3 +19,8 @@ Future<void> launchURL(String url) async {
     throw 'Could not launch $url';
   }
 }
+
+String removeDateFromDateTime(DateTime datetime) {
+  initializeDateFormatting('de_DE');
+  return DateFormat('', 'de_DE').add_Hm().format(datetime);
+}
