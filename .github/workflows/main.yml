@@ -76,7 +76,7 @@ jobs:
         with:
           flutter-version: ${{ env.flutter_version }}
       - name: remove old helper file
-        run: rm test/coverage_helper_test.dart
+        run: rm test/coverage_helper_test.dart && touch test/coverage_helper_test.dart
       - name: create file with untested dart files
         run: |
           find lib -name '*.dart' | cut -c4- | awk '{printf "// ignore: unused_import \nimport '\''package:mateapp%s'\'';\n", $1}' >> test/coverage_helper_test.dart;
