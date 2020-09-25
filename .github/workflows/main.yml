@@ -87,8 +87,10 @@ jobs:
       - name: Create Code Coverage Report
         run: flutter test --coverage
       - name: upload to codecov.io
-        run: bash <(curl -s https://codecov.io/bash) -f coverage/lcov.info -t ${{ secrets.CODECOV_TOKEN }}
-        shell: bash
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: coverage/lcov.info
 
   build_android:
     needs: setup
