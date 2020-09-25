@@ -1,6 +1,7 @@
-import 'package:mateapp/models/models.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:mateapp/services/services.dart';
+
+import '../models/models.dart';
+import 'services.dart';
 
 mixin Global {
   static final FirebaseAnalytics analytics = FirebaseAnalytics();

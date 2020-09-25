@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:mateapp/models/Dish.dart';
+import 'package:mateapp/models/dish.dart';
 
 void main() {
   group('Test Dish Model', () {

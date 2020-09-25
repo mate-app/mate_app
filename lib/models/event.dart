@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:mateapp/utils/utils.dart';
+
+import '../utils/utils.dart';
 
 class Event {
   String _id;
