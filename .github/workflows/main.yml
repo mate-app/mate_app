@@ -81,7 +81,7 @@ jobs:
         run: |
           find lib -name '*.dart' | cut -c4- | awk '{printf "// ignore: unused_import \nimport '\''package:mateapp%s'\'';\n", $1}' >> test/coverage_helper_test.dart;
       - name: create main function in file
-        run: echo "void main(){}" >> $file
+        run: echo "void main(){}" >> test/coverage_helper_test.dart
       - name: Create Code Coverage Report
         run: flutter test --coverage
       - name: upload to codecov.io
