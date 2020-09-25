@@ -48,11 +48,11 @@ class Article {
   set text(String text) => _text = text;
   set title(String title) => _title = title;
 
-  String get id => _id?.toString() ?? '';
-  String get author => _author?.toString() ?? '';
-  String get category => _category?.toString() ?? '';
-  String get link => _link?.toString() ?? '';
-  String get teaser => _teaser?.toString() ?? '';
-  String get text => _text?.toString() ?? '';
-  String get title => _title?.toString() ?? '';
+  String get id => _id ?? '';
+  String get author => _author ?? '';
+  String get category => _category ?? '';
+  String get link => _link ?? '';
+  String get teaser => _teaser ?? '';
+  String get text => _text ?? '';
+  String get title => _title ?? '';
 }

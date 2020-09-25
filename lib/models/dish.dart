@@ -38,9 +38,9 @@ class Dish {
   set rating(int rating) => _rating = rating;
   set tags(List<String> tags) => _tags = tags;
 
-  String get id => _id?.toString() ?? '';
-  String get name => _name?.toString() ?? '';
-  String get price => _price?.toString() ?? '';
+  String get id => _id ?? '';
+  String get name => _name ?? '';
+  String get price => _price ?? '';
   int get rating => _rating ?? 0;
   List<String> get tags => _tags ?? [];
 }
