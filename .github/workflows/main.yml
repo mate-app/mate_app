@@ -63,7 +63,7 @@ jobs:
       - uses: actions/checkout@v1
       - uses: actions/setup-java@v1
         with:
-          java-version: ${{ env.jave_version }}
+          java-version: ${{ env.java_version }}
       - name: Cache Flutter dependencies
         uses: actions/cache@v2
         env:
@@ -76,18 +76,19 @@ jobs:
         with:
           flutter-version: ${{ env.flutter_version }}
       - name: remove old helper file
-        run: rm test/coverage_helper_test.dart
-      - name: create file to write to
-        run: file=test/coverage_helper_test.dart
+        run: rm test/coverage_helper_test.dart && touch test/coverage_helper_test.dart
       - name: create file with untested dart files
-        run: find lib -name '*.dart' | cut -c4- | awk -v package=mateapp '{printf "// ignore: unused_import \n import '\''package:%s%s'\'';\n", package, $1}' >> $file;
+        run: |
+          find lib -name '*.dart' | cut -c4- | awk '{printf "// ignore: unused_import \nimport '\''package:mateapp%s'\'';\n", $1}' >> test/coverage_helper_test.dart;
       - name: create main function in file
-        run: echo "void main(){}" >> $file
+        run: echo "void main(){}" >> test/coverage_helper_test.dart
       - name: Create Code Coverage Report
         run: flutter test --coverage
       - name: upload to codecov.io
-        run: bash <(curl -s https://codecov.io/bash) -f coverage/lcov.info -t ${{ secrets.CODECOV_TOKEN }}
-        shell: bash
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: coverage/lcov.info
 
   build_android:
     needs: setup
