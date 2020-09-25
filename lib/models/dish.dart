@@ -24,7 +24,8 @@ class Dish {
   Dish.fromMap(String id, data) : assert(data != null) {
     id = id is String ? id : null;
     name = data['name'] is String ? data['name'] as String : null;
-    tags = data['tags'] is List ? List<String>.from(data['tags'] as List) : [];
+    tags =
+        data['tags'] is List ? List<String>.from(data['tags'] as List) : null;
     price = data['price'] is String ? data['price'] as String : null;
     date = data['date'] != null && data['date'] is Timestamp
         ? data['date'].toDate() as DateTime
