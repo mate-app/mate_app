@@ -15,8 +15,8 @@
     <img src="https://img.shields.io/github/workflow/status/TobiasPRt/mate-app/Check%20if%20App%20builds%20properly/master"
          alt="Build">
   </a>
-  <a  href="https://github.com/TobiasPrt/mate-app/">
-    <img src="https://raw.githubusercontent.com/TobiasPrt/mate-app/master/coverage_badge.svg?sanitize=true" alt="code coverage">
+  <a href="https://codecov.io/gh/TobiasPrt/mate-app">
+    <img src="https://codecov.io/gh/TobiasPrt/mate-app/branch/master/graph/badge.svg" />
   </a>
   <a href="https://github.com/TobiasPrt/mate-app/issues/">
     <img src="https://img.shields.io/github/issues/TobiasPrt/mate-app"
