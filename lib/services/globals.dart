@@ -6,13 +6,13 @@ mixin Global {
   static final FirebaseAnalytics analytics = FirebaseAnalytics();
 
   static final Map models = {
-    Dish: (data) => Dish.fromMap(data),
-    Event: (data) => Event.fromMap(data),
-    Article: (data) => Article.fromMap(data),
-    Subject: (data) => Subject.fromMap(data),
-    University: (data) => University.fromMap(data),
-    UserModel: (data) => UserModel.fromMap(data),
-    Grade: (data) => Grade.fromMap(data),
+    Dish: (id, data) => Dish.fromMap(id, data),
+    Event: (id, data) => Event.fromMap(id, data),
+    Article: (id, data) => Article.fromMap(id, data),
+    Subject: (id, data) => Subject.fromMap(id, data),
+    University: (id, data) => University.fromMap(id, data),
+    UserModel: (id, data) => UserModel.fromMap(id, data),
+    Grade: (id, data) => Grade.fromMap(id, data),
   };
 
   static final UserData userModelRef = UserData(collection: 'users');

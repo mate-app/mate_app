@@ -79,7 +79,7 @@ class Collection<T> {
     final QuerySnapshot snapshots = await ref.get();
     return snapshots.docs.map((doc) {
       try {
-        return Global.models[T](doc.data()) as T;
+        return Global.models[T](doc.id, doc.data()) as T;
       } catch (e) {
         return Samples.models[T] as T;
       }
@@ -89,7 +89,7 @@ class Collection<T> {
   Stream<List<T>> streamData() {
     return ref.snapshots().map((snapshot) => snapshot.docs.map((doc) {
           try {
-            return Global.models[T](doc.data()) as T;
+            return Global.models[T](doc.id, doc.data()) as T;
           } catch (e) {
             return Samples.models[T] as T;
           }

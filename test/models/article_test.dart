@@ -12,25 +12,27 @@ void main() {
         'date': Timestamp.now(),
       };
 
-      expect(Article.fromMap(mockData), isInstanceOf<Article>());
-      expect(Article.fromMap(mockData).author, 'author');
-      expect(Article.fromMap(mockData).category, 'Allgemein');
-      expect(Article.fromMap(mockData).date, isInstanceOf<DateTime>());
+      expect(Article.fromMap('id', mockData), isInstanceOf<Article>());
+      expect(Article.fromMap('id', mockData).author, 'author');
+      expect(Article.fromMap('id', mockData).category, 'Allgemein');
+      expect(Article.fromMap('id', mockData).date, isInstanceOf<DateTime>());
     });
 
-    test('Should return sample value instead of wrong type', () {
+    test('Should return empty string when using wrong type', () {
       final mockData = {
         'link': 3,
       };
-      expect(Article.fromMap(mockData).link, null);
+      expect(Article.fromMap('id', mockData).link, '');
     });
 
     test('Should throw AssertionError, if null given to named constructor', () {
-      expect(() => Article.fromMap(null), throwsA(isA<AssertionError>()));
+      expect(() => Article.fromMap(null, null), throwsA(isA<AssertionError>()));
     });
 
-    test('Should return sample article if no parameters are used', () {
+    test('Should return empty article if no parameters are used', () {
       expect(Article(), isInstanceOf<Article>());
+      expect(Article().link, '');
+      expect(Article().date, null);
     });
   });
 }

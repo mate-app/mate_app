@@ -15,7 +15,7 @@ class Document<T> {
   Future<T> getData() {
     return ref.get().then((doc) {
       try {
-        return Global.models[T](doc.data()) as T;
+        return Global.models[T](doc.id, doc.data()) as T;
       } catch (e) {
         return Samples.models[T] as T;
       }
@@ -25,7 +25,7 @@ class Document<T> {
   Stream<T> streamData() {
     return ref.snapshots().map((doc) {
       try {
-        return Global.models[T](doc.data()) as T;
+        return Global.models[T](doc.id, doc.data()) as T;
       } catch (e) {
         return Samples.models[T] as T;
       }
