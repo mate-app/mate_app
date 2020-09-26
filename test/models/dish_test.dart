@@ -10,11 +10,14 @@ void main() {
         'name': 'name',
         'tags': ['Geflügel'],
         'date': Timestamp.now(),
-        'rating': 45
+        'rating': 45,
+        'price': '1.00'
       };
 
       expect(Dish.fromMap('id', mockData), isInstanceOf<Dish>());
       expect(Dish.fromMap('id', mockData).name, 'name');
+      expect(Dish.fromMap('id', mockData).id, 'id');
+      expect(Dish.fromMap('id', mockData).price, '1.00');
       expect(Dish.fromMap('id', mockData).rating, 45);
       expect(Dish.fromMap('id', mockData).tags, ['Geflügel']);
       expect(Dish.fromMap('id', mockData).date, isInstanceOf<DateTime>());
