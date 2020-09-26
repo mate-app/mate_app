@@ -8,8 +8,13 @@ void main() {
           isInstanceOf<CustomQuery>());
     });
 
-    test('Should throw AssertionError when passing null as argument', () {
+    test('Should throw AssertionError when passing null as field', () {
       expect(() => CustomQuery(field: null, operation: null, value: null),
+          throwsA(isA<AssertionError>()));
+    });
+
+    test('Should throw AssertionError when passing null as value', () {
+      expect(() => CustomQuery(field: 'string', operation: '==', value: null),
           throwsA(isA<AssertionError>()));
     });
 
