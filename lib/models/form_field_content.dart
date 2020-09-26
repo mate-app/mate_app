@@ -1,25 +1,23 @@
 class FormFieldContent {
   String fieldContent;
 
-  // Constructer
   FormFieldContent(this.fieldContent);
 
-  bool checkIfFieldsAreEmpty() {
-    if (fieldContent.isEmpty) {
-      return true;
+  bool isEmpty() {
+    if (fieldContent != null) {
+      return fieldContent.isEmpty;
     } else {
-      return false;
+      return true;
     }
   }
 }
 
 class MailFieldContent extends FormFieldContent {
-  // Constructor
   MailFieldContent(String fieldContent) : super(fieldContent);
 
-  bool checkIfDomainMatches(String domain) {
-    if (fieldContent.endsWith(domain)) {
-      return true;
+  bool isDomainMatching(String domain) {
+    if (fieldContent != null) {
+      return fieldContent.endsWith(domain);
     } else {
       return false;
     }
@@ -27,13 +25,24 @@ class MailFieldContent extends FormFieldContent {
 }
 
 class PasswordFieldContent extends FormFieldContent {
-  // Constructor
-  PasswordFieldContent(String fieldContent) : super(fieldContent);
+  int maxLength;
+  int minLength;
 
-  bool validatePasswordContent(int maxlength, int minlength) {
-    // do something
-    if (fieldContent.length < minlength) return false;
-    if (fieldContent.length > maxlength) return true;
-    return true;
+  PasswordFieldContent(
+    String fieldContent, {
+    this.maxLength = 20,
+    this.minLength = 6,
+  }) : super(fieldContent);
+
+  bool isPasswordSecure() {
+    if (fieldContent != null) {
+      if (fieldContent.length < minLength || fieldContent.length > maxLength) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
   }
 }
