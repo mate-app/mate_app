@@ -27,8 +27,8 @@ class Article {
         _text = text,
         _title = title;
 
-  Article.fromMap(String id, data) : assert(data != null) {
-    id = id is String ? id : null;
+  Article.fromMap(String docid, data) : assert(data != null) {
+    id = docid is String ? docid : null;
     author = data['author'] is String ? data['author'] as String : null;
     category = data['category'] is String ? data['category'] as String : null;
     date = data['date'] != null && data['date'] is Timestamp

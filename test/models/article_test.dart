@@ -38,6 +38,7 @@ void main() {
 
     test('Should return empty article if no parameters are used', () {
       expect(Article(id: 'id'), isInstanceOf<Article>());
+      expect(Article(id: 'id').id, 'id');
       expect(Article().link, '');
       expect(Article().date, null);
     });
