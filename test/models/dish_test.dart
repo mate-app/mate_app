@@ -41,7 +41,7 @@ void main() {
     test('Should return empty Dish if no parameters are used', () {
       expect(Dish(), isInstanceOf<Dish>());
       expect(Dish().rating, 0);
-      expect(Dish().date, null);
+      expect(Dish().date, isInstanceOf<Date>());
     });
   });
 }

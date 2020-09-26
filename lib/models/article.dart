@@ -15,7 +15,7 @@ class Article {
     String id,
     String author,
     String category,
-    this.date,
+    this.date = const Date(),
     String link,
     String teaser,
     String text,

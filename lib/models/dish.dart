@@ -12,7 +12,7 @@ class Dish {
 
   Dish({
     String id,
-    this.date,
+    this.date = const Date(),
     String name,
     String price,
     int rating,

@@ -42,10 +42,9 @@ void main() {
     });
 
     test('Should return empty article if no parameters are used', () {
-      expect(Article(id: docid), isInstanceOf<Article>());
-      expect(Article(id: docid).id, 'id');
-      expect(Article(id: docid).link, '');
-      expect(Article(id: docid).date, null);
+      expect(Article(), isInstanceOf<Article>());
+      expect(Article().link, '');
+      expect(Article().date, isInstanceOf<Date>());
     });
   });
 }
