@@ -3,7 +3,6 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../../../models/models.dart';
 import '../../../../styles/styles.dart';
-import '../../../../utils/utils.dart';
 
 class CalendarEventPanel extends StatelessWidget {
   final Event event;
@@ -15,7 +14,7 @@ class CalendarEventPanel extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: MateShapes.roundedEdges,
-        gradient: MateGradients.eventGradient[event.getType],
+        gradient: MateGradients.eventGradient[event.shortType],
       ),
       height: 160,
       margin: const EdgeInsets.all(15),
@@ -32,7 +31,7 @@ class CalendarEventPanel extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.fromLTRB(3, 0, 0, 0),
                 child: PlatformText(
-                  convertDateToString(event.date),
+                  event.date.asString,
                   style: MateTextstyles.font.apply(
                     color: MateColors.white,
                     fontWeightDelta: 2,
@@ -40,7 +39,7 @@ class CalendarEventPanel extends StatelessWidget {
                 ),
               ),
               PlatformText(
-                '${event.getStartsAt} - ${event.getEndsAt}',
+                '${event.startsAt.onlyTime} - ${event.startsAt.onlyTime}',
                 style: MateTextstyles.font.apply(
                   color: MateColors.white,
                 ),

@@ -13,10 +13,10 @@ class CalendarList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<DateTime> dates = {for (var event in events) event.date}
+    final List<Date> dates = {for (var event in events) event.date}
         .toList()
         .where((element) =>
-            element.compareTo(
+            element.dateTime.compareTo(
                   DateTime(
                     DateTime.now().year,
                     DateTime.now().month,

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
+import '../../../models/models.dart';
 import '../../../styles/styles.dart';
-import '../../../utils/utils.dart';
 
 class CalendarListDate extends StatelessWidget {
-  final DateTime date;
+  final Date date;
 
   const CalendarListDate({Key key, this.date}) : super(key: key);
 
@@ -14,9 +14,9 @@ class CalendarListDate extends StatelessWidget {
   Widget build(BuildContext context) {
     initializeDateFormatting('de_DE');
     bool isToday;
-    if (date.day == DateTime.now().day &&
-        date.month == DateTime.now().month &&
-        date.year == DateTime.now().year) {
+    if (date.dateTime.day == DateTime.now().day &&
+        date.dateTime.month == DateTime.now().month &&
+        date.dateTime.year == DateTime.now().year) {
       isToday = true;
     } else {
       isToday = false;
@@ -39,7 +39,7 @@ class CalendarListDate extends StatelessWidget {
         5,
       ),
       child: PlatformText(
-        isToday ? 'Heute' : convertDateToString(date),
+        isToday ? 'Heute' : date.asString,
         style: MateTextstyles.font.apply(
             color: MateColors.white,
             fontWeightDelta: isToday != null ? 4 : 1,

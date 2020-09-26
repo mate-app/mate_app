@@ -4,7 +4,6 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import '../../../models/models.dart';
 import '../../../shared/shared.dart';
 import '../../../styles/styles.dart';
-import '../../../utils/utils.dart';
 import '../news_article/news_article.dart';
 
 class NewsListPanel extends StatelessWidget {
@@ -63,7 +62,7 @@ class NewsListPanel extends StatelessWidget {
                       ),
                       const Spacer(flex: 2),
                       PlatformText(
-                        convertDateToString(article.date),
+                        article.date.asString,
                         style:
                             MateTextstyles.tiny.apply(color: MateColors.white),
                       )

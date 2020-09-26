@@ -1,27 +1,50 @@
-import 'package:mateapp/models/article.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore_mocks/cloud_firestore_mocks.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+import 'package:mateapp/models/models.dart';
 
 void main() {
   group('Test Article Model', () {
-    test('Should return a valid Article instance', () async {
-      // populate mock database
-      final firestore = MockFirestoreInstance();
-      final docRef = await firestore.collection('news').add({
+    const docid = 'id';
+
+    test('Should return a valid Article instance', () {
+      // setup
+      final mockData = {
         'author': 'author',
         'category': 'Allgemein',
-        'date': FieldValue.serverTimestamp(),
-        'id': 'id',
-        'link': 'link',
         'teaser': 'teaser',
-        'text': 'text',
         'title': 'title',
-      });
+        'text': 'text',
+        'date': Timestamp.now(),
+      };
+      // test
+      expect(Article.fromMap(docid, mockData), isInstanceOf<Article>());
+      expect(Article.fromMap(docid, mockData).id, 'id');
+      expect(Article.fromMap(docid, mockData).author, 'author');
+      expect(Article.fromMap(docid, mockData).category, 'Allgemein');
+      expect(Article.fromMap(docid, mockData).teaser, 'teaser');
+      expect(Article.fromMap(docid, mockData).title, 'title');
+      expect(Article.fromMap(docid, mockData).text, 'text');
+      expect(Article.fromMap(docid, mockData).date, isInstanceOf<Date>());
+    });
 
-      final docSnapshot = await firestore.doc(docRef.path).get();
+    test('Should return empty string when using wrong type', () {
+      // setup
+      final mockData = {
+        'link': 3,
+      };
+      // test
+      expect(Article.fromMap(docid, mockData).link, '');
+    });
 
-      expect(Article.fromMap(docSnapshot), isInstanceOf<Article>());
+    test('Should throw AssertionError, if null given to named constructor', () {
+      expect(() => Article.fromMap(null, null), throwsA(isA<AssertionError>()));
+    });
+
+    test('Should return empty article if no parameters are used', () {
+      expect(Article(), isInstanceOf<Article>());
+      expect(Article().link, '');
+      expect(Article().date, isInstanceOf<Date>());
     });
   });
 }

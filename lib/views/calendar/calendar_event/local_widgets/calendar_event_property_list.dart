@@ -35,9 +35,9 @@ class CalendarEventPropertyList extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                PlatformText(event.type,
+                PlatformText(event.shortType,
                     style: MateTextstyles.small.apply(
-                      color: MateColors.eventColors[event.getType],
+                      color: MateColors.eventColors[event.shortType],
                     )),
               ],
             ),
