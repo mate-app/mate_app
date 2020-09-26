@@ -9,12 +9,19 @@ void main() {
       final mockData = {
         'author': 'author',
         'category': 'Allgemein',
+        'teaser': 'teaser',
+        'title': 'title',
+        'text': 'text',
         'date': Timestamp.now(),
       };
 
       expect(Article.fromMap('id', mockData), isInstanceOf<Article>());
+      expect(Article.fromMap('id', mockData).id, 'id');
       expect(Article.fromMap('id', mockData).author, 'author');
       expect(Article.fromMap('id', mockData).category, 'Allgemein');
+      expect(Article.fromMap('id', mockData).teaser, 'teaser');
+      expect(Article.fromMap('id', mockData).title, 'title');
+      expect(Article.fromMap('id', mockData).text, 'text');
       expect(Article.fromMap('id', mockData).date, isInstanceOf<DateTime>());
     });
 
@@ -30,7 +37,7 @@ void main() {
     });
 
     test('Should return empty article if no parameters are used', () {
-      expect(Article(), isInstanceOf<Article>());
+      expect(Article(id: 'id'), isInstanceOf<Article>());
       expect(Article().link, '');
       expect(Article().date, null);
     });
