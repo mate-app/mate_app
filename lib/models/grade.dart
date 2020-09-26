@@ -27,7 +27,7 @@ class Grade {
         _tries = tries;
 
   Grade.fromMap(String docid, data) : assert(data != null) {
-    id = docid is String ? docid : null;
+    id = docid;
     course = data['course'] is String ? data['course'] as String : null;
     creditPoints = data['credit_points'] is String
         ? data['credit_points'] as String

@@ -42,7 +42,7 @@ class Event {
         _type = type;
 
   Event.fromMap(String docid, data) : assert(data != null) {
-    id = docid is String ? docid : null;
+    id = docid;
     courseName =
         data['course_name'] is String ? data['course_name'] as String : null;
     date = data['date'] != null && data['date'] is Timestamp

@@ -1,5 +1,3 @@
-import 'package:intl/intl.dart';
-
 class Subject {
   String _id;
   String _name;
@@ -26,7 +24,7 @@ class Subject {
         _creditpoints = creditpoints;
 
   Subject.fromMap(String docid, data) : assert(data != null) {
-    id = docid is String ? docid : null;
+    id = docid;
     name = data['name'] is String ? data['name'] as String : null;
     degree = data['degree'] is String ? data['degree'] as String : null;
     duration = data['duration'] is num ? data['duration'].toInt() as int : 0;

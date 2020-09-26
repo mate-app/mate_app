@@ -24,7 +24,7 @@ class Dish {
         _tags = tags;
 
   Dish.fromMap(String docid, data) : assert(data != null) {
-    id = docid is String ? docid : null;
+    id = docid;
     name = data['name'] is String ? data['name'] as String : null;
     tags =
         data['tags'] is List ? List<String>.from(data['tags'] as List) : null;

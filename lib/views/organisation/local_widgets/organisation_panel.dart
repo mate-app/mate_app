@@ -14,7 +14,7 @@ class OrganisationPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final UserModel user = Provider.of<UserModel>(context);
     final int daysUntilHolidays =
-        university.nextHolidays.difference(DateTime.now()).inDays;
+        university.nextHolidays.dateTime.difference(DateTime.now()).inDays;
     final int percentOfStudyDone = ((user.credits / 210) * 100).round();
 
     return Container(
