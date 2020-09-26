@@ -34,7 +34,7 @@ class NewsArticleContent extends StatelessWidget {
                   style: MateTextstyles.small.apply(color: MateColors.grey),
                 ),
                 const Spacer(),
-                PlatformText(convertDateToString(article.date),
+                PlatformText(article.date.asString,
                     style: MateTextstyles.small.apply(color: MateColors.grey)),
               ],
             ),

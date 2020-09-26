@@ -1,26 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../utils/utils.dart';
+import 'package:mateapp/models/models.dart';
 
 class Event {
   String _id;
   String _courseName;
-  DateTime date;
+  Date date;
   String _degree;
-  DateTime endsAt;
+  Date endsAt;
   List<String> _groups;
   List<String> _lecturers;
   String _location;
   String _major;
   int _semester;
-  DateTime startsAt;
+  Date startsAt;
   List<String> _subjects;
   String _type;
 
   Event({
     String id,
     String courseName,
-    this.date,
+    this.date = const Date(),
     String degree,
     this.endsAt,
     List<String> groups,
@@ -42,17 +41,17 @@ class Event {
         _subjects = subjects,
         _type = type;
 
-  Event.fromMap(String id, data) : assert(data != null) {
-    id = id is String ? id : null;
+  Event.fromMap(String docid, data) : assert(data != null) {
+    id = docid is String ? docid : null;
     courseName =
         data['course_name'] is String ? data['course_name'] as String : null;
     date = data['date'] != null && data['date'] is Timestamp
-        ? data['date'].toDate() as DateTime
-        : null;
+        ? Date(dateTime: data['date'].toDate() as DateTime)
+        : const Date();
     degree = data['degree'] is String ? data['degree'] as String : null;
     endsAt = data['ends_at'] != null && data['ends_at'] is Timestamp
-        ? data['ends_at'].toDate() as DateTime
-        : null;
+        ? Date(dateTime: data['ends_at'].toDate() as DateTime)
+        : const Date();
     groups = data['groups'] is List
         ? List.from(data['groups'] as List<String>)
         : null;
@@ -63,8 +62,8 @@ class Event {
     major = data['major'] is String ? data['major'] as String : null;
     semester = data['semester'] is int ? data['semester'] as int : null;
     startsAt = data['starts_at'] != null && data['starts_at'] is Timestamp
-        ? data['starts_at'].toDate() as DateTime
-        : null;
+        ? Date(dateTime: data['starts_at'].toDate() as DateTime)
+        : const Date();
     subjects = data['subjects'] is List<String>
         ? List.from(data['subjects'] as List<String>)
         : null;
@@ -92,17 +91,14 @@ class Event {
   int get semester => _semester ?? 0;
   List<String> get subjects => _subjects ?? [];
   String get type => _type ?? '';
-
-  String get getStartsAt => removeDateFromDateTime(startsAt);
-  String get getEndsAt => removeDateFromDateTime(endsAt);
-  String get getDate => convertDateToString(date);
-
-  dynamic get getType => {
+  String get shortType =>
+      {
         'Vorlesung': 'VL', // orange
         'Seminar': 'SE', // rot
         'Übung': 'Ü', // rot
         'Wahlmodul': 'WAHL', // türkis
         'Praxis': 'Pr', // rot
         'Vorlesung/Labor': 'VL/L' // Orange
-      }[type];
+      }[_type] ??
+      '';
 }

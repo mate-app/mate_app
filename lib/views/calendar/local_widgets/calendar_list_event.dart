@@ -29,11 +29,11 @@ class CalendarListEvent extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.12,
               child: Column(
                 children: <Widget>[
-                  PlatformText(event.getStartsAt,
+                  PlatformText(event.startsAt.onlyTime,
                       style:
                           MateTextstyles.small.apply(color: MateColors.grey)),
                   const Padding(padding: EdgeInsetsDirectional.only(top: 5)),
-                  PlatformText(event.getEndsAt,
+                  PlatformText(event.endsAt.onlyTime,
                       style: MateTextstyles.small
                           .apply(color: MateColors.lightGrey))
                 ],
@@ -45,7 +45,7 @@ class CalendarListEvent extends StatelessWidget {
                 margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 decoration: BoxDecoration(
                   borderRadius: MateShapes.roundedEdges,
-                  color: MateColors.eventColors[event.getType],
+                  color: MateColors.eventColors[event.shortType],
                 )),
             Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +71,7 @@ class CalendarListEvent extends StatelessWidget {
                 ]),
             const Spacer(),
             Column(children: <Widget>[
-              PlatformText(event.getType as String,
+              PlatformText(event.shortType,
                   style: MateTextstyles.font.apply(color: MateColors.grey))
             ]),
           ],

@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mateapp/models/models.dart';
 
 class Article {
   String _id;
   String _author;
   String _category;
-  DateTime date;
+  Date date;
   String _link;
   String _teaser;
   String _text;
@@ -32,8 +33,8 @@ class Article {
     author = data['author'] is String ? data['author'] as String : null;
     category = data['category'] is String ? data['category'] as String : null;
     date = data['date'] != null && data['date'] is Timestamp
-        ? data['date'].toDate() as DateTime
-        : null;
+        ? Date(dateTime: data['date'].toDate() as DateTime)
+        : const Date();
     link = data['link'] is String ? data['link'] as String : null;
     teaser = data['teaser'] is String ? data['teaser'] as String : null;
     text = data['text'] is String ? data['text'] as String : null;

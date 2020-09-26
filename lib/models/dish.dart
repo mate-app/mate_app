@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'models.dart';
+
 class Dish {
   String _id;
-  DateTime date;
+  Date date;
   String _name;
   String _price;
   int _rating;
@@ -28,8 +30,8 @@ class Dish {
         data['tags'] is List ? List<String>.from(data['tags'] as List) : null;
     price = data['price'] is String ? data['price'] as String : null;
     date = data['date'] != null && data['date'] is Timestamp
-        ? data['date'].toDate() as DateTime
-        : null;
+        ? Date(dateTime: data['date'].toDate() as DateTime)
+        : const Date();
     rating = data['rating'] is int ? data['rating'] as int : null;
   }
 
