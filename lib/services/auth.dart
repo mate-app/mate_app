@@ -10,16 +10,18 @@ import '../models/models.dart';
 import 'services.dart';
 
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseAuth auth;
+
+  AuthService({FirebaseAuth auth}) : auth = auth ?? FirebaseAuth.instance;
 
   // provides an immediate event of the user's current authentication state,
   // and then provides subsequent events whenever the authentication state changes.
   Stream<User> get user {
-    return _auth.authStateChanges();
+    return auth.authStateChanges();
   }
 
   User get getUser {
-    return _auth.currentUser;
+    return auth.currentUser;
   }
 
   Future<bool> _saveCredentials(String email, String password) async {
@@ -51,7 +53,7 @@ class AuthService {
     String errorMessage;
 
     try {
-      final UserCredential result = await _auth.signInWithEmailAndPassword(
+      final UserCredential result = await auth.signInWithEmailAndPassword(
           email: email, password: password);
       user = result.user;
       await _saveCredentials(email, password);
@@ -97,7 +99,7 @@ class AuthService {
     try {
       await _checkCredentials(email, password);
 
-      final UserCredential result = await _auth.createUserWithEmailAndPassword(
+      final UserCredential result = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       user = result.user;
       await UserData(collection: 'users').upsert({
@@ -147,7 +149,7 @@ class AuthService {
     User user;
     String errorMessage;
     try {
-      final UserCredential result = await _auth.signInAnonymously();
+      final UserCredential result = await auth.signInAnonymously();
       user = result.user;
       await updateUserData(
         user,
@@ -180,7 +182,7 @@ class AuthService {
   // convert anonymous user to full user
   Future upgradeUserAccount(
       String email, String password, Subject subject, int semester) async {
-    final User user = _auth.currentUser;
+    final User user = auth.currentUser;
     String errorMessage;
 
     final AuthCredential credential =
@@ -237,7 +239,7 @@ class AuthService {
   // sign out
   Future signOut() async {
     try {
-      return await _auth.signOut();
+      return await auth.signOut();
     } catch (e) {
       Crashlytics.instance.recordError(e.toString(), StackTrace.current);
       return null;
