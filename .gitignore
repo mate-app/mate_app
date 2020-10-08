@@ -53,3 +53,4 @@ android/app/src/prod/google-services.json
 ios/config/dev/GoogleService-Info.plist
 ios/config/prod/GoogleService-Info.plist
 test/.test_coverage.dart
+*/GoogleService-Info.plist
