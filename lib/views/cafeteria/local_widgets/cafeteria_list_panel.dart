@@ -37,7 +37,7 @@ class _CafeteriaListPanelState extends State<CafeteriaListPanel> {
             path:
                 'hochschulen/${widget.user.university}/mensa/${widget.dish.id}')
         .upsert(increment);
-    return UserData(collection: 'users').upsert(userVotes);
+    return UserDataService(collection: 'users').upsert(data: userVotes);
   }
 
   Future<void> _upvote() async {

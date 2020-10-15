@@ -64,8 +64,8 @@ class AuthService {
       await _checkCredentials(email, password);
       result = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      await UserData(collection: 'users').upsert({
-        'user_id': result.user.uid,
+      await UserDataService(collection: 'users', user: result.user)
+          .upsert(data: {
         'mail': email,
         'university': university.shortName,
         'subject': subject.name,
@@ -121,8 +121,8 @@ class AuthService {
 
     try {
       await user.linkWithCredential(credential);
-      await UserData(collection: 'users').upsert(
-          {'mail': email, 'subject': subject.name, 'semester': semester});
+      await UserDataService(collection: 'users').upsert(
+          data: {'mail': email, 'subject': subject.name, 'semester': semester});
     } catch (error) {
       errorMessage =
           firebaseErrors[error is FirebaseAuthException ? error.code : error] ??

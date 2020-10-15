@@ -16,7 +16,8 @@ mixin Global {
     Grade: (String id, data) => Grade.fromMap(id, data),
   };
 
-  static final UserData userModelRef = UserData(collection: 'users');
+  static final UserDataService userModelRef =
+      UserDataService(collection: 'users');
 
   static final Collection<University> universityRef =
       Collection<University>(path: 'hochschulen');

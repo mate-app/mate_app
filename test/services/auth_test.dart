@@ -1,15 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mateapp/services/auth.dart';
+import 'package:mateapp/models/models.dart';
+import 'package:mateapp/services/services.dart';
 import 'package:mockito/mockito.dart';
-import 'package:rxdart/subjects.dart';
+import 'package:rxdart/rxdart.dart' hide Subject;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'firebase_mock.dart';
 
-class MockFirebaseAuth extends Mock implements FirebaseAuth {}
-
-class MockFirebaseUser extends Mock implements User {}
-
-class MockUserCredential extends Mock implements UserCredential {}
+class MockHttpService extends Mock implements HttpService {}
 
 Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -20,21 +18,16 @@ Future<void> main() async {
   final MockUserCredential _userCredential = MockUserCredential();
   final BehaviorSubject<MockFirebaseUser> _user =
       BehaviorSubject<MockFirebaseUser>();
+  final MockHttpService _httpService = MockHttpService();
 
   // Mock methods from Firebase Auth
-  when(_auth.currentUser).thenReturn(_currentuser);
   when(_auth.authStateChanges()).thenAnswer((_) => _user);
-  when(_auth.signInWithEmailAndPassword(
-          email: 'email@example.com', password: 'password'))
-      .thenAnswer((_) async {
-    _user.add(MockFirebaseUser());
-    return _userCredential;
-  });
-  when(_userCredential.user).thenReturn(MockFirebaseUser());
 
   // instantiate AuthService Class
   SharedPreferences.setMockInitialValues({});
   final AuthService _authService = AuthService(auth: _auth);
+  final UserDataService _userDataService =
+      UserDataService(auth: _auth, user: _currentuser);
 
   // Run Tests
   group('Test Firebase authentication class', () {
@@ -46,13 +39,17 @@ Future<void> main() async {
       expect(_authService.user, isInstanceOf<Stream<User>>());
     });
 
-    test('Should return User', () async {
+    test('Should return User on login', () async {
       // Setup
-      const String email = 'email@example.com';
-      const String password = 'password';
+      when(_auth.signInWithEmailAndPassword(
+              email: 'email@example.com', password: 'password'))
+          .thenAnswer((_) async {
+        _user.add(MockFirebaseUser());
+        return _userCredential;
+      });
       // test
-      final user =
-          await _authService.loginWithEmailAndPassword(email, password);
+      final user = await _authService.loginWithEmailAndPassword(
+          'email@example.com', 'password');
       expect(user, isInstanceOf<User>());
     });
 
@@ -69,5 +66,44 @@ Future<void> main() async {
           .catchError((e) => e);
       expect(errorMsg, 'Ein unbekannter Fehler ist aufgetreten.');
     });
+
+    // test('Should return User on register', () async {
+    //   // Setup
+    //   when(_auth.createUserWithEmailAndPassword(
+    //           email: 'email@example.com', password: 'password'))
+    //       .thenAnswer((_) async {
+    //     _user.add(MockFirebaseUser());
+    //     return _userCredential;
+    //   });
+    //   when(_httpService.postReq(
+    //       'https://us-central1-mate-app-e8033.cloudfunctions.net/validateUserdata',
+    //       {
+    //         'email': 'email@example.com',
+    //         'password': 'password'
+    //       })).thenAnswer((_) async => 'true');
+    //   when(_userDataService.upsert(data: {
+    //     'mail': 'email@example.com',
+    //     'university': 'name',
+    //     'subject': 'fach',
+    //     'semester': 1,
+    //     'department': 'fb',
+    //     'language': 'german',
+    //     'upvotes': [],
+    //     'downvotes': []
+    //   })).thenAnswer((_) async {
+    //     return;
+    //   });
+    //   const String email = 'email@example.com';
+    //   const String password = 'password';
+    //   final University university = University(shortName: 'name');
+    //   final Subject subject = Subject(name: 'fach', department: 'fb');
+    //   const int semester = 1;
+
+    //   // Test
+    //   final user = await _authService.registerWithEmailAndPassword(
+    //       email, password, university, subject, semester);
+
+    //   expect(user, isInstanceOf<User>());
+    // });
   });
 }
