@@ -1,3 +1,4 @@
+import 'package:cloud_firestore_mocks/cloud_firestore_mocks.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mateapp/models/models.dart';
@@ -12,13 +13,14 @@ class MockHttpService extends Mock implements HttpService {}
 Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  // Mock classes from Firebase Auth
+  // Mock classes from Firebase
   final MockFirebaseAuth _auth = MockFirebaseAuth();
   final MockFirebaseUser _currentuser = MockFirebaseUser();
   final MockUserCredential _userCredential = MockUserCredential();
   final BehaviorSubject<MockFirebaseUser> _user =
       BehaviorSubject<MockFirebaseUser>();
   final MockHttpService _httpService = MockHttpService();
+  final MockFirestoreInstance _firestore = MockFirestoreInstance();
 
   // Mock methods from Firebase Auth
   when(_auth.authStateChanges()).thenAnswer((_) => _user);
@@ -27,7 +29,7 @@ Future<void> main() async {
   SharedPreferences.setMockInitialValues({});
   final AuthService _authService = AuthService(auth: _auth);
   final UserDataService _userDataService =
-      UserDataService(auth: _auth, user: _currentuser);
+      UserDataService(auth: _auth, user: _currentuser, firestore: _firestore);
 
   // Run Tests
   group('Test Firebase authentication class', () {

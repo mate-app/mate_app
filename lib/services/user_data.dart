@@ -1,21 +1,29 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/models.dart';
 import 'services.dart';
 
 class UserDataService {
+  FirebaseFirestore firestore;
   final FirebaseAuth auth;
   final String collection;
   User user;
 
-  UserDataService({this.collection, this.user, FirebaseAuth auth})
-      : auth = auth ?? FirebaseAuth.instance;
+  UserDataService(
+      {this.collection,
+      this.user,
+      FirebaseAuth auth,
+      FirebaseFirestore firestore})
+      : auth = auth ?? FirebaseAuth.instance,
+        firestore = firestore ?? FirebaseFirestore.instance {
+    user = auth.currentUser;
+  }
 
   Stream<UserModel> get documentStream {
-    user = auth.currentUser;
     if (auth.currentUser != null) {
-      final Document<UserModel> doc =
-          Document<UserModel>(path: '$collection/${user.uid}');
+      final Document<UserModel> doc = Document<UserModel>(
+          firestore: firestore, path: '$collection/${user.uid}');
       return doc.streamData();
     } else {
       return Stream<UserModel>.value(null);
@@ -23,8 +31,8 @@ class UserDataService {
   }
 
   Future<void> upsert({Map data}) async {
-    user = auth.currentUser;
-    final Document<UserModel> ref = Document(path: '$collection/${user.uid}');
+    final Document<UserModel> ref =
+        Document(firestore: firestore, path: '$collection/${user.uid}');
     data['user_id'] = user.uid;
     return ref.createAndMerge(data);
   }
