@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mockito/mockito.dart';
 
@@ -16,7 +15,3 @@ class MockUserCredential extends Mock implements UserCredential {
   @override
   User get user => MockFirebaseUser();
 }
-
-class MockDocumentReference extends Mock implements DocumentReference {}
-
-class MockDocumentSnapshot extends Mock implements DocumentSnapshot {}
