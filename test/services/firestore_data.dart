@@ -1,4 +1,4 @@
-String source = r"""
+String source = """
 {
   "hochschulen" : {
     "fhkiel" : {

@@ -21,8 +21,8 @@ class Collection<T> {
       : firestore = firestore ?? FirebaseFirestore.instance {
     ref = firestore.collection(path);
     _addFilter(queries ?? []);
-    _addLimit(limit);
-    _addOrder(order);
+    _addLimit(limit ?? 0);
+    _addOrder(order ?? []);
   }
 
   void _addOrder(List<String> order) {
@@ -54,9 +54,9 @@ class Collection<T> {
       '>=': ref.where(field, isGreaterThanOrEqualTo: value),
       'arrayContains': ref.where(field, arrayContains: value),
       'arrayContainsAny':
-          ref.where(field, arrayContainsAny: value as List<dynamic>),
-      'isNull': ref.where(field, isNull: value as bool),
-      'whereIn': ref.where(field, whereIn: value as List<dynamic>),
+          ref.where(field, arrayContainsAny: value is List ? value : [value]),
+      'isNull': ref.where(field, isNull: value is bool ?? true),
+      'whereIn': ref.where(field, whereIn: value is List ? value : [value]),
     };
 
     ref = operations[operation] ?? ref;
