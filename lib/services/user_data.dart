@@ -16,11 +16,10 @@ class UserDataService {
       FirebaseAuth auth,
       FirebaseFirestore firestore})
       : auth = auth ?? FirebaseAuth.instance,
-        firestore = firestore ?? FirebaseFirestore.instance {
-    user = auth.currentUser;
-  }
+        firestore = firestore ?? FirebaseFirestore.instance;
 
   Stream<UserModel> get documentStream {
+    user = auth.currentUser;
     if (auth.currentUser != null) {
       final Document<UserModel> doc = Document<UserModel>(
           firestore: firestore, path: '$collection/${user.uid}');
@@ -31,6 +30,7 @@ class UserDataService {
   }
 
   Future<void> upsert({Map data}) async {
+    user = auth.currentUser;
     final Document<UserModel> ref =
         Document(firestore: firestore, path: '$collection/${user.uid}');
     data['user_id'] = user.uid;

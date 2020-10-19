@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:mateapp/styles/styles.dart';
 
 import '../../../models/models.dart';
 import '../../../services/services.dart';
@@ -28,11 +29,14 @@ class Subjects extends StatelessWidget {
           }
           return PlatformScaffold(
             body: Center(
-              child: DynamicText('''
+              child: DynamicText(
+                '''
                   Sorry, wir haben leider keine Studiengänge gefunden. 
                   Prüfe deine Internetverbindung und probiere es nochmal 
                   oder wende dich an den Support unter support@mate-app.de.
-                  '''),
+                  ''',
+                style: MateTextstyles.font,
+              ),
             ),
           );
         },
@@ -40,10 +44,13 @@ class Subjects extends StatelessWidget {
     } else {
       return PlatformScaffold(
         body: Center(
-          child: DynamicText('''
+          child: DynamicText(
+            '''
               Du scheinst bereits eingeloggt zu sein.
               Probiere es nochmal oder wende dich an den Support unter support@mate-app.de.
-          '''),
+          ''',
+            style: MateTextstyles.font,
+          ),
         ),
       );
     }

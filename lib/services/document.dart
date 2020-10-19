@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'services.dart';
 
 class Document<T> {
-  FirebaseFirestore firestore;
+  final FirebaseFirestore _firestore;
   final String path;
   DocumentReference ref;
 
   Document({@required this.path, FirebaseFirestore firestore})
-      : firestore = firestore ?? FirebaseFirestore.instance {
-    ref = firestore.doc(path);
+      : _firestore = firestore ?? FirebaseFirestore.instance {
+    ref = _firestore.doc(path);
   }
 
   Future<T> getData() {

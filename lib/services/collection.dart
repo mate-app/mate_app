@@ -5,7 +5,7 @@ import '../models/models.dart';
 import 'services.dart';
 
 class Collection<T> {
-  FirebaseFirestore firestore;
+  final FirebaseFirestore _firestore;
   final String path;
   final int limit;
   final List<String> order;
@@ -18,8 +18,8 @@ class Collection<T> {
       this.limit,
       this.order,
       FirebaseFirestore firestore})
-      : firestore = firestore ?? FirebaseFirestore.instance {
-    ref = firestore.collection(path);
+      : _firestore = firestore ?? FirebaseFirestore.instance {
+    ref = _firestore.collection(path);
     _addFilter(queries ?? []);
     _addLimit(limit ?? 0);
     _addOrder(order ?? []);
@@ -55,7 +55,7 @@ class Collection<T> {
       'arrayContains': ref.where(field, arrayContains: value),
       'arrayContainsAny':
           ref.where(field, arrayContainsAny: value is List ? value : [value]),
-      'isNull': ref.where(field, isNull: value is bool ?? true),
+      'isNull': ref.where(field, isNull: true),
       'whereIn': ref.where(field, whereIn: value is List ? value : [value]),
     };
 
