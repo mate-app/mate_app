@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 import '../models/models.dart';
 import 'services.dart';
 
 class Collection<T> {
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore;
   final String path;
   final int limit;
   final List<String> order;
@@ -12,14 +13,16 @@ class Collection<T> {
   Query ref;
 
   Collection(
-      {this.path,
-      this.queries = const [],
-      this.limit = 0,
-      this.order = const []}) {
-    ref = _db.collection(path);
-    _addFilter(queries, queries.length);
-    _addLimit(limit);
-    _addOrder(order);
+      {@required this.path,
+      this.queries,
+      this.limit,
+      this.order,
+      FirebaseFirestore firestore})
+      : _firestore = firestore ?? FirebaseFirestore.instance {
+    ref = _firestore.collection(path);
+    _addFilter(queries ?? []);
+    _addLimit(limit ?? 0);
+    _addOrder(order ?? []);
   }
 
   void _addOrder(List<String> order) {
@@ -32,47 +35,33 @@ class Collection<T> {
     ref = limit > 0 ? ref.limit(limit) : ref;
   }
 
-  void _addFilter(List<CustomQuery> queries, int loops) {
-    int i = loops;
-    if (loops > 0) {
-      i--;
-      final String field = queries[i].field;
-      final String operation = queries[i].operation;
-      final dynamic value = queries[i].value;
-
-      switch (operation) {
-        case '==':
-          ref = ref.where(field, isEqualTo: value);
-          break;
-        case '<':
-          ref = ref.where(field, isLessThan: value);
-          break;
-        case '>':
-          ref = ref.where(field, isGreaterThan: value);
-          break;
-        case '<=':
-          ref = ref.where(field, isLessThanOrEqualTo: value);
-          break;
-        case '>=':
-          ref = ref.where(field, isGreaterThanOrEqualTo: value);
-          break;
-        case 'arrayContains':
-          ref = ref.where(field, arrayContains: value);
-          break;
-        case 'arrayContainsAny':
-          ref = ref.where(field, arrayContainsAny: value as List<dynamic>);
-          break;
-        case 'isNull':
-          ref = ref.where(field, isNull: value as bool);
-          break;
-        case 'whereIn':
-          ref = ref.where(field, whereIn: value as List<dynamic>);
-          break;
-        default:
-          ref = ref;
-      }
-      _addFilter(queries, i);
+  void _addFilter(List<CustomQuery> queries) {
+    if (queries.isEmpty) {
+      return;
     }
+
+    final int i = queries.length - 1;
+
+    final String field = queries[i].field;
+    final String operation = queries[i].operation;
+    final dynamic value = queries[i].value;
+
+    final Map<String, Query> operations = {
+      '==': ref.where(field, isEqualTo: value),
+      '<': ref.where(field, isLessThan: value),
+      '>': ref.where(field, isGreaterThan: value),
+      '<=': ref.where(field, isLessThanOrEqualTo: value),
+      '>=': ref.where(field, isGreaterThanOrEqualTo: value),
+      'arrayContains': ref.where(field, arrayContains: value),
+      'arrayContainsAny':
+          ref.where(field, arrayContainsAny: value is List ? value : [value]),
+      'isNull': ref.where(field, isNull: true),
+      'whereIn': ref.where(field, whereIn: value is List ? value : [value]),
+    };
+
+    ref = operations[operation] ?? ref;
+    queries.removeAt(i);
+    _addFilter(queries);
   }
 
   Future<List<T>> getData() async {
