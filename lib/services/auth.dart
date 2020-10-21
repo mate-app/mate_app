@@ -1,22 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/models.dart';
 import 'services.dart';
 
 class AuthService {
-  FirebaseAuth auth;
+  final FirebaseAuth _auth;
+  final FirebaseFirestore _firestore;
+  final http.Client _client;
 
-  AuthService({FirebaseAuth auth}) : auth = auth ?? FirebaseAuth.instance;
+  AuthService(
+      {FirebaseAuth auth, FirebaseFirestore firestore, http.Client client})
+      : _auth = auth ?? FirebaseAuth.instance,
+        _firestore = firestore ?? FirebaseFirestore.instance,
+        _client = client ?? http.Client();
 
   Stream<User> get user {
-    return auth.authStateChanges();
+    return _auth.authStateChanges();
   }
 
   User get getUser {
-    return auth.currentUser;
+    return _auth.currentUser;
   }
 
   Future<bool> _saveCredentials(String email, String password) async {
@@ -29,7 +35,7 @@ class AuthService {
 
   // checks whether the credentials are valid
   Future<bool> _checkCredentials(String email, String password) async {
-    final String response = await HttpService().postReq(
+    final String response = await HttpService(client: _client).postReq(
       'https://us-central1-mate-app-e8033.cloudfunctions.net/validateUserdata',
       {'email': email, 'password': password},
     );
@@ -42,7 +48,7 @@ class AuthService {
     UserCredential result;
 
     try {
-      result = await auth.signInWithEmailAndPassword(
+      result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       await _saveCredentials(email, password);
     } catch (error) {
@@ -55,16 +61,24 @@ class AuthService {
   }
 
   // Register with email & password
-  Future registerWithEmailAndPassword(String email, String password,
-      University university, Subject subject, int semester) async {
+  Future registerWithEmailAndPassword(
+      {String password,
+      University university,
+      Subject subject,
+      int semester,
+      String email}) async {
     UserCredential result;
     String errorMessage;
 
     try {
       await _checkCredentials(email, password);
-      result = await auth.createUserWithEmailAndPassword(
+      result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      await UserDataService(collection: 'users', user: result.user)
+      await UserDataService(
+              auth: _auth,
+              firestore: _firestore,
+              collection: 'users',
+              user: result.user)
           .upsert(data: {
         'mail': email,
         'university': university.shortName,
@@ -91,17 +105,15 @@ class AuthService {
     String errorMessage;
 
     try {
-      result = await auth.signInAnonymously();
-      await updateUserData(
-        result.user,
-        {
-          'university': university.shortName,
-          'language': 'german',
-          'votes': [],
-          'upvotes': [],
-          'downvotes': []
-        },
-      );
+      result = await _auth.signInAnonymously();
+      await Document(firestore: _firestore, path: 'users/${result.user.uid}')
+          .createAndMerge({
+        'university': university.shortName,
+        'language': 'german',
+        'votes': [],
+        'upvotes': [],
+        'downvotes': []
+      });
     } catch (error) {
       errorMessage =
           firebaseErrors[error is FirebaseAuthException ? error.code : error] ??
@@ -113,37 +125,35 @@ class AuthService {
 
   // convert anonymous user to full user
   Future upgradeUserAccount(
-      String email, String password, Subject subject, int semester) async {
-    final User user = auth.currentUser;
+      {String email, String password, Subject subject, int semester}) async {
+    final User user = _auth.currentUser;
     final AuthCredential credential =
         EmailAuthProvider.credential(email: email, password: password);
     String errorMessage;
 
     try {
       await user.linkWithCredential(credential);
-      await UserDataService(collection: 'users').upsert(
-          data: {'mail': email, 'subject': subject.name, 'semester': semester});
+      await UserDataService(
+              auth: _auth, firestore: _firestore, collection: 'users')
+          .upsert(data: {
+        'mail': email,
+        'subject': subject.name,
+        'semester': semester
+      });
     } catch (error) {
       errorMessage =
           firebaseErrors[error is FirebaseAuthException ? error.code : error] ??
               'Ein unbekannter Fehler ist aufgetreten.';
     }
-
     return errorMessage != null ? Future.error(errorMessage) : user;
-  }
-
-  Future<void> updateUserData(User user, Map<String, dynamic> data) async {
-    final DocumentReference reportRef =
-        FirebaseFirestore.instance.collection('users').doc(user.uid);
-    return reportRef.set(data);
   }
 
   // sign out
   Future signOut() async {
     try {
-      return await auth.signOut();
+      return await _auth.signOut();
     } catch (e) {
-      return null;
+      return;
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore_mocks/cloud_firestore_mocks.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
 import 'package:mateapp/models/models.dart';
 import 'package:mateapp/services/services.dart';
 import 'package:mockito/mockito.dart';
@@ -8,36 +9,30 @@ import 'package:rxdart/rxdart.dart' hide Subject;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_mock.dart';
 
-class MockHttpService extends Mock implements HttpService {}
+class MockClient extends Mock implements http.Client {}
 
 Future<void> main() async {
-  TestWidgetsFlutterBinding.ensureInitialized();
-
-  // Mock classes from Firebase
   final MockFirebaseAuth _auth = MockFirebaseAuth();
-  final MockFirebaseUser _currentuser = MockFirebaseUser();
   final MockUserCredential _userCredential = MockUserCredential();
   final BehaviorSubject<MockFirebaseUser> _user =
       BehaviorSubject<MockFirebaseUser>();
-  final MockHttpService _httpService = MockHttpService();
   final MockFirestoreInstance _firestore = MockFirestoreInstance();
-
-  // Mock methods from Firebase Auth
-  when(_auth.authStateChanges()).thenAnswer((_) => _user);
-
-  // instantiate AuthService Class
+  final MockClient _client = MockClient();
+  final MockFirebaseUser _mockUser = MockFirebaseUser();
   SharedPreferences.setMockInitialValues({});
-  final AuthService _authService = AuthService(auth: _auth);
-  final UserDataService _userDataService =
-      UserDataService(auth: _auth, user: _currentuser, firestore: _firestore);
 
-  // Run Tests
   group('Test Firebase authentication class', () {
+    TestWidgetsFlutterBinding.ensureInitialized();
+
+    final AuthService _authService =
+        AuthService(auth: _auth, firestore: _firestore, client: _client);
+
     test('Should return current User', () {
       expect(_authService.getUser, isInstanceOf<User>());
     });
 
     test('Should return a Stream<User>', () {
+      when(_auth.authStateChanges()).thenAnswer((_) => _user);
       expect(_authService.user, isInstanceOf<Stream<User>>());
     });
 
@@ -55,7 +50,7 @@ Future<void> main() async {
       expect(user, isInstanceOf<User>());
     });
 
-    test('Unknown Exception', () async {
+    test('Should throw Unknown Exception', () async {
       // Setup
       when(_auth.signInWithEmailAndPassword(
               email: 'unknown', password: 'password'))
@@ -69,43 +64,82 @@ Future<void> main() async {
       expect(errorMsg, 'Ein unbekannter Fehler ist aufgetreten.');
     });
 
-    // test('Should return User on register', () async {
-    //   // Setup
-    //   when(_auth.createUserWithEmailAndPassword(
-    //           email: 'email@example.com', password: 'password'))
-    //       .thenAnswer((_) async {
-    //     _user.add(MockFirebaseUser());
-    //     return _userCredential;
-    //   });
-    //   when(_httpService.postReq(
-    //       'https://us-central1-mate-app-e8033.cloudfunctions.net/validateUserdata',
-    //       {
-    //         'email': 'email@example.com',
-    //         'password': 'password'
-    //       })).thenAnswer((_) async => 'true');
-    //   when(_userDataService.upsert(data: {
-    //     'mail': 'email@example.com',
-    //     'university': 'name',
-    //     'subject': 'fach',
-    //     'semester': 1,
-    //     'department': 'fb',
-    //     'language': 'german',
-    //     'upvotes': [],
-    //     'downvotes': []
-    //   })).thenAnswer((_) async {
-    //     return;
-    //   });
-    //   const String email = 'email@example.com';
-    //   const String password = 'password';
-    //   final University university = University(shortName: 'name');
-    //   final Subject subject = Subject(name: 'fach', department: 'fb');
-    //   const int semester = 1;
+    test('Should return User on register', () async {
+      // Setup
+      when(_client.post(any,
+              headers: anyNamed('headers'), body: anyNamed('body')))
+          .thenAnswer((_) async => http.Response('true', 200));
+      when(_auth.createUserWithEmailAndPassword(
+              email: anyNamed('email'), password: anyNamed('password')))
+          .thenAnswer((_) async {
+        _user.add(MockFirebaseUser());
+        return _userCredential;
+      });
+      // test
+      final user = await _authService.registerWithEmailAndPassword(
+          email: 'email@example.com',
+          password: 'password',
+          university: University(),
+          subject: Subject(),
+          semester: 1);
+      expect(user, isInstanceOf<User>());
+    });
 
-    //   // Test
-    //   final user = await _authService.registerWithEmailAndPassword(
-    //       email, password, university, subject, semester);
+    test('Should throw Unknown Exception', () async {
+      when(_auth.createUserWithEmailAndPassword(
+              email: anyNamed('email'), password: anyNamed('password')))
+          .thenAnswer((_) async {
+        throw Exception();
+      });
+      // test
+      final errorMsg = await _authService
+          .registerWithEmailAndPassword(
+              email: '222',
+              password: '',
+              university: University(),
+              subject: Subject(),
+              semester: 1)
+          .catchError((e) => e);
+      expect(errorMsg, 'Ein unbekannter Fehler ist aufgetreten.');
+    });
 
-    //   expect(user, isInstanceOf<User>());
-    // });
+    test('Should return User on anonymous login', () async {
+      // Setup
+      when(_auth.signInAnonymously()).thenAnswer((_) async {
+        _user.add(MockFirebaseUser());
+        return _userCredential;
+      });
+      // Test
+      final user = await _authService.anonLogin(University());
+      expect(user, isInstanceOf<User>());
+    });
+
+    test('Should throw unknown expection', () async {
+      // Setup
+      when(_auth.signInAnonymously()).thenAnswer((_) async {
+        throw Exception();
+      });
+      // Test
+      final errorMsg =
+          await _authService.anonLogin(University()).catchError((e) => e);
+      expect(errorMsg, 'Ein unbekannter Fehler ist aufgetreten.');
+    });
+
+    test('Should return User on account upgrade', () async {
+      // Setup
+      when(_mockUser.linkWithCredential(any))
+          .thenAnswer((_) async => _userCredential);
+      // Test
+      final user = await _authService.upgradeUserAccount(
+          email: 'email@example.com',
+          password: 'password',
+          subject: Subject(),
+          semester: 1);
+      expect(user, isInstanceOf<User>());
+    });
+
+    test('Should return future void', () async {
+      expect(await _authService.signOut(), null);
+    });
   });
 }
