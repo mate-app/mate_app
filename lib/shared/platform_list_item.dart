@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../styles/styles.dart';
-import 'shared.dart';
 
 class PlatformListItem extends StatelessWidget {
   const PlatformListItem({
