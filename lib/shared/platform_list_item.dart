@@ -13,7 +13,7 @@ class PlatformListItem extends StatelessWidget {
     @required this.text,
   }) : super(key: key);
 
-  final Future
+  final dynamic
       action; // Currently only accepts futures, Navigator returns a Future so might be fine for now
   final int itemIndex;
   final String text;
@@ -26,15 +26,16 @@ class PlatformListItem extends StatelessWidget {
           color: MateColors.white,
         ),
         child: CupertinoButton(
-          onPressed: () async {
-            await action;
-          },
+          onPressed: action as Function(),
           child: Row(
             children: [
-              PlatformText(
-                text,
-                style: MateTextstyles.font.apply(
-                  color: MateColors.grey,
+              Expanded(
+                flex: 20,
+                child: PlatformText(
+                  text,
+                  style: MateTextstyles.font.apply(
+                    color: MateColors.grey,
+                  ),
                 ),
               ),
               const Spacer(),
@@ -50,13 +51,14 @@ class PlatformListItem extends StatelessWidget {
       material: (_, __) => Material(
         color: MateColors.white,
         child: ListTile(
-          title: DynamicText(
-            text,
-            style: MateTextstyles.font,
+          title: Expanded(
+            flex: 20,
+            child: PlatformText(
+              text,
+              style: MateTextstyles.font,
+            ),
           ),
-          onTap: () async {
-            await action;
-          },
+          onTap: action as Function(),
           trailing: const Icon(
             Icons.keyboard_arrow_right,
             color: MateColors.lightGrey,
