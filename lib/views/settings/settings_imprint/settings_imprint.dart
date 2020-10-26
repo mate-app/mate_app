@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 import '../../../shared/shared.dart';
 import '../../../styles/styles.dart';
@@ -14,7 +14,7 @@ class SettingsImprint extends StatelessWidget {
             parent: AlwaysScrollableScrollPhysics()),
         slivers: <Widget>[
           SliverPersistentHeader(
-            delegate: StaticNavigationBar(title: 'Mitteilung'),
+            delegate: StaticNavigationBar(title: 'Impressum'),
             pinned: true,
             floating: true,
           ),
@@ -38,32 +38,42 @@ class SettingsImprint extends StatelessWidget {
                   ),
                   Container(
                     padding: const EdgeInsets.fromLTRB(5, 25, 5, 0),
-                    child: PlatformText(
-                      '''
-                        Verantwortliche: 
+                    child: Center(
+                      child: MarkdownBody(
+                        data: '''
+Verantwortliche: 
 
-                        Mathis Fandré
-                        Möllingstr. 20
-                        24103 Kiel
+**Mathis Fandré**  
+Möllingstr. 20  
+24103 Kiel  
+mathis@mate-app.de  
+  
+**Ramin Nobakht**  
+Knooperweg 113  
+24118 Kiel  
+ramin@mate-app.de  
+  
+**Tobias Pörtner**  
+Kirchhofalle 5  
+24103 Kiel  
+tobias@mate-app.de  
+  
+Allgemeiner Kontakt:
 
-                        Ramin Nobakht
-                        Knooperweg 113
-                        24118 Kiel
+**contact@mate-app.de**  
+  
+Rechtliche Anfragen:
 
-                        Tobias Pörtner
-                        Kirchhofalle 5
-                        24103 Kiel
-
-                        Kontakt:
-
-                        E-Mail: contact @ mate-app.de
-
-                        Für anfragen bezüglich Datenschutz und Recht:
-
-                        legal @ mate-app.de
-                        ''',
-                      style: MateTextstyles.font.apply(color: MateColors.grey),
-                      // textAlign: TextAlign.justify,
+**legal@mate-app.de**
+''',
+                        styleSheet:
+                            MarkdownStyleSheet.fromTheme(Theme.of(context))
+                                .copyWith(
+                                    p: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2
+                                        .copyWith(fontSize: 16.0)),
+                      ),
                     ),
                   ),
                 ],
