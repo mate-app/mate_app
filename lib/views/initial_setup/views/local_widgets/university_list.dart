@@ -80,7 +80,9 @@ class _UniversityListState extends State<UniversityList> {
                       if (index.isEven) {
                         return PlatformListItem(
                           itemIndex: itemIndex,
-                          action: sendForm(widget.universities[itemIndex]),
+                          action: () async {
+                            await sendForm(widget.universities[itemIndex]);
+                          },
                           text:
                               '${widget.universities[itemIndex].name} (${widget.universities[itemIndex].city})',
                         );

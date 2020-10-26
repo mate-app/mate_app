@@ -32,13 +32,15 @@ class SemesterList extends StatelessWidget {
                   if (index.isEven) {
                     return PlatformListItem(
                       itemIndex: itemIndex,
-                      action: Navigator.push(
-                          context,
-                          platformPageRoute(
-                              context: context,
-                              builder: (_) => Login(
-                                  subjectname: subject.name,
-                                  semester: itemIndex + 1))),
+                      action: () async {
+                        Navigator.push(
+                            context,
+                            platformPageRoute(
+                                context: context,
+                                builder: (_) => Login(
+                                    subjectname: subject.name,
+                                    semester: itemIndex + 1)));
+                      },
                       text: '$itemIndex. Fachsemester',
                     );
                   }

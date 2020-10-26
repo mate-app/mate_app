@@ -33,12 +33,14 @@ class SubjectList extends StatelessWidget {
                   if (index.isEven) {
                     return PlatformListItem(
                       itemIndex: itemIndex,
-                      action: Navigator.push(
-                          context,
-                          platformPageRoute(
-                              context: context,
-                              builder: (_) =>
-                                  Semester(subject: subjects[itemIndex]))),
+                      action: () async {
+                        await Navigator.push(
+                            context,
+                            platformPageRoute(
+                                context: context,
+                                builder: (_) =>
+                                    Semester(subject: subjects[itemIndex])));
+                      },
                       text: subjects[itemIndex].name,
                     );
                   }
