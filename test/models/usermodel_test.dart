@@ -10,6 +10,7 @@ void main() {
       final mockData = {
         'language': 'language',
         'mail': 'mail',
+        'domain': 'domain',
         'semester': 0,
         'subject': 'subject',
         'university': 'university',
@@ -24,6 +25,7 @@ void main() {
       expect(UserModel.fromMap(docid, mockData).id, docid);
       expect(UserModel.fromMap(docid, mockData).language, 'language');
       expect(UserModel.fromMap(docid, mockData).mail, 'mail');
+      expect(UserModel.fromMap(docid, mockData).domain, 'domain');
       expect(UserModel.fromMap(docid, mockData).semester, 0);
       expect(UserModel.fromMap(docid, mockData).subject, 'subject');
       expect(UserModel.fromMap(docid, mockData).university, 'university');
