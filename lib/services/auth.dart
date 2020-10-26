@@ -62,11 +62,7 @@ class AuthService {
 
   // Register with email & password
   Future registerWithEmailAndPassword(
-      {String password,
-      University university,
-      Subject subject,
-      int semester,
-      String email}) async {
+      {String password, Subject subject, int semester, String email}) async {
     UserCredential result;
     String errorMessage;
 
@@ -81,7 +77,6 @@ class AuthService {
               user: result.user)
           .upsert(data: {
         'mail': email,
-        'university': university.shortName,
         'subject': subject.name,
         'semester': semester,
         'department': subject.department,
@@ -109,6 +104,7 @@ class AuthService {
       await Document(firestore: _firestore, path: 'users/${result.user.uid}')
           .createAndMerge({
         'university': university.shortName,
+        'domain': university.domain,
         'language': 'german',
         'votes': [],
         'upvotes': [],

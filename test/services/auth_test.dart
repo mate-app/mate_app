@@ -79,7 +79,6 @@ Future<void> main() async {
       final user = await _authService.registerWithEmailAndPassword(
           email: 'email@example.com',
           password: 'password',
-          university: University(),
           subject: Subject(),
           semester: 1);
       expect(user, isInstanceOf<User>());
@@ -94,11 +93,7 @@ Future<void> main() async {
       // test
       final errorMsg = await _authService
           .registerWithEmailAndPassword(
-              email: '222',
-              password: '',
-              university: University(),
-              subject: Subject(),
-              semester: 1)
+              email: '222', password: '', subject: Subject(), semester: 1)
           .catchError((e) => e);
       expect(errorMsg, 'Ein unbekannter Fehler ist aufgetreten.');
     });
