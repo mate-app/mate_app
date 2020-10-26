@@ -28,25 +28,22 @@ class SettingsVersion extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
                     child: PlatformText(
-                      "Version 1.0 release",
+                      "Version 1.0",
                       style: MateTextstyles.h2.apply(color: MateColors.grey),
-                      // textAlign: TextAlign.justify,
                     ),
                   ),
                   Container(
                     padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
                     child: PlatformText(
-                      'September 15, 2020',
+                      'Oktober 31, 2020',
                       style: MateTextstyles.small.apply(color: MateColors.grey),
-                      // textAlign: TextAlign.justify,
                     ),
                   ),
                   Container(
                     padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
                     child: PlatformText(
-                      "Die erste Version von mate. Sie wird durch die Decke gehen und alle Student:innen lieben uns dafür lieben.",
+                      "Die erste Version von mate. Sie wird durch die Decke gehen und alle Student:innen werden uns dafür lieben.",
                       style: MateTextstyles.font.apply(color: MateColors.grey),
-                      // textAlign: TextAlign.justify,
                     ),
                   ),
                 ],

@@ -33,7 +33,7 @@ class SettingsCodeofconduct extends StatelessWidget {
   
 Wir beziehen Position:
 
-1. Für den uneingeschränkten Zugang zu Bildung für alle — Deshalb ist Mate für Student:Innen kostenlos.
+1. Für den uneingeschränkten Zugang zu Bildung für alle — Deshalb ist Mate für Student:innen kostenlos.
 
 2. Für die volle soziale, ökonomische Teilhabe aller Menschen.
 
