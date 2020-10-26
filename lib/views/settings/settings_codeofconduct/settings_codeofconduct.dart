@@ -14,7 +14,7 @@ class SettingsCodeofconduct extends StatelessWidget {
             parent: AlwaysScrollableScrollPhysics()),
         slivers: <Widget>[
           SliverPersistentHeader(
-            delegate: StaticNavigationBar(title: 'Code of Cunduct'),
+            delegate: StaticNavigationBar(title: 'Code of Conduct'),
             pinned: true,
             floating: true,
           ),
@@ -27,19 +27,32 @@ class SettingsCodeofconduct extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
-                    child: const MarkdownBody(
+                    child: MarkdownBody(
                       data: '''
-                          ## Die folgenden Punkte bilden die Grundlage unseres Handelns
+## Die folgenden Punkte bilden die Grundlage unseres Handelns
+  
+Wir beziehen Position:
 
-                          Wir beziehen Position:  
-                          1. Für den uneingeschränkten Zugang zu Bildung für alle — Deshalb ist Mate für Student*Innen kostenlos  
-                          2. Für die volle soziale, ökonomische Teilhabe aller Menschen.  
-                          3. Für den Erhalt des Planeten für gegenwärtige und künftige Generationen und den Erhalt der Artenvielfalt. – Deswegen setzen wir bei unserer technischen Infrastruktur auf Strom aus erneuerbaren Energien.  
-                          4. Für das Recht, selbstbestimmt über Daten zur eigenen Person zu entscheiden – Deshalb bieten wir an, über den Support jederzeit alle Nutzerdaten einzusehen und löschen zu lassen.  
-                          5. Gegen jede Form von Menschenfeindlichkeit.   
-                            
-                          Dafür setzen wir uns ein und diese Positionen sind nicht verhandelbar.
-                          ''',
+1. Für den uneingeschränkten Zugang zu Bildung für alle — Deshalb ist Mate für Student:Innen kostenlos.
+
+2. Für die volle soziale, ökonomische Teilhabe aller Menschen.
+
+3. Für den Erhalt des Planeten für gegenwärtige und künftige Generationen und den Erhalt der Artenvielfalt. – Deswegen setzen wir bei unserer technischen Infrastruktur auf Strom aus erneuerbaren Energien.
+
+4. Für das Recht, selbstbestimmt über Daten zur eigenen Person zu entscheiden – Deshalb bieten wir an, über den Support jederzeit alle Nutzer:innen-Daten einzusehen und löschen zu lassen.
+
+5. Gegen jede Form von Menschenfeindlichkeit.
+
+  
+Dafür setzen wir uns ein und diese Positionen sind nicht verhandelbar.
+''',
+                      styleSheet:
+                          MarkdownStyleSheet.fromTheme(Theme.of(context))
+                              .copyWith(
+                                  p: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2
+                                      .copyWith(fontSize: 16.0)),
                     ),
                   ),
                 ],
