@@ -24,7 +24,7 @@ class Subjects extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<List<Subject>> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
-              return SubjectList(subjects: snapshot.data);
+              return SubjectList(subjects: snapshot.data, user: user);
             }
           }
           return PlatformScaffold(

@@ -11,8 +11,10 @@ import '../../full_setup.dart';
 
 class SubjectList extends StatelessWidget {
   final List<Subject> subjects;
+  final UserModel user;
 
-  const SubjectList({Key key, @required this.subjects}) : super(key: key);
+  const SubjectList({Key key, @required this.subjects, @required this.user})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +40,8 @@ class SubjectList extends StatelessWidget {
                             context,
                             platformPageRoute(
                                 context: context,
-                                builder: (_) =>
-                                    Semester(subject: subjects[itemIndex])));
+                                builder: (_) => Semester(
+                                    subject: subjects[itemIndex], user: user)));
                       },
                       text: subjects[itemIndex].name,
                     );
