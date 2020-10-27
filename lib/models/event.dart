@@ -52,10 +52,10 @@ class Event {
     endsAt = data['ends_at'] != null && data['ends_at'] is Timestamp
         ? Date(dateTime: data['ends_at'].toDate() as DateTime)
         : const Date();
-    groups = data['groups'] is List
+    groups = data['groups'] is List<String>
         ? List.from(data['groups'] as List<String>)
         : null;
-    lecturers = data['lecturers'] is List
+    lecturers = data['lecturers'] is List<String>
         ? List.from(data['lecturers'] as List<String>)
         : null;
     location = data['location'] is String ? data['location'] as String : null;

@@ -12,15 +12,19 @@ class Calendar extends StatelessWidget {
   Widget build(BuildContext context) {
     final UserModel user = Provider.of<UserModel>(context);
     if (!AuthService().getUser.isAnonymous) {
-      return StreamBuilder(
-        stream: EventStream(user: user).stream,
-        builder: (BuildContext context, AsyncSnapshot<List<Event>> snapshot) {
-          if (snapshot.hasData) {
-            return CalendarList(events: snapshot.data);
-          }
-          return const SliverLoadingIndicator();
-        },
-      );
+      return user == null
+          ? const SliverLoadingIndicator()
+          : StreamBuilder<List<Event>>(
+              stream: EventStream(user: user).stream,
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<Event>> snapshot) {
+                if (snapshot.hasData) {
+                  return CalendarList(events: snapshot.data);
+                }
+                print(snapshot.error);
+                return const SliverLoadingIndicator();
+              },
+            );
     }
     return SliverToBoxAdapter(
       child: RegisterButton(),

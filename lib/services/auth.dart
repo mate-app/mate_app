@@ -60,40 +60,6 @@ class AuthService {
     return errorMessage != null ? Future.error(errorMessage) : result.user;
   }
 
-  // Register with email & password
-  Future registerWithEmailAndPassword(
-      {String password, Subject subject, int semester, String email}) async {
-    UserCredential result;
-    String errorMessage;
-
-    try {
-      await _checkCredentials(email, password);
-      result = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      await UserDataService(
-              auth: _auth,
-              firestore: _firestore,
-              collection: 'users',
-              user: result.user)
-          .upsert(data: {
-        'mail': email,
-        'subject': subject.name,
-        'semester': semester,
-        'department': subject.department,
-        'language': 'german',
-        'upvotes': [],
-        'downvotes': []
-      });
-      await _saveCredentials(email, password);
-    } catch (error) {
-      errorMessage =
-          firebaseErrors[error is FirebaseAuthException ? error.code : error] ??
-              'Ein unbekannter Fehler ist aufgetreten.';
-    }
-
-    return errorMessage != null ? Future.error(errorMessage) : result.user;
-  }
-
   // Anonymous Firebase Login
   Future anonLogin(University university) async {
     UserCredential result;
@@ -128,13 +94,15 @@ class AuthService {
     String errorMessage;
 
     try {
+      // await _checkCredentials(email, password);
       await user.linkWithCredential(credential);
       await UserDataService(
               auth: _auth, firestore: _firestore, collection: 'users')
           .upsert(data: {
         'mail': email,
         'subject': subject.name,
-        'semester': semester
+        'semester': semester,
+        'department': subject.department,
       });
     } catch (error) {
       errorMessage =

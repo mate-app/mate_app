@@ -72,7 +72,7 @@ class _LoginState extends State<Login> {
 
   Future<void> register() async {
     await _authService
-        .registerWithEmailAndPassword(
+        .upgradeUserAccount(
             email: email.fieldContent + widget.user.domain,
             password: password.fieldContent,
             subject: widget.subject,
@@ -210,9 +210,9 @@ class _LoginState extends State<Login> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: PlatformButton(
                 onPressed: _btnEnabled
-                    ? () {
+                    ? () async {
                         setState(() => _loading = true);
-                        register();
+                        await register();
                       }
                     : null,
                 cupertinoFilled: (_, __) => CupertinoFilledButtonData(),
@@ -236,9 +236,9 @@ class _LoginState extends State<Login> {
                   PlatformButton(
                     padding: const EdgeInsets.only(right: 3),
                     onPressed: _btnEnabled
-                        ? () {
+                        ? () async {
                             setState(() => _loading = true);
-                            login();
+                            await login();
                           }
                         : null,
                     child: const Text(

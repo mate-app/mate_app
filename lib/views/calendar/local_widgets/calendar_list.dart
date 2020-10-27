@@ -13,19 +13,21 @@ class CalendarList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Date> dates = {for (var event in events) event.date}
-        .toList()
-        .where((element) =>
-            element.dateTime.compareTo(
-                  DateTime(
-                    DateTime.now().year,
-                    DateTime.now().month,
-                    DateTime.now().day,
-                  ),
-                ) >
-                0 ||
-            false)
-        .toList();
+    final List<Date> dates =
+        {for (var event in events) event.date}.toList().where((element) {
+      if (element.dateTime == null) {
+        return false;
+      }
+      return element.dateTime.compareTo(
+                DateTime(
+                  DateTime.now().year,
+                  DateTime.now().month,
+                  DateTime.now().day,
+                ),
+              ) >
+              0 ||
+          false;
+    }).toList();
     return SliverList(
       delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
         final List<Event> filteredEvents =
