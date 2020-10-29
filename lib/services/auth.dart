@@ -112,7 +112,6 @@ class AuthService {
         'department': subject.department,
       });
     } catch (error) {
-      print(error);
       errorMessage =
           firebaseErrors[error is FirebaseAuthException ? error.code : error] ??
               'Ein unbekannter Fehler ist aufgetreten.';
