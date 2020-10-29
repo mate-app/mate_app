@@ -21,7 +21,6 @@ class Calendar extends StatelessWidget {
                 if (snapshot.hasData) {
                   return CalendarList(events: snapshot.data);
                 }
-                print(snapshot.error);
                 return const SliverLoadingIndicator();
               },
             );

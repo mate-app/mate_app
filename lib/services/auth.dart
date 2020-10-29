@@ -34,12 +34,17 @@ class AuthService {
   }
 
   // checks whether the credentials are valid
-  Future<bool> _checkCredentials(String email, String password) async {
+  Future<bool> _checkCredentials(
+      String token, String email, String password) async {
     final String response = await HttpService(client: _client).postReq(
-      'https://us-central1-mate-app-e8033.cloudfunctions.net/validateUserdata',
+      token,
+      'https://us-central1-mate-app-dev.cloudfunctions.net/fhkiel_validateuserdata',
       {'email': email, 'password': password},
     );
-    return response == 'false' ? throw Error : true;
+    return response == 'false'
+        ? throw FirebaseAuthException(
+            message: 'invalid-credential', code: 'invalid-credential')
+        : true;
   }
 
   // login user with email and password
@@ -92,9 +97,11 @@ class AuthService {
     final AuthCredential credential =
         EmailAuthProvider.credential(email: email, password: password);
     String errorMessage;
+    String token;
 
     try {
-      // await _checkCredentials(email, password);
+      token = await user.getIdToken();
+      await _checkCredentials(token, email, password);
       await user.linkWithCredential(credential);
       await UserDataService(
               auth: _auth, firestore: _firestore, collection: 'users')
@@ -105,6 +112,7 @@ class AuthService {
         'department': subject.department,
       });
     } catch (error) {
+      print(error);
       errorMessage =
           firebaseErrors[error is FirebaseAuthException ? error.code : error] ??
               'Ein unbekannter Fehler ist aufgetreten.';

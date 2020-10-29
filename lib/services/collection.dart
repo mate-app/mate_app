@@ -70,7 +70,6 @@ class Collection<T> {
       try {
         return Global.models[T](doc.id, doc.data()) as T;
       } catch (e) {
-        print(e);
         return Samples.models[T]() as T;
       }
     }).toList();
@@ -81,7 +80,6 @@ class Collection<T> {
           try {
             return Global.models[T](doc.id, doc.data()) as T;
           } catch (e) {
-            print(e);
             return Samples.models[T]() as T;
           }
         }).toList());

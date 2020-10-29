@@ -88,6 +88,9 @@ Future<void> main() async {
 
     test('Should return User on account upgrade', () async {
       // Setup
+      when(_client.post(any,
+              headers: anyNamed('headers'), body: anyNamed('body')))
+          .thenAnswer((_) async => http.Response('true', 200));
       when(_mockUser.linkWithCredential(any))
           .thenAnswer((_) async => _userCredential);
       // Test
