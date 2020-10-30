@@ -2,6 +2,7 @@ class UserModel {
   String _id;
   String _language;
   String _mail;
+  String _domain;
   int _semester;
   String _subject;
   String _university;
@@ -15,6 +16,7 @@ class UserModel {
       {String id,
       String language,
       String mail,
+      String domain,
       int semester,
       String subject,
       String university,
@@ -26,6 +28,7 @@ class UserModel {
       : _id = id,
         _language = language,
         _mail = mail,
+        _domain = domain,
         _semester = semester,
         _subject = subject,
         _university = university,
@@ -39,6 +42,7 @@ class UserModel {
     id = docid;
     language = data['language'] is String ? data['language'] as String : null;
     mail = data['mail'] is String ? data['mail'] as String : null;
+    domain = data['domain'] is String ? data['domain'] as String : null;
     semester = data['semester'] is int ? data['semester'] as int : null;
     subject = data['subject'] is String ? data['subject'] as String : null;
     university =
@@ -59,6 +63,7 @@ class UserModel {
   set id(String id) => _id = id;
   set language(String language) => _language = language;
   set mail(String mail) => _mail = mail;
+  set domain(String domain) => _domain = domain;
   set semester(int semester) => _semester = semester;
   set subject(String subject) => _subject = subject;
   set university(String university) => _university = university;
@@ -71,6 +76,7 @@ class UserModel {
   String get id => _id ?? '';
   String get language => _language ?? '';
   String get mail => _mail ?? '';
+  String get domain => _domain ?? '';
   int get semester => _semester ?? 0;
   String get subject => _subject ?? '';
   String get university => _university ?? '';

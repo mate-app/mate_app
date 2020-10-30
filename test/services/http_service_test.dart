@@ -13,7 +13,8 @@ void main() {
       when(client.post(any,
               headers: anyNamed('headers'), body: anyNamed('body')))
           .thenAnswer((_) async => http.Response('{"response": "true"}', 200));
-      final response = await HttpService(client: client).postReq('url', {});
+      final response =
+          await HttpService(client: client).postReq('token', 'url', {});
       expect(response, '{"response": "true"}');
     });
   });

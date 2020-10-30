@@ -33,60 +33,60 @@
 
 //   FocusNode passwordFocusNode;
 
-//   void validateForm() {
-//     setState(() => _btnEnabled = false);
-//     if (email.checkIfFieldsAreEmpty() || password.checkIfFieldsAreEmpty())
-//       return;
-//     setState(() => _btnEnabled = true);
-//   }
+// void validateForm() {
+//   setState(() => _btnEnabled = false);
+//   if (email.checkIfFieldsAreEmpty() || password.checkIfFieldsAreEmpty())
+//     return;
+//   setState(() => _btnEnabled = true);
+// }
 
-//   void sendForm() async {
-//     await _auth
-//         .loginWithEmailAndPassword(
-//             email.fieldContent + widget.university.domain,
-//             password.fieldContent)
-//         .then((value) {
-//       Navigator.pushAndRemoveUntil(
-//           context,
-//           CupertinoPageRoute(builder: (context) => Wrapper()),
-//           (route) => false);
-//     }, onError: (error) {
-//       setState(() => _loading = false);
-//       _loginAlert(message: error);
-//     });
-//   }
+// void sendForm() async {
+//   await _auth
+//       .loginWithEmailAndPassword(
+//           email.fieldContent + widget.university.domain,
+//           password.fieldContent)
+//       .then((value) {
+//     Navigator.pushAndRemoveUntil(
+//         context,
+//         CupertinoPageRoute(builder: (context) => Wrapper()),
+//         (route) => false);
+//   }, onError: (error) {
+//     setState(() => _loading = false);
+//     _loginAlert(message: error);
+//   });
+// }
 
-//   Future<void> _loginAlert(
-//       {String message = 'Ein unbekannter Fehler ist aufgetreten.'}) async {
-//     return showCupertinoDialog(
-//         context: context,
-//         builder: (BuildContext context) {
-//           return CupertinoAlertDialog(
-//             title: PlatformText('Fehler'),
-//             content: PlatformText(message),
-// actions: <Widget>[
-//   CupertinoDialogAction(
-//       child: PlatformText('nochmal versuchen'),
-//       onPressed: () {
-//         setState(() => _btnEnabled = false);
-//         Navigator.pop(context);
-//       }),
-// ],
-//           );
-//         });
-//   }
+// Future<void> _loginAlert(
+//     {String message = 'Ein unbekannter Fehler ist aufgetreten.'}) async {
+//   return showCupertinoDialog(
+//       context: context,
+//       builder: (BuildContext context) {
+//         return CupertinoAlertDialog(
+//           title: PlatformText('Fehler'),
+//           content: PlatformText(message),
+//           actions: <Widget>[
+//             CupertinoDialogAction(
+//                 child: PlatformText('nochmal versuchen'),
+//                 onPressed: () {
+//                   setState(() => _btnEnabled = false);
+//                   Navigator.pop(context);
+//                 }),
+//           ],
+//         );
+//       });
+// }
 
-//   @override
-//   void initState() {
-//     super.initState();
-//     passwordFocusNode = FocusNode();
-//   }
+// @override
+// void initState() {
+//   super.initState();
+//   passwordFocusNode = FocusNode();
+// }
 
-//   @override
-//   void dispose() {
-//     passwordFocusNode.dispose();
-//     super.dispose();
-//   }
+// @override
+// void dispose() {
+//   passwordFocusNode.dispose();
+//   super.dispose();
+// }
 
 //   @override
 //   Widget build(BuildContext context) {
@@ -136,49 +136,49 @@
 //                     width: 300,
 //                     height: 44,
 //                     child: CupertinoTextField(
-//                       focusNode: passwordFocusNode,
-//                       placeholder: 'Passwort',
-//                       clearButtonMode: OverlayVisibilityMode.editing,
-//                       obscureText: true,
-//                       onChanged: (val) {
-//                         setState(() => password.fieldContent = val);
-//                         validateForm();
-//                       },
-//                       maxLength: 20,
-//                       maxLines: 1,
-//                       maxLengthEnforced: true,
-//                       onEditingComplete: _btnEnabled
-//                           ? () {
-//                               setState(() => _loading = true);
-//                               sendForm();
-//                             }
-//                           : null,
-//                       keyboardType: TextInputType.visiblePassword,
-//                       textInputAction: TextInputAction.send,
-//                       autocorrect: false,
+// focusNode: passwordFocusNode,
+// placeholder: 'Passwort',
+// clearButtonMode: OverlayVisibilityMode.editing,
+// obscureText: true,
+// onChanged: (val) {
+//   setState(() => password.fieldContent = val);
+//   validateForm();
+// },
+// maxLength: 20,
+// maxLines: 1,
+// maxLengthEnforced: true,
+// onEditingComplete: _btnEnabled
+//     ? () {
+//         setState(() => _loading = true);
+//         sendForm();
+//       }
+//     : null,
+// keyboardType: TextInputType.visiblePassword,
+// textInputAction: TextInputAction.send,
+// autocorrect: false,
 //                     ),
 //                   ),
 //                   SizedBox(height: 20),
-//                   CupertinoButton.filled(
-//                     padding: EdgeInsets.symmetric(vertical: 0, horizontal: 112),
-//                     child: PlatformText('Anmelden'),
-//                     onPressed: _btnEnabled
-//                         ? () {
-//                             setState(() => _loading = true);
-//                             sendForm();
-//                           }
-//                         : null,
-//                   ),
-//                   CupertinoButton(
-//                     padding: EdgeInsets.symmetric(vertical: 0),
-//                     child: PlatformText(
-//                       'Neu? Jetzt Registrieren',
-//                       style: TextStyle(fontSize: 14),
-//                     ),
-//                     onPressed: () async {
-//                       widget.toggleView();
-//                     },
-//                   ),
+// CupertinoButton.filled(
+//   padding: EdgeInsets.symmetric(vertical: 0, horizontal: 112),
+//   child: PlatformText('Anmelden'),
+//   onPressed: _btnEnabled
+//       ? () {
+//           setState(() => _loading = true);
+//           sendForm();
+//         }
+//       : null,
+// ),
+// CupertinoButton(
+//   padding: EdgeInsets.symmetric(vertical: 0),
+//   child: PlatformText(
+//     'Neu? Jetzt Registrieren',
+//     style: TextStyle(fontSize: 14),
+//   ),
+//   onPressed: () async {
+//     widget.toggleView();
+//   },
+// ),
 //                 ],
 //               )),
 //             ),

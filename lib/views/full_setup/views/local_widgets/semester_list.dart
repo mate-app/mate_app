@@ -11,7 +11,10 @@ import '../../full_setup.dart';
 class SemesterList extends StatelessWidget {
   final Subject subject;
 
-  const SemesterList({Key key, @required this.subject}) : super(key: key);
+  final UserModel user;
+
+  const SemesterList({Key key, @required this.subject, @required this.user})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +41,11 @@ class SemesterList extends StatelessWidget {
                             platformPageRoute(
                                 context: context,
                                 builder: (_) => Login(
-                                    subjectname: subject.name,
-                                    semester: itemIndex + 1)));
+                                    subject: subject,
+                                    semester: itemIndex + 1,
+                                    user: user)));
                       },
-                      text: '$itemIndex. Fachsemester',
+                      text: '${itemIndex + 1}. Fachsemester',
                     );
                   }
                   return const Divider(

@@ -64,45 +64,6 @@ Future<void> main() async {
       expect(errorMsg, 'Ein unbekannter Fehler ist aufgetreten.');
     });
 
-    test('Should return User on register', () async {
-      // Setup
-      when(_client.post(any,
-              headers: anyNamed('headers'), body: anyNamed('body')))
-          .thenAnswer((_) async => http.Response('true', 200));
-      when(_auth.createUserWithEmailAndPassword(
-              email: anyNamed('email'), password: anyNamed('password')))
-          .thenAnswer((_) async {
-        _user.add(MockFirebaseUser());
-        return _userCredential;
-      });
-      // test
-      final user = await _authService.registerWithEmailAndPassword(
-          email: 'email@example.com',
-          password: 'password',
-          university: University(),
-          subject: Subject(),
-          semester: 1);
-      expect(user, isInstanceOf<User>());
-    });
-
-    test('Should throw Unknown Exception', () async {
-      when(_auth.createUserWithEmailAndPassword(
-              email: anyNamed('email'), password: anyNamed('password')))
-          .thenAnswer((_) async {
-        throw Exception();
-      });
-      // test
-      final errorMsg = await _authService
-          .registerWithEmailAndPassword(
-              email: '222',
-              password: '',
-              university: University(),
-              subject: Subject(),
-              semester: 1)
-          .catchError((e) => e);
-      expect(errorMsg, 'Ein unbekannter Fehler ist aufgetreten.');
-    });
-
     test('Should return User on anonymous login', () async {
       // Setup
       when(_auth.signInAnonymously()).thenAnswer((_) async {
@@ -127,6 +88,9 @@ Future<void> main() async {
 
     test('Should return User on account upgrade', () async {
       // Setup
+      when(_client.post(any,
+              headers: anyNamed('headers'), body: anyNamed('body')))
+          .thenAnswer((_) async => http.Response('true', 200));
       when(_mockUser.linkWithCredential(any))
           .thenAnswer((_) async => _userCredential);
       // Test
