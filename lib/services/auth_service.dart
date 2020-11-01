@@ -53,10 +53,8 @@ class AuthService {
     UserCredential result;
 
     try {
-      print(getUser.uid);
       result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      print(getUser.uid);
       await _saveCredentials(email, password);
     } catch (error) {
       errorMessage =

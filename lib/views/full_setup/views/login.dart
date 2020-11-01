@@ -71,7 +71,6 @@ class _LoginState extends State<Login> {
   }
 
   Future<void> register() async {
-    print(_authService.getUser);
     await _authService
         .upgradeUserAccount(
             email: email.fieldContent + widget.user.domain,
