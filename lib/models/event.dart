@@ -4,40 +4,43 @@ import 'package:mateapp/models/models.dart';
 class Event {
   String _id;
   String _courseName;
-  Date date;
+  Date _date;
   String _degree;
-  Date endsAt;
+  Date _endsAt;
   List<String> _groups;
   List<String> _lecturers;
   String _location;
   String _major;
   int _semester;
-  Date startsAt;
+  Date _startsAt;
   List<String> _subjects;
   String _type;
 
   Event({
     String id,
     String courseName,
-    this.date = const Date(),
+    Date date,
     String degree,
-    this.endsAt = const Date(),
+    Date endsAt,
     List<String> groups,
     List<String> lecturers,
     String location,
     String major,
     int semester,
-    this.startsAt = const Date(),
+    Date startsAt,
     List<String> subjects,
     String type,
   })  : _id = id,
         _courseName = courseName,
+        _date = date,
         _degree = degree,
+        _endsAt = endsAt,
         _groups = groups,
         _lecturers = lecturers,
         _location = location,
         _major = major,
         _semester = semester,
+        _startsAt = startsAt,
         _subjects = subjects,
         _type = type;
 
@@ -47,11 +50,11 @@ class Event {
         data['course_name'] is String ? data['course_name'] as String : null;
     date = data['date'] != null && data['date'] is Timestamp
         ? Date(dateTime: data['date'].toDate() as DateTime)
-        : const Date();
+        : Date();
     degree = data['degree'] is String ? data['degree'] as String : null;
     endsAt = data['ends_at'] != null && data['ends_at'] is Timestamp
         ? Date(dateTime: data['ends_at'].toDate() as DateTime)
-        : const Date();
+        : Date();
     groups = data['groups'] is List<String>
         ? List.from(data['groups'] as List<String>)
         : null;
@@ -63,7 +66,7 @@ class Event {
     semester = data['semester'] is int ? data['semester'] as int : null;
     startsAt = data['starts_at'] != null && data['starts_at'] is Timestamp
         ? Date(dateTime: data['starts_at'].toDate() as DateTime)
-        : const Date();
+        : Date();
     subjects = data['subjects'] is List<String>
         ? List.from(data['subjects'] as List<String>)
         : null;
@@ -72,24 +75,30 @@ class Event {
 
   set id(String id) => _id = id;
   set courseName(String courseName) => _courseName = courseName;
+  set date(Date date) => _date = date;
   set degree(String degree) => _degree = degree;
+  set endsAt(Date endsAt) => _endsAt = endsAt;
   set groups(List<String> groups) => _groups = groups;
   set lecturers(List<String> lecturers) => _lecturers = lecturers;
   set location(String location) => _location = location;
   set major(String major) => _major = major;
   set semester(int semester) => _semester = semester;
+  set startsAt(Date startsAt) => _startsAt = startsAt;
   set subjects(List<String> subjects) => _subjects = subjects;
   set type(String type) => _type = type;
 
   String get id => _id ?? '';
   String get courseName => _courseName ?? '';
+  Date get date => _date ?? Date();
   String get degree => _degree ?? '';
+  Date get endsAt => _endsAt ?? Date();
   List<String> get groups => _groups ?? [];
   List<String> get lecturers => _lecturers ?? [];
   String get location => _location ?? '';
   String get major => _major ?? '';
   int get semester => _semester ?? 0;
   List<String> get subjects => _subjects ?? [];
+  Date get startsAt => _startsAt ?? Date();
   String get type => _type ?? '';
   String get shortType =>
       {

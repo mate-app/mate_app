@@ -93,11 +93,11 @@ class AuthService {
   // convert anonymous user to full user
   Future upgradeUserAccount(
       {String email, String password, Subject subject, int semester}) async {
-    final User user = _auth.currentUser;
     final AuthCredential credential =
         EmailAuthProvider.credential(email: email, password: password);
     String errorMessage;
     String token;
+    final User user = getUser;
 
     try {
       token = await user.getIdToken();

@@ -13,9 +13,23 @@ void main() {
     });
 
     test('Should return valid Date Instance when given null', () {
-      expect(const Date(), isInstanceOf<Date>());
-      expect(const Date().asString, '');
-      expect(const Date().onlyTime, '');
+      expect(Date(), isInstanceOf<Date>());
+      expect(Date().asString, '');
+      expect(Date().onlyTime, '');
+    });
+
+    test('Should be two different instances', () {
+      final date1 = Date();
+      final date2 = Date();
+
+      expect(date1 == date2, true);
+    });
+
+    test('Should return same hashcode', () {
+      final date1 = Date();
+      final date2 = Date();
+
+      expect(date1.hashCode == date2.hashCode, true);
     });
   });
 }

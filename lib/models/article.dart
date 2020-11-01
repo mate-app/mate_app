@@ -5,7 +5,7 @@ class Article {
   String _id;
   String _author;
   String _category;
-  Date date;
+  Date _date;
   String _link;
   String _teaser;
   String _text;
@@ -15,7 +15,7 @@ class Article {
     String id,
     String author,
     String category,
-    this.date = const Date(),
+    Date date,
     String link,
     String teaser,
     String text,
@@ -23,6 +23,7 @@ class Article {
   })  : _id = id,
         _author = author,
         _category = category,
+        _date = date,
         _link = link,
         _teaser = teaser,
         _text = text,
@@ -34,7 +35,7 @@ class Article {
     category = data['category'] is String ? data['category'] as String : null;
     date = data['date'] != null && data['date'] is Timestamp
         ? Date(dateTime: data['date'].toDate() as DateTime)
-        : const Date();
+        : Date();
     link = data['link'] is String ? data['link'] as String : null;
     teaser = data['teaser'] is String ? data['teaser'] as String : null;
     text = data['text'] is String ? data['text'] as String : null;
@@ -44,6 +45,7 @@ class Article {
   set id(String id) => _id = id;
   set author(String author) => _author = author;
   set category(String category) => _category = category;
+  set date(Date date) => _date = date;
   set link(String link) => _link = link;
   set teaser(String teaser) => _teaser = teaser;
   set text(String text) => _text = text;
@@ -52,6 +54,7 @@ class Article {
   String get id => _id ?? '';
   String get author => _author ?? '';
   String get category => _category ?? '';
+  Date get date => _date ?? Date();
   String get link => _link ?? '';
   String get teaser => _teaser ?? '';
   String get text => _text ?? '';

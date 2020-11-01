@@ -12,7 +12,7 @@ class University {
   String _tel;
   String _website;
   String _zip;
-  Date nextHolidays;
+  Date _nextHolidays;
 
   University({
     String id,
@@ -25,6 +25,7 @@ class University {
     String tel,
     String website,
     String zip,
+    Date nextHolidays,
   })  : _id = id,
         _city = city,
         _domain = domain,
@@ -34,7 +35,8 @@ class University {
         _street = street,
         _tel = tel,
         _website = website,
-        _zip = zip;
+        _zip = zip,
+        _nextHolidays = nextHolidays;
 
   University.fromMap(String docid, data) : assert(data != null) {
     id = docid;
@@ -51,7 +53,7 @@ class University {
     nextHolidays =
         data['next_holidays'] != null && data['next_holidays'] is Timestamp
             ? Date(dateTime: data['next_holidays'].toDate() as DateTime)
-            : const Date();
+            : Date();
   }
 
   set id(String id) => _id = id;
@@ -64,6 +66,7 @@ class University {
   set tel(String tel) => _tel = tel;
   set website(String website) => _website = website;
   set zip(String zip) => _zip = zip;
+  set nextHolidays(Date nextHolidays) => _nextHolidays = nextHolidays;
 
   String get id => _id ?? '';
   String get city => _city ?? '';
@@ -75,4 +78,5 @@ class University {
   String get tel => _tel ?? '';
   String get website => _website ?? '';
   String get zip => _zip ?? '';
+  Date get nextHolidays => _nextHolidays ?? Date();
 }

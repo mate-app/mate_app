@@ -5,7 +5,7 @@ class Date {
   final DateTime dateTime;
   final String dateFormat;
 
-  const Date({this.dateTime, this.dateFormat = 'dd MMM y'});
+  Date({this.dateTime, this.dateFormat = 'dd MMM y'});
 
   String get asString =>
       dateTime != null ? _convertDateToString(dateTime, dateFormat) : '';
@@ -27,4 +27,19 @@ class Date {
     }
     return '';
   }
+
+  // this overrides the default behaviour when comparing to instances
+  // of this class. Without this to dates where different, but now when
+  // compared their datetime field is compared
+  @override
+  bool operator ==(dynamic other) {
+    if (other is Date) {
+      return dateTime == other.dateTime;
+    }
+    return false;
+  }
+
+  int _hashCode;
+  @override
+  int get hashCode => _hashCode ??= dateTime.hashCode;
 }
