@@ -61,7 +61,7 @@ class _LoginState extends State<Login> {
     await _authService
         .loginWithEmailAndPassword(
             email.fieldContent + widget.user.domain, password.fieldContent)
-        .then((value) {
+        .then((value) async {
       Navigator.pushAndRemoveUntil(context,
           CupertinoPageRoute(builder: (context) => Home()), (route) => false);
     }, onError: (error) {
