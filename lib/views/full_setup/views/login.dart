@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../../models/models.dart';
-import '../../../services/auth.dart';
-import '../../../shared/loading_screen.dart';
+import '../../../services/services.dart';
+import '../../../shared/shared.dart';
 import '../../../styles/colors.dart';
 import '../../../styles/styles.dart';
 import '../../views.dart';
@@ -71,6 +71,7 @@ class _LoginState extends State<Login> {
   }
 
   Future<void> register() async {
+    print(_authService.getUser);
     await _authService
         .upgradeUserAccount(
             email: email.fieldContent + widget.user.domain,
