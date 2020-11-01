@@ -33,6 +33,7 @@ class CalendarList extends StatelessWidget {
         final List<Event> filteredEvents =
             events.where((element) => element.date == dates[index]).toList();
 
+        print(dates[index].asString);
         List<Widget> _createChildren(int delIndex) {
           final List<Widget> days = [
             CalendarListDate(date: dates[delIndex]),

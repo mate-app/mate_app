@@ -4,7 +4,7 @@ import 'models.dart';
 
 class Dish {
   String _id;
-  Date date;
+  Date _date;
   String _name;
   String _price;
   int _rating;
@@ -12,13 +12,14 @@ class Dish {
 
   Dish({
     String id,
-    this.date = const Date(),
+    Date date,
     String name,
     String price,
     int rating,
     List<String> tags,
   })  : _id = id,
         _name = name,
+        _date = date,
         _price = price,
         _rating = rating,
         _tags = tags;
@@ -31,18 +32,20 @@ class Dish {
     price = data['price'] is String ? data['price'] as String : null;
     date = data['date'] != null && data['date'] is Timestamp
         ? Date(dateTime: data['date'].toDate() as DateTime)
-        : const Date();
+        : Date();
     rating = data['rating'] is int ? data['rating'] as int : null;
   }
 
   set id(String id) => _id = id;
   set name(String name) => _name = name;
+  set date(Date date) => _date = date;
   set price(String price) => _price = price;
   set rating(int rating) => _rating = rating;
   set tags(List<String> tags) => _tags = tags;
 
   String get id => _id ?? '';
   String get name => _name ?? '';
+  Date get date => _date ?? Date();
   String get price => _price ?? '';
   int get rating => _rating ?? 0;
   List<String> get tags => _tags ?? [];

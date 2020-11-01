@@ -13,9 +13,9 @@ void main() {
     });
 
     test('Should return valid Date Instance when given null', () {
-      expect(const Date(), isInstanceOf<Date>());
-      expect(const Date().asString, '');
-      expect(const Date().onlyTime, '');
+      expect(Date(), isInstanceOf<Date>());
+      expect(Date().asString, '');
+      expect(Date().onlyTime, '');
     });
   });
 }
