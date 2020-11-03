@@ -26,19 +26,20 @@ class Subjects extends StatelessWidget {
             if (snapshot.hasData) {
               return SubjectList(subjects: snapshot.data, user: user);
             }
-          }
-          return PlatformScaffold(
-            body: Center(
-              child: DynamicText(
-                '''
+            return PlatformScaffold(
+              body: Center(
+                child: DynamicText(
+                  '''
                   Sorry, wir haben leider keine Studiengänge gefunden. 
                   Prüfe deine Internetverbindung und probiere es nochmal 
                   oder wende dich an den Support unter support@mate-app.de.
                   ''',
-                style: MateTextstyles.font,
+                  style: MateTextstyles.font,
+                ),
               ),
-            ),
-          );
+            );
+          }
+          return const LoadingScreen();
         },
       );
     } else {
