@@ -129,8 +129,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<UserModel>.value(
-      value: UserDataService(collection: 'users').documentStream,
+    return FutureProvider<UserModel>.value(
+      value: UserDataService(collection: 'users').document,
       child: CupertinoTabScaffold(
         tabBar: CupertinoTabBar(
           items: items(context),
