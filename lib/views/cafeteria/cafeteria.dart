@@ -29,11 +29,13 @@ class Cafeteria extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<List<Dish>> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.isEmpty) {
-            return const SliverToBoxAdapter(
-              child: SizedBox(
-                height: 50,
-                child: Center(
-                  child: Text('Heute gibt es keine Gerichte.'),
+            return SliverToBoxAdapter(
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.85,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/backfall/mensa_backfall.png'),
+                  ),
                 ),
               ),
             );
