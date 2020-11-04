@@ -14,12 +14,20 @@ class CalendarListDate extends StatelessWidget {
   Widget build(BuildContext context) {
     initializeDateFormatting('de_DE');
     bool isToday;
+    bool isTomorrow;
     if (date.dateTime.day == DateTime.now().day &&
         date.dateTime.month == DateTime.now().month &&
         date.dateTime.year == DateTime.now().year) {
       isToday = true;
+      isTomorrow = false;
+    } else if (date.dateTime.day == DateTime.now().day + 1 &&
+        date.dateTime.month == DateTime.now().month &&
+        date.dateTime.year == DateTime.now().year) {
+      isToday = false;
+      isTomorrow = true;
     } else {
       isToday = false;
+      isTomorrow = false;
     }
     return Container(
       decoration: BoxDecoration(
@@ -27,7 +35,7 @@ class CalendarListDate extends StatelessWidget {
           MateShadows.boxShadow,
         ],
         borderRadius: MateShapes.roundedEdges,
-        gradient: isToday ? MateGradients.primary : MateGradients.primary,
+        gradient: isToday ? MateGradients.primary : MateGradients.lightPrimary,
       ),
       height: 30,
       width: MediaQuery.of(context).size.width * 0.95,
@@ -39,7 +47,7 @@ class CalendarListDate extends StatelessWidget {
         5,
       ),
       child: PlatformText(
-        isToday ? 'Heute' : date.asString,
+        isToday ? 'Heute' : isTomorrow ? 'Morgen' : date.asString,
         style: MateTextstyles.font.apply(
             color: MateColors.white,
             fontWeightDelta: isToday != null ? 4 : 1,
