@@ -24,7 +24,7 @@ class CalendarList extends StatelessWidget {
                   DateTime.now().month,
                   DateTime.now().day,
                 ),
-              ) >
+              ) >=
               0 ||
           false;
     }).toList();
