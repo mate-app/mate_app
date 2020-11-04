@@ -35,7 +35,7 @@ class CalendarListDate extends StatelessWidget {
           MateShadows.boxShadow,
         ],
         borderRadius: MateShapes.roundedEdges,
-        gradient: isToday ? MateGradients.primary : MateGradients.primary,
+        gradient: isToday ? MateGradients.primary : MateGradients.lightPrimary,
       ),
       height: 30,
       width: MediaQuery.of(context).size.width * 0.95,
