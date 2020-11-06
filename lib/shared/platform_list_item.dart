@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../styles/styles.dart';
+import 'shared.dart';
 
 class PlatformListItem extends StatelessWidget {
   const PlatformListItem({
@@ -50,12 +51,9 @@ class PlatformListItem extends StatelessWidget {
       material: (_, __) => Material(
         color: MateColors.white,
         child: ListTile(
-          title: Expanded(
-            flex: 20,
-            child: PlatformText(
-              text,
-              style: MateTextstyles.font,
-            ),
+          title: DynamicText(
+            text,
+            style: MateTextstyles.font,
           ),
           onTap: action as Function(),
           trailing: const Icon(
