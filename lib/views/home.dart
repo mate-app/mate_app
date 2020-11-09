@@ -36,43 +36,23 @@ class _HomeState extends State<Home> {
   List<BottomNavigationBarItem> items(BuildContext context) => [
         BottomNavigationBarItem(
           icon: const Icon(Icons.calendar_today),
-          title: PlatformWidget(
-            cupertino: (_, __) => PlatformText(titles[0]),
-            material: (_, __) =>
-                _currentIndex == 0 ? PlatformText(titles[0]) : Container(),
-          ),
+          label: titles[0],
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.restaurant),
-          title: PlatformWidget(
-            cupertino: (_, __) => PlatformText(titles[1]),
-            material: (_, __) =>
-                _currentIndex == 1 ? PlatformText(titles[1]) : Container(),
-          ),
+          label: titles[1],
         ),
         BottomNavigationBarItem(
           icon: const Icon(FontAwesomeIcons.newspaper),
-          title: PlatformWidget(
-            cupertino: (_, __) => PlatformText(titles[2]),
-            material: (_, __) =>
-                _currentIndex == 2 ? PlatformText(titles[2]) : Container(),
-          ),
+          label: titles[2],
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.school),
-          title: PlatformWidget(
-            cupertino: (_, __) => PlatformText(titles[3]),
-            material: (_, __) =>
-                _currentIndex == 3 ? PlatformText(titles[3]) : Container(),
-          ),
+          label: titles[3],
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.settings),
-          title: PlatformWidget(
-            cupertino: (_, __) => PlatformText(titles[4]),
-            material: (_, __) =>
-                _currentIndex == 4 ? PlatformText(titles[4]) : Container(),
-          ),
+          label: titles[4],
         ),
       ];
 
