@@ -40,7 +40,7 @@ class Calendar extends StatelessWidget {
                               decoration: const BoxDecoration(
                                 image: DecorationImage(
                                   image: AssetImage(
-                                      'assets/backfall/mensa_backfall.png'),
+                                      'assets/backfall/termine_backfall_empty.png'),
                                 ),
                               ),
                             ),
@@ -73,7 +73,7 @@ class Calendar extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.6,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/backfall/mensa_backfall.png'),
+                image: AssetImage('assets/backfall/not_registered.png'),
               ),
             ),
           ),
