@@ -18,7 +18,7 @@ class RegisterButton extends StatelessWidget {
           height: 60,
           child: Center(
             child: DynamicText(
-              'Melde dich kostenlos an, um mate im vollen Funktionsumfang nutzen zu können',
+              'Huch! Hier gibt es leider noch nichts zu sehen. Registriere dich jetzt um den vollen Inhalt sehen zu können.',
               style: MateTextstyles.font,
               textAlign: TextAlign.center,
             ),
