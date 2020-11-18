@@ -33,6 +33,12 @@ class RegisterButton extends StatelessWidget {
                   platformPageRoute(
                       context: context, builder: (_) => Subjects(user: user))),
               cupertinoFilled: (_, __) => CupertinoFilledButtonData(),
+              material: (_, __) => MaterialRaisedButtonData(
+                shape: const RoundedRectangleBorder(
+                    borderRadius: MateShapes.roundedEdges),
+                color: MateColors.primary,
+                textColor: MateColors.white,
+              ),
               child: PlatformText('Registrieren'),
             ),
           ),

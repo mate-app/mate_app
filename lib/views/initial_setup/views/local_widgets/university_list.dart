@@ -63,11 +63,11 @@ class _UniversityListState extends State<UniversityList> {
   Widget build(BuildContext context) {
     return _loading
         ? const LoadingScreen()
-        : PlatformScaffold(
-            appBar: PlatformAppBar(
-              title: PlatformText('Organisation wählen'),
+        : CupertinoPageScaffold(
+            navigationBar: CupertinoNavigationBar(
+              middle: const Text('Organisation wählen'),
             ),
-            body: Container(
+            child: Container(
               decoration: const BoxDecoration(
                 color: MateColors.white,
               ),

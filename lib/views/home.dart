@@ -60,31 +60,11 @@ class _HomeState extends State<Home> {
         builder: (context) => CupertinoPageScaffold(
           child: CustomScrollView(
             slivers: <Widget>[
-              PlatformWidget(
-                material: (context, platform) => SliverAppBar(
-                  pinned: true,
-                  forceElevated: true,
-                  expandedHeight: 120.0,
-                  flexibleSpace: FlexibleSpaceBar(
-                    title: PlatformText(titles[index]),
-                  ),
-                  elevation: 1,
-                ),
-                cupertino: (context, platform) => CupertinoSliverNavigationBar(
-                  largeTitle: PlatformText(titles[index]),
-                ),
+              CupertinoSliverNavigationBar(
+                largeTitle: Text(titles[index]),
               ),
-              PlatformWidget(
-                material: (_, __) => SliverToBoxAdapter(
-                  child: Container(),
-                ),
-                cupertino: (_, __) => index < 3
-                    ? const CupertinoSliverRefreshControl(
-                        onRefresh: handleRefresh,
-                      )
-                    : SliverToBoxAdapter(
-                        child: Container(),
-                      ),
+              const CupertinoSliverRefreshControl(
+                onRefresh: handleRefresh,
               ),
               tabs[index],
             ],

@@ -64,7 +64,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformApp(
+    return CupertinoApp(
       navigatorObservers: [
         FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
       ],
@@ -75,10 +75,7 @@ class App extends StatelessWidget {
       ],
       debugShowCheckedModeBanner: true, // TODO: disable in Prod.
       home: Authenticator(),
-      cupertino: (_, __) => CupertinoAppData(
-        theme: buildCupertinoThemeData(),
-      ),
-      material: (_, __) => MaterialAppData(theme: buildThemeData()),
+      theme: buildCupertinoThemeData(),
     );
   }
 }
