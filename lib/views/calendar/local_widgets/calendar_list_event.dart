@@ -15,6 +15,9 @@ class CalendarListEvent extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
       child: PlatformButton(
+        materialFlat: (_, __) => MaterialFlatButtonData(
+          color: MateColors.white,
+        ),
         padding: const EdgeInsets.fromLTRB(5, 5, 10, 5),
         onPressed: () {
           Navigator.push(
