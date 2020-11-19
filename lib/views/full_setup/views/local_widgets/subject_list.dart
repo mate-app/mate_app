@@ -20,7 +20,7 @@ class SubjectList extends StatelessWidget {
   Widget build(BuildContext context) {
     return PlatformScaffold(
       appBar: PlatformAppBar(
-        title: PlatformText('Studiengang wählen'),
+        title: Text('Studiengang wählen'),
       ),
       body: Container(
           decoration: const BoxDecoration(

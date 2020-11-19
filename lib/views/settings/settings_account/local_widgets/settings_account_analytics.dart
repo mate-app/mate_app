@@ -1,8 +1,9 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:mateapp/styles/styles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../../styles/styles.dart';
 
 class SettingsAccountAnalytics extends StatefulWidget {
   final bool isAnalyticsOn;
@@ -33,7 +34,7 @@ class _SettingsAccountAnalyticsState extends State<SettingsAccountAnalytics> {
         children: [
           Container(
             padding: const EdgeInsets.fromLTRB(10, 50, 0, 10),
-            child: PlatformText(
+            child: Text(
               'Datenschutz Einstellungen',
               style: MateTextstyles.small,
             ),
@@ -42,7 +43,7 @@ class _SettingsAccountAnalyticsState extends State<SettingsAccountAnalytics> {
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
             child: Row(
               children: [
-                PlatformText(
+                Text(
                   'Analyse Aktivieren',
                   style: MateTextstyles.font
                       .apply(color: MateColors.grey, fontWeightDelta: 2),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../../../models/models.dart';
 import '../../../../styles/styles.dart';
@@ -22,7 +21,7 @@ class CalendarEventPanel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          PlatformText(event.courseName,
+          Text(event.courseName,
               style: MateTextstyles.h1.apply(color: MateColors.white)),
           const Spacer(),
           Column(
@@ -30,7 +29,7 @@ class CalendarEventPanel extends StatelessWidget {
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.fromLTRB(3, 0, 0, 0),
-                child: PlatformText(
+                child: Text(
                   event.date.asString,
                   style: MateTextstyles.font.apply(
                     color: MateColors.white,
@@ -38,7 +37,7 @@ class CalendarEventPanel extends StatelessWidget {
                   ),
                 ),
               ),
-              PlatformText(
+              Text(
                 '${event.startsAt.onlyTime} - ${event.startsAt.onlyTime}',
                 style: MateTextstyles.font.apply(
                   color: MateColors.white,

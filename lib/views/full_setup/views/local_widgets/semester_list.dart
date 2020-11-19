@@ -20,7 +20,7 @@ class SemesterList extends StatelessWidget {
   Widget build(BuildContext context) {
     return PlatformScaffold(
       appBar: PlatformAppBar(
-        title: PlatformText('Fachsemester wählen'),
+        title: Text('Fachsemester wählen'),
       ),
       body: Container(
         decoration: const BoxDecoration(

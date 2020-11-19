@@ -29,11 +29,11 @@ class CalendarListEvent extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.12,
               child: Column(
                 children: <Widget>[
-                  PlatformText(event.startsAt.onlyTime,
+                  Text(event.startsAt.onlyTime,
                       style:
                           MateTextstyles.small.apply(color: MateColors.grey)),
                   const Padding(padding: EdgeInsetsDirectional.only(top: 5)),
-                  PlatformText(event.endsAt.onlyTime,
+                  Text(event.endsAt.onlyTime,
                       style: MateTextstyles.small
                           .apply(color: MateColors.lightGrey))
                 ],
@@ -55,7 +55,7 @@ class CalendarListEvent extends StatelessWidget {
                       minWidth: 100,
                       maxWidth: MediaQuery.of(context).size.width * 0.58,
                     ),
-                    child: PlatformText(
+                    child: Text(
                       event.courseName,
                       style: MateTextstyles.font.apply(
                         color: MateColors.grey,
@@ -63,7 +63,7 @@ class CalendarListEvent extends StatelessWidget {
                       ),
                     ),
                   ),
-                  PlatformText(
+                  Text(
                     event.location,
                     style:
                         MateTextstyles.font.apply(color: MateColors.lightGrey),
@@ -71,7 +71,7 @@ class CalendarListEvent extends StatelessWidget {
                 ]),
             const Spacer(),
             Column(children: <Widget>[
-              PlatformText(event.shortType,
+              Text(event.shortType,
                   style: MateTextstyles.font.apply(color: MateColors.grey))
             ]),
           ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../../shared/shared.dart';
 import '../../../styles/styles.dart';
@@ -27,21 +26,21 @@ class SettingsVersion extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
-                    child: PlatformText(
+                    child: Text(
                       "Version 1.0",
                       style: MateTextstyles.h2.apply(color: MateColors.grey),
                     ),
                   ),
                   Container(
                     padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
-                    child: PlatformText(
+                    child: Text(
                       'Oktober 31, 2020',
                       style: MateTextstyles.small.apply(color: MateColors.grey),
                     ),
                   ),
                   Container(
                     padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
-                    child: PlatformText(
+                    child: Text(
                       "Die erste Version von mate. Sie wird durch die Decke gehen und alle Student:innen werden uns dafür lieben.",
                       style: MateTextstyles.font.apply(color: MateColors.grey),
                     ),

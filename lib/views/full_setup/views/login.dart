@@ -92,15 +92,15 @@ class _LoginState extends State<Login> {
         context: context,
         builder: (BuildContext context) {
           return CupertinoAlertDialog(
-            title: PlatformText('Fehler'),
-            content: PlatformText(message),
+            title: Text('Fehler'),
+            content: Text(message),
             actions: <Widget>[
               CupertinoDialogAction(
                 onPressed: () {
                   setState(() => _btnEnabled = false);
                   Navigator.pop(context);
                 },
-                child: PlatformText('nochmal versuchen'),
+                child: Text('nochmal versuchen'),
               ),
             ],
           );
@@ -127,7 +127,7 @@ class _LoginState extends State<Login> {
                   ),
                 )),
             const SizedBox(height: 60),
-            PlatformText(
+            Text(
               'Anmeldung',
               textAlign: TextAlign.center,
               style: const TextStyle(
@@ -136,7 +136,7 @@ class _LoginState extends State<Login> {
                   color: MateColors.grey),
             ),
             const SizedBox(height: 20),
-            PlatformText(
+            Text(
               'Melde dich mit den Zugangsdaten für dein Hochschulnetzwerk an, um weitere Funktionen freizuschalten.',
               style: MateTextstyles.font,
               textAlign: TextAlign.center,
@@ -155,7 +155,7 @@ class _LoginState extends State<Login> {
                 child: CupertinoTextField(
                   autofocus: true,
                   placeholder: 'mail${widget.user.domain}',
-                  suffix: PlatformText(widget.user.domain),
+                  suffix: Text(widget.user.domain),
                   suffixMode: OverlayVisibilityMode.editing,
                   clearButtonMode: OverlayVisibilityMode.editing,
                   onChanged: (val) {

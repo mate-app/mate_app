@@ -31,7 +31,7 @@ class Settings extends StatelessWidget {
                     credentials.remove('password');
                     await _auth.signOut();
                   },
-                  child: PlatformText('logout'),
+                  child: Text('logout'),
                 ),
               ),
             )

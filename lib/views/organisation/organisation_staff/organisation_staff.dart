@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../../styles/styles.dart';
 
@@ -18,7 +17,7 @@ class _VerwaltungPersonenState extends State<VerwaltungPersonen> {
       child: CustomScrollView(
         slivers: <Widget>[
           CupertinoSliverNavigationBar(
-            largeTitle: PlatformText('Personen'),
+            largeTitle: Text('Personen'),
           ),
         ],
       ),

@@ -23,7 +23,7 @@ class OrganisationListItem extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
         child: Row(children: <Widget>[
-          PlatformText(
+          Text(
             title,
             style: MateTextstyles.font.apply(color: MateColors.grey),
           ),

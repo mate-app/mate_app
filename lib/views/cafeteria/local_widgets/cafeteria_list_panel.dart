@@ -130,7 +130,7 @@ class _CafeteriaListPanelState extends State<CafeteriaListPanel> {
                           )
                       ],
                     ),
-                    PlatformText(
+                    Text(
                       '${widget.dish.price} €',
                       style:
                           MateTextstyles.small.apply(color: MateColors.white),
