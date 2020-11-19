@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
@@ -12,7 +13,7 @@ class NewsListPanel extends StatelessWidget {
   const NewsListPanel({Key key, this.article}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return PlatformButton(
+    return CupertinoButton(
       color: MateColors.white,
       padding: const EdgeInsets.all(0),
       onPressed: () {
@@ -24,7 +25,6 @@ class NewsListPanel extends StatelessWidget {
                       article: article,
                     )));
       },
-      materialFlat: (_, __) => MaterialFlatButtonData(),
       child: Container(
         decoration: const BoxDecoration(
           boxShadow: [
