@@ -50,9 +50,12 @@ class NewsListPanel extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     height: 80,
-                    child: Text(article.title,
-                        style:
-                            MateTextstyles.h1.apply(color: MateColors.white)),
+                    child: Text(
+                      article.title,
+                      style: MateTextstyles.h1.apply(
+                        color: MateColors.white,
+                      ),
+                    ),
                   ),
                   const Spacer(
                     flex: 2,

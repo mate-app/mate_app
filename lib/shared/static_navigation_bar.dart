@@ -19,7 +19,9 @@ class StaticNavigationBar extends SliverPersistentHeaderDelegate {
     return PlatformAppBar(
       material: (_, __) => MaterialAppBarData(
         backgroundColor: MateColors.white,
-        iconTheme: const IconThemeData(color: MateColors.primary),
+        iconTheme: const IconThemeData(
+          color: MateColors.primary,
+        ),
       ),
       title: PlatformText(
         title,

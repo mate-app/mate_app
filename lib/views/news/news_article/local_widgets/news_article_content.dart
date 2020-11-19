@@ -29,19 +29,19 @@ class NewsArticleContent extends StatelessWidget {
             ),
             child: Row(
               children: <Widget>[
-                PlatformText(
+                Text(
                   article.author,
                   style: MateTextstyles.small.apply(color: MateColors.grey),
                 ),
                 const Spacer(),
-                PlatformText(article.date.asString,
+                Text(article.date.asString,
                     style: MateTextstyles.small.apply(color: MateColors.grey)),
               ],
             ),
           ),
           Container(
             padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
-            child: PlatformText(
+            child: Text(
               article.teaser,
               style: MateTextstyles.font.apply(color: MateColors.grey),
               // textAlign: TextAlign.justify,
@@ -49,19 +49,22 @@ class NewsArticleContent extends StatelessWidget {
           ),
           Container(
             padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
-            child: PlatformText(
+            child: Text(
               article.text,
               style: MateTextstyles.font.apply(color: MateColors.grey),
               // textAlign: TextAlign.justify,
             ),
           ),
           Center(
-            child: Container(
-              margin: const EdgeInsets.fromLTRB(0, 0, 0, 50),
-              child: PlatformButton(
-                padding: EdgeInsets.zero,
-                onPressed: () => launchURL(article.link),
-                child: PlatformText('zur Webseite'),
+            child: PlatformButton(
+              padding: EdgeInsets.zero,
+              onPressed: () => launchURL(article.link),
+              materialFlat: (_, __) => MaterialFlatButtonData(
+                textColor: MateColors.primary,
+              ),
+              child: Text(
+                'zur Webseite',
+                style: MateTextstyles.font.apply(fontWeightDelta: 2),
               ),
             ),
           ),

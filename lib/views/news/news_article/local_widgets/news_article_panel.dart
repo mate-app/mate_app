@@ -25,7 +25,7 @@ class NewsArticlePanel extends StatelessWidget {
         children: <Widget>[
           Container(
             height: 80,
-            child: PlatformText(article.title,
+            child: Text(article.title,
                 style: MateTextstyles.h1.apply(color: MateColors.white)),
           ),
           const Spacer(
