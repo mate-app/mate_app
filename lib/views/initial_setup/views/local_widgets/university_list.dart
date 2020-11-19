@@ -64,8 +64,8 @@ class _UniversityListState extends State<UniversityList> {
     return _loading
         ? const LoadingScreen()
         : CupertinoPageScaffold(
-            navigationBar: CupertinoNavigationBar(
-              middle: const Text('Organisation wählen'),
+            navigationBar: const CupertinoNavigationBar(
+              middle: Text('Organisation wählen'),
             ),
             child: Container(
               decoration: const BoxDecoration(

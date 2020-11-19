@@ -16,8 +16,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _currentIndex;
-
   static final titles = [
     'Termine',
     'Mensa',
@@ -77,14 +75,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    _currentIndex = 0;
     tabController ??= PlatformTabController();
-  }
-
-  void _changeTab(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
   }
 
   @override
@@ -93,8 +84,12 @@ class _HomeState extends State<Home> {
       value: UserDataService(collection: 'users').document,
       child: CupertinoTabScaffold(
         tabBar: CupertinoTabBar(
+          border: const Border(
+            top: BorderSide(
+              color: Colors.black12,
+            ),
+          ),
           items: items(context),
-          onTap: (index) => _changeTab(index),
         ),
         tabBuilder: (context, index) => tabBuilder(context, index),
       ),

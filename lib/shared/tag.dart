@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../styles/styles.dart';
 
@@ -31,7 +30,7 @@ class Tag extends StatelessWidget {
           ),
           Container(
             margin: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-            child: PlatformText(
+            child: Text(
               tag,
               style: MateTextstyles.tiny.apply(color: MateColors.white),
             ),

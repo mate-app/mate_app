@@ -13,6 +13,7 @@ class NewsListPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PlatformButton(
+      color: MateColors.white,
       padding: const EdgeInsets.all(0),
       onPressed: () {
         Navigator.push(
@@ -23,6 +24,7 @@ class NewsListPanel extends StatelessWidget {
                       article: article,
                     )));
       },
+      materialFlat: (_, __) => MaterialFlatButtonData(),
       child: Container(
         decoration: const BoxDecoration(
           boxShadow: [
@@ -48,7 +50,7 @@ class NewsListPanel extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     height: 80,
-                    child: PlatformText(article.title,
+                    child: Text(article.title,
                         style:
                             MateTextstyles.h1.apply(color: MateColors.white)),
                   ),
@@ -61,7 +63,7 @@ class NewsListPanel extends StatelessWidget {
                         tag: article.category,
                       ),
                       const Spacer(flex: 2),
-                      PlatformText(
+                      Text(
                         article.date.asString,
                         style:
                             MateTextstyles.tiny.apply(color: MateColors.white),
@@ -78,7 +80,7 @@ class NewsListPanel extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       height: 60,
-                      child: PlatformText(
+                      child: Text(
                         article.teaser != '' ? article.teaser : article.text,
                         style:
                             MateTextstyles.font.apply(color: MateColors.grey),

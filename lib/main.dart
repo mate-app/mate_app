@@ -6,7 +6,6 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
 import 'services/services.dart';
@@ -68,12 +67,11 @@ class App extends StatelessWidget {
       navigatorObservers: [
         FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
       ],
-      localizationsDelegates: [
+      localizationsDelegates: const [
         DefaultMaterialLocalizations.delegate,
         DefaultCupertinoLocalizations.delegate,
         DefaultWidgetsLocalizations.delegate,
       ],
-      debugShowCheckedModeBanner: true, // TODO: disable in Prod.
       home: Authenticator(),
       theme: buildCupertinoThemeData(),
     );
