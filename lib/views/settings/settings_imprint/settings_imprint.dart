@@ -38,9 +38,8 @@ class SettingsImprint extends StatelessWidget {
                   ),
                   Container(
                     padding: const EdgeInsets.fromLTRB(5, 25, 5, 0),
-                    child: Center(
-                      child: MarkdownBody(
-                        data: '''
+                    child: MarkdownBody(
+                      data: '''
 Verantwortliche: 
 
 **Mathis Fandré**  
@@ -66,14 +65,13 @@ Rechtliche Anfragen:
 
 **legal@mate-app.de**
 ''',
-                        styleSheet:
-                            MarkdownStyleSheet.fromTheme(Theme.of(context))
-                                .copyWith(
-                                    p: Theme.of(context)
-                                        .textTheme
-                                        .bodyText2
-                                        .copyWith(fontSize: 16.0)),
-                      ),
+                      styleSheet:
+                          MarkdownStyleSheet.fromTheme(Theme.of(context))
+                              .copyWith(
+                                  p: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2
+                                      .copyWith(fontSize: 16.0)),
                     ),
                   ),
                 ],

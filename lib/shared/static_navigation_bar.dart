@@ -23,7 +23,7 @@ class StaticNavigationBar extends SliverPersistentHeaderDelegate {
           color: MateColors.primary,
         ),
       ),
-      title: PlatformText(
+      title: Text(
         title,
         style: TextStyle(
           fontSize: Platform.isAndroid ? 20 : 15.5,

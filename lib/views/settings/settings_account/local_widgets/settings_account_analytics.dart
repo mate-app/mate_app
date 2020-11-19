@@ -39,33 +39,42 @@ class _SettingsAccountAnalyticsState extends State<SettingsAccountAnalytics> {
               style: MateTextstyles.small,
             ),
           ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-            child: Row(
-              children: [
-                Text(
-                  'Analyse Aktivieren',
-                  style: MateTextstyles.font
-                      .apply(color: MateColors.grey, fontWeightDelta: 2),
-                ),
-                const Spacer(
-                  flex: 2,
-                ),
-                PlatformSwitch(
-                  value: isAnalyticsOn ?? false,
-                  onChanged: (bool value) async {
-                    final analyticsStorage =
-                        await SharedPreferences.getInstance();
-                    await analyticsStorage.setBool(
-                        'analyticsOn', !isAnalyticsOn ?? false);
-                    setState(() {
-                      isAnalyticsOn = !isAnalyticsOn ?? false;
-                    });
-                    FirebaseAnalytics()
-                        .setAnalyticsCollectionEnabled(isAnalyticsOn);
-                  },
-                )
-              ],
+          Material(
+            color: MateColors.white,
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+              child: Row(
+                children: [
+                  Text(
+                    'Analyse Aktivieren',
+                    style: MateTextstyles.font
+                        .apply(color: MateColors.grey, fontWeightDelta: 2),
+                  ),
+                  const Spacer(
+                    flex: 2,
+                  ),
+                  PlatformSwitch(
+                    cupertino: (_, __) => CupertinoSwitchData(
+                      activeColor: MateColors.primary,
+                    ),
+                    material: (_, __) => MaterialSwitchData(
+                      activeColor: MateColors.primary,
+                    ),
+                    value: isAnalyticsOn ?? false,
+                    onChanged: (bool value) async {
+                      final analyticsStorage =
+                          await SharedPreferences.getInstance();
+                      await analyticsStorage.setBool(
+                          'analyticsOn', !isAnalyticsOn ?? false);
+                      setState(() {
+                        isAnalyticsOn = !isAnalyticsOn ?? false;
+                      });
+                      FirebaseAnalytics()
+                          .setAnalyticsCollectionEnabled(isAnalyticsOn);
+                    },
+                  )
+                ],
+              ),
             ),
           )
         ],

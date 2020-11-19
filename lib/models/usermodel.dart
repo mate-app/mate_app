@@ -7,8 +7,8 @@ class UserModel {
   String _subject;
   String _university;
   String _department;
-  List<String> _upvotes;
-  List<String> _downvotes;
+  List _upvotes;
+  List _downvotes;
   double _average;
   int _creditpoints;
 
@@ -21,8 +21,8 @@ class UserModel {
       String subject,
       String university,
       String department,
-      List<String> upvotes,
-      List<String> downvotes,
+      List upvotes,
+      List downvotes,
       double average,
       int creditpoints})
       : _id = id,
@@ -49,12 +49,8 @@ class UserModel {
         data['university'] is String ? data['university'] as String : null;
     department =
         data['department'] is String ? data['department'] as String : null;
-    upvotes = data['upvotes'] is List<String>
-        ? data['upvotes'] as List<String>
-        : null;
-    downvotes = data['downvotes'] is List<String>
-        ? data['downvotes'] as List<String>
-        : null;
+    upvotes = data['upvotes'] is List ? data['upvotes'] as List : null;
+    downvotes = data['downvotes'] is List ? data['downvotes'] as List : null;
     average = data['average'] is double ? data['average'] as double : null;
     creditpoints =
         data['credit_points'] is int ? data['credit_points'] as int : null;
@@ -68,8 +64,8 @@ class UserModel {
   set subject(String subject) => _subject = subject;
   set university(String university) => _university = university;
   set department(String department) => _department = department;
-  set upvotes(List<String> upvotes) => _upvotes = upvotes;
-  set downvotes(List<String> downvotes) => _downvotes = downvotes;
+  set upvotes(List upvotes) => _upvotes = upvotes;
+  set downvotes(List downvotes) => _downvotes = downvotes;
   set average(double average) => _average = average;
   set creditpoints(int creditpoints) => _creditpoints = creditpoints;
 
@@ -81,8 +77,8 @@ class UserModel {
   String get subject => _subject ?? '';
   String get university => _university ?? '';
   String get department => _department ?? '';
-  List<String> get upvotes => _upvotes ?? [];
-  List<String> get downvotes => _downvotes ?? [];
+  List get upvotes => _upvotes ?? [];
+  List get downvotes => _downvotes ?? [];
   double get average => _average ?? 0;
   int get creditpoints => _creditpoints ?? 0;
 }

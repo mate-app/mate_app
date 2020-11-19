@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 import '../../../shared/shared.dart';
 import '../../../styles/styles.dart';
@@ -20,32 +21,40 @@ class SettingsVersion extends StatelessWidget {
           SliverList(
               delegate: SliverChildListDelegate([
             Container(
-              margin: const EdgeInsets.fromLTRB(20, 20, 20, 40),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
-                    child: Text(
-                      "Version 1.0",
-                      style: MateTextstyles.h2.apply(color: MateColors.grey),
-                    ),
+              margin: const EdgeInsets.fromLTRB(20, 0, 20, 40),
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(5, 25, 5, 0),
+                child: MarkdownBody(
+                  data: '''
+## Version 1.0.0
+
+###### Winter 2020
+
+* kostenlos für Android & iOS verfügbar
+* simples, hochqualitatives Plattform-agnostisches Design
+* sicheres und vertrauenswürdiges Behandeln von privaten Daten nach den Standards der DSGVO
+* individueller Terminplan
+  - Zum Launch werden die Fachbereiche Informatik und Medien unterstützt. Die Unterstützung weiterer Fachbereiche erfolgt automatisch ohne das es einem Update bedarf.
+* Rating-System für Mensa-Gerichte
+* allgemeine und fachbereichsinterne News
+* Übersicht über Tage bis zu den Ferien, Studienfortschritt und Durchschnittsnote
+* Einsicht der Noten aller Module
+
+''',
+                  styleSheet:
+                      MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
+                    h2: MateTextstyles.h2,
+                    p: Theme.of(context).textTheme.bodyText2.copyWith(
+                          fontSize: 15.0,
+                        ),
+                    h6: Theme.of(context).textTheme.bodyText2.copyWith(
+                          fontSize: 14.0,
+                          color: MateColors.lightGrey,
+                          backgroundColor: MateColors.white,
+                          decoration: TextDecoration.none,
+                        ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
-                    child: Text(
-                      'Oktober 31, 2020',
-                      style: MateTextstyles.small.apply(color: MateColors.grey),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
-                    child: Text(
-                      "Die erste Version von mate. Sie wird durch die Decke gehen und alle Student:innen werden uns dafür lieben.",
-                      style: MateTextstyles.font.apply(color: MateColors.grey),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
           ])),

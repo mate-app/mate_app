@@ -20,15 +20,19 @@ class SettingsAccountVotediagram extends StatefulWidget {
 
 class _SettingsAccountVotediagramState
     extends State<SettingsAccountVotediagram> {
-  Map<String, double> dataMap = {};
+  Map<String, double> dataMap = {
+    "Upvotes": 0,
+    "Downvotes": 0,
+  };
 
   @override
   void initState() {
     super.initState();
-    dataMap.putIfAbsent(
-        "Upvotes", () => widget.user.upvotes.length.toDouble() ?? 1);
-    dataMap.putIfAbsent(
-        "Downvotes", () => widget.user.downvotes.length.toDouble() ?? 1);
+    dataMap["Upvotes"] =
+        widget.user.upvotes.isEmpty ? 0 : widget.user.upvotes.length.toDouble();
+    dataMap["Downvotes"] = widget.user.downvotes.isEmpty
+        ? 0
+        : widget.user.downvotes.length.toDouble();
   }
 
   @override
@@ -48,8 +52,6 @@ class _SettingsAccountVotediagramState
               MateColors.secondary,
             ],
             showLegends: false,
-            decimalPlaces: 1,
-            showChartValueLabel: true,
             chartValueStyle: defaultChartValueStyle.copyWith(
               color: MateColors.white,
             ),
