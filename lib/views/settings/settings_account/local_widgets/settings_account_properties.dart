@@ -19,7 +19,7 @@ class SettingsAccountProperties extends StatelessWidget {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
-            child: Text(
+            child: const Text(
               'Account Informationen',
               style: MateTextstyles.small,
             ),

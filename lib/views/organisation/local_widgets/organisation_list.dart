@@ -24,7 +24,7 @@ class OrganisationList extends StatelessWidget {
                   color: MateColors.grey,
                 )),
               ),
-              child: Text("Essential Links", style: MateTextstyles.small),
+              child: const Text("Essential Links", style: MateTextstyles.small),
             ),
             if (!AuthService().getUser.isAnonymous)
               OrganisationListItem(

@@ -34,7 +34,7 @@ class _SettingsAccountAnalyticsState extends State<SettingsAccountAnalytics> {
         children: [
           Container(
             padding: const EdgeInsets.fromLTRB(10, 50, 0, 10),
-            child: Text(
+            child: const Text(
               'Datenschutz Einstellungen',
               style: MateTextstyles.small,
             ),

@@ -14,7 +14,7 @@ class _VerwaltungPersonenState extends State<VerwaltungPersonen> {
   Widget build(BuildContext context) {
     return Container(
       color: MateColors.white,
-      child: CustomScrollView(
+      child: const CustomScrollView(
         slivers: <Widget>[
           CupertinoSliverNavigationBar(
             largeTitle: Text('Personen'),

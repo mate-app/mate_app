@@ -25,7 +25,7 @@ class _VerwaltungModuleState extends State<VerwaltungModule> {
             floating: true,
           ),
           ModulGridList(),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: SizedBox(
               height: 60,
               child: Text(''),
@@ -57,37 +57,37 @@ class ModulGrid extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(8),
             color: MateColors.primary,
-            child: Text("He'd have you all unravel at the"),
+            child: const Text("He'd have you all unravel at the"),
           ),
           Container(
             padding: const EdgeInsets.all(8),
             color: MateColors.primary,
-            child: Text('Heed not the rabble'),
+            child: const Text('Heed not the rabble'),
           ),
           Container(
             padding: const EdgeInsets.all(8),
             color: MateColors.primary,
-            child: Text('Sound of screams but the'),
+            child: const Text('Sound of screams but the'),
           ),
           Container(
             padding: const EdgeInsets.all(8),
             color: MateColors.primary,
-            child: Text('Who scream'),
+            child: const Text('Who scream'),
           ),
           Container(
             padding: const EdgeInsets.all(8),
             color: MateColors.primary,
-            child: Text('Revolution is coming...'),
+            child: const Text('Revolution is coming...'),
           ),
           Container(
             padding: const EdgeInsets.all(8),
             color: MateColors.primary,
-            child: Text('Revolution, they...'),
+            child: const Text('Revolution, they...'),
           ),
           Container(
             padding: const EdgeInsets.all(8),
             color: MateColors.primary,
-            child: Text('Revolution, they...'),
+            child: const Text('Revolution, they...'),
           ),
         ],
       ),

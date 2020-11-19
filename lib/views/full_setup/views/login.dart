@@ -92,7 +92,7 @@ class _LoginState extends State<Login> {
         context: context,
         builder: (BuildContext context) {
           return CupertinoAlertDialog(
-            title: Text('Fehler'),
+            title: const Text('Fehler'),
             content: Text(message),
             actions: <Widget>[
               CupertinoDialogAction(
@@ -100,7 +100,7 @@ class _LoginState extends State<Login> {
                   setState(() => _btnEnabled = false);
                   Navigator.pop(context);
                 },
-                child: Text('nochmal versuchen'),
+                child: const Text('nochmal versuchen'),
               ),
             ],
           );
@@ -127,16 +127,16 @@ class _LoginState extends State<Login> {
                   ),
                 )),
             const SizedBox(height: 60),
-            Text(
+            const Text(
               'Anmeldung',
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.w700,
                   color: MateColors.grey),
             ),
             const SizedBox(height: 20),
-            Text(
+            const Text(
               'Melde dich mit den Zugangsdaten für dein Hochschulnetzwerk an, um weitere Funktionen freizuschalten.',
               style: MateTextstyles.font,
               textAlign: TextAlign.center,
