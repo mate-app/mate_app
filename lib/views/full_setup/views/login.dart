@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -50,7 +52,8 @@ class _LoginState extends State<Login> {
 
   void validateForm() {
     setState(() => _btnEnabled = false);
-    if (email.isEmpty() || password.isEmpty()) return;
+    if (email.toString() == '') return;
+    if (password.toString() == '') return;
     if (password.isPasswordSecure()) {
       setState(() => _btnEnabled = true);
     }
@@ -88,19 +91,26 @@ class _LoginState extends State<Login> {
 
   Future<void> _alert(
       {String message = 'Ein unbekannter Fehler ist aufgetreten.'}) async {
-    return showCupertinoDialog(
+    return showPlatformDialog(
         context: context,
         builder: (BuildContext context) {
-          return CupertinoAlertDialog(
+          return PlatformAlertDialog(
             title: const Text('Fehler'),
             content: Text(message),
             actions: <Widget>[
-              CupertinoDialogAction(
+              PlatformDialogAction(
                 onPressed: () {
                   setState(() => _btnEnabled = false);
                   Navigator.pop(context);
                 },
-                child: const Text('nochmal versuchen'),
+                child: PlatformText(
+                  'nochmal versuchen',
+                  style: TextStyle(
+                    color: Platform.isAndroid
+                        ? MateColors.primary
+                        : MateColors.primary,
+                  ),
+                ),
               ),
             ],
           );
@@ -117,7 +127,7 @@ class _LoginState extends State<Login> {
         body: ListView(
           padding: const EdgeInsets.all(10),
           children: [
-            const SizedBox(height: 150),
+            SizedBox(height: Platform.isAndroid ? 100 : 150),
             Container(
                 height: MediaQuery.of(context).size.height * 0.25,
                 decoration: const BoxDecoration(
@@ -155,7 +165,9 @@ class _LoginState extends State<Login> {
                 child: CupertinoTextField(
                   autofocus: true,
                   placeholder: 'mail${widget.user.domain}',
-                  suffix: Text(widget.user.domain),
+                  suffix: Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Text(widget.user.domain)),
                   suffixMode: OverlayVisibilityMode.editing,
                   clearButtonMode: OverlayVisibilityMode.editing,
                   onChanged: (val) {
@@ -216,10 +228,16 @@ class _LoginState extends State<Login> {
                       }
                     : null,
                 cupertinoFilled: (_, __) => CupertinoFilledButtonData(),
-                materialFlat: (_, __) => MaterialFlatButtonData(),
-                child: const Text(
+                materialFlat: (_, __) => MaterialFlatButtonData(
+                  padding: const EdgeInsets.fromLTRB(0, 13, 0, 13),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: MateShapes.roundedEdges),
+                  disabledColor: Colors.black12,
+                  color: MateColors.primary,
+                ),
+                child: PlatformText(
                   'Registrieren',
-                  style: TextStyle(color: MateColors.white),
+                  style: const TextStyle(color: MateColors.white),
                 ),
               ),
             ),
@@ -234,6 +252,8 @@ class _LoginState extends State<Login> {
                     style: MateTextstyles.small,
                   ),
                   PlatformButton(
+                    materialFlat: (_, __) => MaterialFlatButtonData(
+                        color: MateColors.white, textColor: MateColors.primary),
                     padding: const EdgeInsets.only(right: 3),
                     onPressed: _btnEnabled
                         ? () async {
@@ -241,8 +261,9 @@ class _LoginState extends State<Login> {
                             await login();
                           }
                         : null,
-                    child: const Text(
+                    child: PlatformText(
                       'Anmelden',
+                      overflow: TextOverflow.fade,
                       textAlign: TextAlign.end,
                     ),
                   )

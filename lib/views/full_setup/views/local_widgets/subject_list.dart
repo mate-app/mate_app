@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
@@ -20,7 +21,19 @@ class SubjectList extends StatelessWidget {
   Widget build(BuildContext context) {
     return PlatformScaffold(
       appBar: PlatformAppBar(
-        title: const Text('Studiengang wählen'),
+        title: Text(
+          'Studiengang wählen',
+          style: TextStyle(
+            fontSize: Platform.isAndroid ? 20 : 15.5,
+            color: MateColors.black,
+          ),
+        ),
+        material: (_, __) => MaterialAppBarData(
+          backgroundColor: MateColors.white,
+          iconTheme: const IconThemeData(
+            color: MateColors.primary,
+          ),
+        ),
       ),
       body: Container(
           decoration: const BoxDecoration(

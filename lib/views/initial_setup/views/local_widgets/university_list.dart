@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
@@ -63,11 +64,23 @@ class _UniversityListState extends State<UniversityList> {
   Widget build(BuildContext context) {
     return _loading
         ? const LoadingScreen()
-        : CupertinoPageScaffold(
-            navigationBar: const CupertinoNavigationBar(
-              middle: Text('Organisation wählen'),
+        : PlatformScaffold(
+            appBar: PlatformAppBar(
+              title: Text(
+                'Studiengang wählen',
+                style: TextStyle(
+                  fontSize: Platform.isAndroid ? 20 : 15.5,
+                  color: MateColors.black,
+                ),
+              ),
+              material: (_, __) => MaterialAppBarData(
+                backgroundColor: MateColors.white,
+                iconTheme: const IconThemeData(
+                  color: MateColors.primary,
+                ),
+              ),
             ),
-            child: Container(
+            body: Container(
               decoration: const BoxDecoration(
                 color: MateColors.white,
               ),
