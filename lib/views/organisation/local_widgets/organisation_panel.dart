@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:mateapp/models/models.dart';
-import 'package:mateapp/styles/styles.dart';
 import 'package:provider/provider.dart';
+
+import '../../../models/models.dart';
+import '../../../styles/styles.dart';
 
 class OrganisationPanel extends StatelessWidget {
   final UserModel user;
@@ -47,7 +47,7 @@ class OrganisationPanel extends StatelessWidget {
                 ),
               ),
               child: Center(
-                  child: PlatformText(daysUntilHolidays.toString(),
+                  child: Text(daysUntilHolidays.toString(),
                       style: MateTextstyles.font
                           .apply(color: MateColors.grey, fontWeightDelta: 2))),
             ),
@@ -58,7 +58,7 @@ class OrganisationPanel extends StatelessWidget {
                 ),
                 margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                 alignment: const Alignment(0.0, 1.0),
-                child: PlatformText(
+                child: Text(
                   "Tage bis zu den Ferien",
                   style: MateTextstyles.font.apply(color: MateColors.white),
                   textAlign: TextAlign.center,
@@ -98,7 +98,7 @@ class OrganisationPanel extends StatelessWidget {
                 ),
               ),
               child: Center(
-                child: PlatformText(percentOfStudyDone.toString(),
+                child: Text(percentOfStudyDone.toString(),
                     style: MateTextstyles.h2.apply(color: MateColors.grey)),
               ),
             ),
@@ -108,7 +108,7 @@ class OrganisationPanel extends StatelessWidget {
                 minWidth: 86,
                 maxWidth: MediaQuery.of(context).size.width * 0.28,
               ),
-              child: PlatformText(
+              child: Text(
                 'Fortschritt $percentOfStudyDone%',
                 style: MateTextstyles.h2.apply(color: MateColors.white),
                 textAlign: TextAlign.center,
@@ -132,7 +132,7 @@ class OrganisationPanel extends StatelessWidget {
                 ),
               ),
               child: Center(
-                  child: PlatformText(user.average.toString(),
+                  child: Text(user.average.toString(),
                       style: MateTextstyles.font
                           .apply(color: MateColors.grey, fontWeightDelta: 2))),
             ),
@@ -143,7 +143,7 @@ class OrganisationPanel extends StatelessWidget {
                 ),
                 margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                 alignment: const Alignment(0.0, 1.0),
-                child: PlatformText(
+                child: Text(
                   "Dein Schnitt",
                   style: MateTextstyles.font.apply(color: MateColors.white),
                   textAlign: TextAlign.center,

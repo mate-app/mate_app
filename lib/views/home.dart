@@ -16,8 +16,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _currentIndex;
-
   static final titles = [
     'Termine',
     'Mensa',
@@ -36,43 +34,23 @@ class _HomeState extends State<Home> {
   List<BottomNavigationBarItem> items(BuildContext context) => [
         BottomNavigationBarItem(
           icon: const Icon(Icons.calendar_today),
-          title: PlatformWidget(
-            cupertino: (_, __) => PlatformText(titles[0]),
-            material: (_, __) =>
-                _currentIndex == 0 ? PlatformText(titles[0]) : Container(),
-          ),
+          label: titles[0],
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.restaurant),
-          title: PlatformWidget(
-            cupertino: (_, __) => PlatformText(titles[1]),
-            material: (_, __) =>
-                _currentIndex == 1 ? PlatformText(titles[1]) : Container(),
-          ),
+          label: titles[1],
         ),
         BottomNavigationBarItem(
           icon: const Icon(FontAwesomeIcons.newspaper),
-          title: PlatformWidget(
-            cupertino: (_, __) => PlatformText(titles[2]),
-            material: (_, __) =>
-                _currentIndex == 2 ? PlatformText(titles[2]) : Container(),
-          ),
+          label: titles[2],
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.school),
-          title: PlatformWidget(
-            cupertino: (_, __) => PlatformText(titles[3]),
-            material: (_, __) =>
-                _currentIndex == 3 ? PlatformText(titles[3]) : Container(),
-          ),
+          label: titles[3],
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.settings),
-          title: PlatformWidget(
-            cupertino: (_, __) => PlatformText(titles[4]),
-            material: (_, __) =>
-                _currentIndex == 4 ? PlatformText(titles[4]) : Container(),
-          ),
+          label: titles[4],
         ),
       ];
 
@@ -80,31 +58,11 @@ class _HomeState extends State<Home> {
         builder: (context) => CupertinoPageScaffold(
           child: CustomScrollView(
             slivers: <Widget>[
-              PlatformWidget(
-                material: (context, platform) => SliverAppBar(
-                  pinned: true,
-                  forceElevated: true,
-                  expandedHeight: 120.0,
-                  flexibleSpace: FlexibleSpaceBar(
-                    title: PlatformText(titles[index]),
-                  ),
-                  elevation: 1,
-                ),
-                cupertino: (context, platform) => CupertinoSliverNavigationBar(
-                  largeTitle: PlatformText(titles[index]),
-                ),
+              CupertinoSliverNavigationBar(
+                largeTitle: Text(titles[index]),
               ),
-              PlatformWidget(
-                material: (_, __) => SliverToBoxAdapter(
-                  child: Container(),
-                ),
-                cupertino: (_, __) => index < 3
-                    ? const CupertinoSliverRefreshControl(
-                        onRefresh: handleRefresh,
-                      )
-                    : SliverToBoxAdapter(
-                        child: Container(),
-                      ),
+              const CupertinoSliverRefreshControl(
+                onRefresh: handleRefresh,
               ),
               tabs[index],
             ],
@@ -117,14 +75,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    _currentIndex = 0;
     tabController ??= PlatformTabController();
-  }
-
-  void _changeTab(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
   }
 
   @override
@@ -133,8 +84,12 @@ class _HomeState extends State<Home> {
       value: UserDataService(collection: 'users').document,
       child: CupertinoTabScaffold(
         tabBar: CupertinoTabBar(
+          border: const Border(
+            top: BorderSide(
+              color: Colors.black12,
+            ),
+          ),
           items: items(context),
-          onTap: (index) => _changeTab(index),
         ),
         tabBuilder: (context, index) => tabBuilder(context, index),
       ),

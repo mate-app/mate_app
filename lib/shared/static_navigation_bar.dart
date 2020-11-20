@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+
+import '../styles/styles.dart';
 
 class StaticNavigationBar extends SliverPersistentHeaderDelegate {
   String title;
@@ -13,10 +17,17 @@ class StaticNavigationBar extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return PlatformAppBar(
-      title: PlatformText(
+      material: (_, __) => MaterialAppBarData(
+        backgroundColor: MateColors.white,
+        iconTheme: const IconThemeData(
+          color: MateColors.primary,
+        ),
+      ),
+      title: Text(
         title,
-        style: const TextStyle(
-          fontSize: 15.5,
+        style: TextStyle(
+          fontSize: Platform.isAndroid ? 20 : 15.5,
+          color: MateColors.black,
         ),
       ),
     );

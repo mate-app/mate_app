@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
@@ -12,7 +13,8 @@ class NewsListPanel extends StatelessWidget {
   const NewsListPanel({Key key, this.article}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return PlatformButton(
+    return CupertinoButton(
+      color: MateColors.white,
       padding: const EdgeInsets.all(0),
       onPressed: () {
         Navigator.push(
@@ -48,9 +50,12 @@ class NewsListPanel extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     height: 80,
-                    child: PlatformText(article.title,
-                        style:
-                            MateTextstyles.h1.apply(color: MateColors.white)),
+                    child: Text(
+                      article.title,
+                      style: MateTextstyles.h1.apply(
+                        color: MateColors.white,
+                      ),
+                    ),
                   ),
                   const Spacer(
                     flex: 2,
@@ -61,7 +66,7 @@ class NewsListPanel extends StatelessWidget {
                         tag: article.category,
                       ),
                       const Spacer(flex: 2),
-                      PlatformText(
+                      Text(
                         article.date.asString,
                         style:
                             MateTextstyles.tiny.apply(color: MateColors.white),
@@ -78,7 +83,7 @@ class NewsListPanel extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       height: 60,
-                      child: PlatformText(
+                      child: Text(
                         article.teaser != '' ? article.teaser : article.text,
                         style:
                             MateTextstyles.font.apply(color: MateColors.grey),

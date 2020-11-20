@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../../services/services.dart';
 import '../../../shared/shared.dart';
@@ -25,8 +24,7 @@ class OrganisationList extends StatelessWidget {
                   color: MateColors.grey,
                 )),
               ),
-              child:
-                  PlatformText("Essential Links", style: MateTextstyles.small),
+              child: const Text("Essential Links", style: MateTextstyles.small),
             ),
             if (!AuthService().getUser.isAnonymous)
               OrganisationListItem(

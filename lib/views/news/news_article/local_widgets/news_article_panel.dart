@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../../../models/models.dart';
 import '../../../../shared/shared.dart';
@@ -25,7 +24,7 @@ class NewsArticlePanel extends StatelessWidget {
         children: <Widget>[
           Container(
             height: 80,
-            child: PlatformText(article.title,
+            child: Text(article.title,
                 style: MateTextstyles.h1.apply(color: MateColors.white)),
           ),
           const Spacer(

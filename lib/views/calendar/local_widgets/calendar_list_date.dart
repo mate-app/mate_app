@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import '../../../models/models.dart';
@@ -46,8 +45,12 @@ class CalendarListDate extends StatelessWidget {
         15,
         5,
       ),
-      child: PlatformText(
-        isToday ? 'Heute' : isTomorrow ? 'Morgen' : date.asString,
+      child: Text(
+        isToday
+            ? 'Heute'
+            : isTomorrow
+                ? 'Morgen'
+                : date.asString,
         style: MateTextstyles.font.apply(
             color: MateColors.white,
             fontWeightDelta: isToday != null ? 4 : 1,

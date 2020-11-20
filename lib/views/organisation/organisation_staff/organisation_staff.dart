@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../../styles/styles.dart';
 
@@ -15,10 +14,10 @@ class _VerwaltungPersonenState extends State<VerwaltungPersonen> {
   Widget build(BuildContext context) {
     return Container(
       color: MateColors.white,
-      child: CustomScrollView(
+      child: const CustomScrollView(
         slivers: <Widget>[
           CupertinoSliverNavigationBar(
-            largeTitle: PlatformText('Personen'),
+            largeTitle: Text('Personen'),
           ),
         ],
       ),

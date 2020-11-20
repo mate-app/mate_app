@@ -35,13 +35,13 @@ Wir begrüßen dich bei unserer App und freuen uns über dein Interesse. Der Sch
 Verantwortliche im Sinne der Datenschutz-Grundverordnung und anderer nationaler Datenschutzgesetze der Mitgliedsstaaten sowie sonstiger datenschutzrechtlicher Bestimmungen sind:  
   
 **Mathis Fandré**  
-Möllingstr. 20  
+Möllingstraße 20  
 24103 Kiel  
 tel.: 0151 41 65 78 33  
 email:  mathis@mate-app.de  
   
 **Ramin Nobakht**  
-Knooperweg. 113  
+Knooper Weg 113  
 24118 Kiel  
 tel.: 0176 84 64 85 24  
 email:  ramin@mate-app.de  
@@ -49,7 +49,7 @@ email:  ramin@mate-app.de
 **Tobias Pörtner**  
 Kirchhofallee 5  
 24103 Kiel  
-tel.:0170 82 75 715  
+tel.: 0170 82 75 715  
 email:  tobias@mate-app.de  
 
 ## II. Allgemeines zur Datenverarbeitung

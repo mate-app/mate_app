@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:mateapp/views/settings/settings_account/local_widgets/local_widgets.dart';
 
 import '../../../../models/models.dart';
 import '../../../../styles/styles.dart';
+import 'local_widgets.dart';
 
 class SettingsAccountProperties extends StatelessWidget {
   final UserModel user;
@@ -20,7 +19,7 @@ class SettingsAccountProperties extends StatelessWidget {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
-            child: PlatformText(
+            child: const Text(
               'Account Informationen',
               style: MateTextstyles.small,
             ),

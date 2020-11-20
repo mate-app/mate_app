@@ -16,14 +16,17 @@ class OrganisationListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PlatformButton(
+      materialFlat: (_, __) => MaterialFlatButtonData(
+        color: MateColors.white,
+      ),
       onPressed: () {
         Navigator.push(
             context, platformPageRoute(context: context, builder: (_) => page));
       },
       child: Container(
-        padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
+        padding: const EdgeInsets.fromLTRB(0, 5, 10, 5),
         child: Row(children: <Widget>[
-          PlatformText(
+          Text(
             title,
             style: MateTextstyles.font.apply(color: MateColors.grey),
           ),

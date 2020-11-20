@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+
+import '../styles/styles.dart';
 
 class SliverLoadingIndicator extends StatelessWidget {
   const SliverLoadingIndicator({
@@ -12,7 +15,13 @@ class SliverLoadingIndicator extends StatelessWidget {
       child: SizedBox(
         height: 50,
         child: Center(
-          child: PlatformCircularProgressIndicator(),
+          child: Theme(
+            data: Theme.of(context).copyWith(accentColor: MateColors.secondary),
+            child: PlatformCircularProgressIndicator(
+              material: (_, __) => MaterialProgressIndicatorData(
+                  backgroundColor: MateColors.primary),
+            ),
+          ),
         ),
       ),
     );

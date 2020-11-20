@@ -19,6 +19,9 @@ class SettingsListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PlatformButton(
+      materialFlat: (_, __) => MaterialFlatButtonData(
+        color: MateColors.white,
+      ),
       padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
       onPressed: () {
         Navigator.push(
@@ -34,7 +37,7 @@ class SettingsListItem extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-          child: PlatformText(
+          child: Text(
             title,
             style: MateTextstyles.font.apply(color: MateColors.grey),
           ),

@@ -50,8 +50,13 @@ class OrganisationGrades extends StatelessWidget {
             PlatformWidget(
               cupertino: (_, __) => CupertinoSliverRefreshControl(
                 onRefresh: () async {
-                  return _updateGrades(user.id);
+                  await _updateGrades(user.id);
                 },
+              ),
+              material: (_, __) => const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 0,
+                ),
               ),
             ),
             if (user == null)

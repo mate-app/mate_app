@@ -130,7 +130,7 @@ class _CafeteriaListPanelState extends State<CafeteriaListPanel> {
                           )
                       ],
                     ),
-                    PlatformText(
+                    Text(
                       '${widget.dish.price} €',
                       style:
                           MateTextstyles.small.apply(color: MateColors.white),
@@ -141,33 +141,46 @@ class _CafeteriaListPanelState extends State<CafeteriaListPanel> {
             ],
           ),
           const Spacer(),
-          Column(
-            children: <Widget>[
-              const Spacer(),
-              PlatformButton(
-                padding: const EdgeInsets.all(0),
-                onPressed: _btnEnabled && !downvoted ? _upvote : null,
-                child: Icon(
-                  Icons.keyboard_arrow_up,
-                  color: upvoted ? Colors.white54 : MateColors.white,
-                  size: 40.0,
+          Expanded(
+            child: Column(
+              children: <Widget>[
+                const Spacer(),
+                PlatformButton(
+                  materialFlat: (_, __) => MaterialFlatButtonData(
+                    padding: EdgeInsets.zero,
+                  ),
+                  padding: const EdgeInsets.all(0),
+                  onPressed: _btnEnabled && !downvoted ? _upvote : null,
+                  child: Icon(
+                    Icons.keyboard_arrow_up,
+                    color: upvoted ? Colors.white54 : MateColors.white,
+                    size: 40.0,
+                  ),
                 ),
-              ),
-              DynamicText(
-                widget.dish.rating.toString(),
-                style: MateTextstyles.h2.apply(color: MateColors.white),
-              ),
-              PlatformButton(
-                padding: const EdgeInsets.all(0),
-                onPressed: _btnEnabled && !upvoted ? _downvote : null,
-                child: Icon(
-                  Icons.keyboard_arrow_down,
-                  color: downvoted ? Colors.white54 : MateColors.white,
-                  size: 40.0,
+                Padding(
+                  padding: const EdgeInsets.only(left: 3),
+                  child: DynamicText(
+                    widget.dish.rating.toString(),
+                    style: MateTextstyles.h2.apply(
+                      color: MateColors.white,
+                    ),
+                  ),
                 ),
-              ),
-              const Spacer(),
-            ],
+                PlatformButton(
+                  materialFlat: (_, __) => MaterialFlatButtonData(
+                    padding: EdgeInsets.zero,
+                  ),
+                  padding: const EdgeInsets.all(0),
+                  onPressed: _btnEnabled && !upvoted ? _downvote : null,
+                  child: Icon(
+                    Icons.keyboard_arrow_down,
+                    color: downvoted ? Colors.white54 : MateColors.white,
+                    size: 40.0,
+                  ),
+                ),
+                const Spacer(),
+              ],
+            ),
           ),
         ],
       ),

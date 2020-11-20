@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../../../models/models.dart';
 import '../../../../styles/styles.dart';
@@ -28,14 +27,14 @@ class CalendarEventPropertyList extends StatelessWidget {
             ),
             child: Row(
               children: <Widget>[
-                PlatformText(
+                Text(
                   'Veranstaltungsart',
                   style: MateTextstyles.small.apply(
                     color: MateColors.grey,
                   ),
                 ),
                 const Spacer(),
-                PlatformText(event.shortType,
+                Text(event.shortType,
                     style: MateTextstyles.small.apply(
                       color: MateColors.eventColors[event.shortType],
                     )),

@@ -1,15 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-import '../../../shared/shared.dart';
 import '../../../styles/styles.dart';
 import 'universities.dart';
 
 class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return PlatformScaffold(
-      body: Column(
+    return CupertinoPageScaffold(
+      child: Column(
         children: <Widget>[
           Container(
               height: MediaQuery.of(context).size.height / 1.35,
@@ -21,7 +21,7 @@ class Welcome extends StatelessWidget {
               )),
           Padding(
             padding: const EdgeInsets.fromLTRB(30, 12.5, 30, 0),
-            child: DynamicText(
+            child: Text(
               'Lege sofort los und genieße dein ganzes \nStudium in nur einer App.',
               style: MateTextstyles.font.apply(color: MateColors.grey),
               textAlign: TextAlign.center,
