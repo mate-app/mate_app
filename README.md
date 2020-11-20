@@ -1,7 +1,7 @@
 <h1 align="center">
   <br>
   <a href="http://mate-app.de">
-      <img src="https://github.com/TobiasPrt/mate-app/blob/master/readmeicon.png" alt="mate" width="200">
+      <img src="https://github.com/mate-app/mate_app/blob/master/readmeicon.png" alt="mate" width="200">
   </a>
   <br>
   mate
@@ -11,22 +11,22 @@
 <h4 align="center">A mobile cross-platform app helping students to manage their whole education built with <a href="https://flutter.dev"> Flutter</a>.</h4>
 
 <p align="center">
-  <a href="https://github.com/TobiasPrt/mate-app/">
-    <img src="https://img.shields.io/github/workflow/status/TobiasPRt/mate-app/Check%20if%20App%20builds%20properly/master"
+  <a href="https://github.com/mate-app/mate_app/">
+    <img src="https://img.shields.io/github/workflow/status/mate-app/mate_app/Check%20if%20App%20builds%20properly/master"
          alt="Build">
   </a>
-  <a href="https://codecov.io/gh/TobiasPrt/mate-app">
-    <img src="https://codecov.io/gh/TobiasPrt/mate-app/branch/master/graph/badge.svg" />
+  <a href="https://codecov.io/gh/mate-app/mate_app">
+    <img src="https://codecov.io/gh/mate-app/mate_app/branch/master/graph/badge.svg" />
   </a>
-  <a href="https://github.com/TobiasPrt/mate-app/issues/">
+  <a href="https://github.com/mate-app/mate_app/issues/">
     <img src="https://img.shields.io/github/issues/TobiasPrt/mate-app"
          alt="Issues">
   </a>
-  <a href="https://github.com/TobiasPrt/mate-app/graphs/contributors">
+  <a href="https://github.com/mate-app/mate_app/graphs/contributors">
     <img src="https://img.shields.io/github/contributors/TobiasPrt/mate-app"
          alt="Contributors">
   </a>
-  <a href="https://github.com/TobiasPrt/mate-app/LICENSE.md">
+  <a href="https://github.com/mate-app/mate_app/LICENSE.md">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg"
          alt="License">
   </a>
@@ -43,7 +43,7 @@
 </p>
 
 <h1 align="center">
-    <a href="http://mate-app.de">
+    <a href="https://mate-app.de">
       <img src="https://tobiaspoertner.com/img/matepreview.jpg" alt="mate mockup" width="800">
   </a>
 </h1>
