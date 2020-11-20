@@ -18,12 +18,10 @@ class Calendar extends StatelessWidget {
               stream: EventStream(user: user).stream,
               builder:
                   (BuildContext context, AsyncSnapshot<List<Event>> snapshot) {
-                if (snapshot.connectionState == ConnectionState.done &&
-                    snapshot.hasData) {
+                if (snapshot.hasData) {
                   return CalendarList(events: snapshot.data);
                 }
-                if (snapshot.connectionState == ConnectionState.done &&
-                    !snapshot.hasData) {
+                if (!snapshot.hasData) {
                   return FutureBuilder<Subject>(
                     future: Document<Subject>(
                             path:
@@ -31,8 +29,7 @@ class Calendar extends StatelessWidget {
                         .getData(),
                     builder: (BuildContext context,
                         AsyncSnapshot<Subject> snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done &&
-                          snapshot.hasData) {
+                      if (snapshot.hasData) {
                         if (snapshot.data.supported) {
                           return SliverToBoxAdapter(
                             child: Container(
