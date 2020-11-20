@@ -6,6 +6,7 @@ class Subject {
   String _department;
   String _type;
   double _creditpoints;
+  bool _supported;
 
   Subject({
     String id,
@@ -15,13 +16,15 @@ class Subject {
     String department,
     String type,
     double creditpoints,
+    bool supported,
   })  : _id = id,
         _name = name,
         _degree = degree,
         _duration = duration,
         _department = department,
         _type = type,
-        _creditpoints = creditpoints;
+        _creditpoints = creditpoints,
+        _supported = supported;
 
   Subject.fromMap(String docid, data) : assert(data != null) {
     id = docid;
@@ -33,6 +36,7 @@ class Subject {
     type = data['type'] is String ? data['type'] as String : null;
     creditpoints =
         data['creditpoints'] is double ? data['creditpoints'] as double : null;
+    supported = data['supported'] is bool ?? false;
   }
 
   set id(String id) => _id = id;
@@ -42,6 +46,7 @@ class Subject {
   set department(String department) => _department = department;
   set type(String type) => _type = type;
   set creditpoints(double creditpoints) => _creditpoints = creditpoints;
+  set supported(bool supported) => _supported = supported;
 
   String get id => _id ?? '';
   String get name => _name ?? '';
@@ -50,4 +55,5 @@ class Subject {
   String get department => _department ?? '';
   String get type => _type ?? '';
   double get creditpoints => _creditpoints ?? 0;
+  bool get supported => _supported ?? false;
 }

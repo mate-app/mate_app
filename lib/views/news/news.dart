@@ -48,6 +48,19 @@ class News extends StatelessWidget {
             if (snapshot.hasData) {
               return NewsList(news: snapshot.data);
             }
+            if (snapshot.connectionState == ConnectionState.done &&
+                !snapshot.hasData) {
+              return SliverToBoxAdapter(
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.85,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/backfall/news_backfall.png'),
+                    ),
+                  ),
+                ),
+              );
+            }
             return const SliverLoadingIndicator();
           },
         );

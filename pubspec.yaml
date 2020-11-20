@@ -58,3 +58,4 @@ flutter:
   assets:
     - assets/welcomescreen.png
     - assets/bottle.png
+    - assets/backfall/
