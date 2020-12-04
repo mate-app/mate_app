@@ -247,9 +247,12 @@ class _LoginState extends State<Login> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    ' Du hast schon einen mate Account?',
-                    style: MateTextstyles.small,
+                  const Expanded(
+                    child: Text(
+                      ' Du hast schon einen mate Account?',
+                      style: MateTextstyles.small,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   PlatformButton(
                     materialFlat: (_, __) => MaterialFlatButtonData(
