@@ -25,8 +25,7 @@ class Calendar extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const SliverLoadingIndicator();
                 }
-                print(
-                    'hochschulen/${user.university}/subjects/${user.subject}');
+
                 return StreamBuilder<Subject>(
                   stream: Document<Subject>(
                           path:
@@ -42,8 +41,6 @@ class Calendar extends StatelessWidget {
                         ConnectionState.waiting) {
                       return const SliverLoadingIndicator();
                     }
-
-                    print(subjectSnapshot.data.supported);
                     if (subjectSnapshot.data.supported) {
                       if (snapshot.data.isEmpty) {
                         return SliverToBoxAdapter(
