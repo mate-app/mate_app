@@ -11,9 +11,10 @@ class Calendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final UserModel user = Provider.of<UserModel>(context);
+
     if (!AuthService().getUser.isAnonymous) {
       return user == null
-          ? const SliverLoadingIndicator()
+          ? const ErrorMessage()
           : StreamBuilder<List<Event>>(
               stream: EventStream(user: user).stream,
               builder:
@@ -34,7 +35,7 @@ class Calendar extends StatelessWidget {
                   builder: (BuildContext context,
                       AsyncSnapshot<Subject> subjectSnapshot) {
                     if (subjectSnapshot.hasError) {
-                      return const SliverLoadingIndicator();
+                      return const ErrorMessage();
                     }
 
                     if (subjectSnapshot.connectionState ==
