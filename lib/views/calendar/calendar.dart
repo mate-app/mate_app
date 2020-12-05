@@ -18,47 +18,58 @@ class Calendar extends StatelessWidget {
               stream: EventStream(user: user).stream,
               builder:
                   (BuildContext context, AsyncSnapshot<List<Event>> snapshot) {
-                if (snapshot.hasData) {
-                  return CalendarList(events: snapshot.data);
+                if (snapshot.hasError) {
+                  return const SliverLoadingIndicator();
                 }
-                if (!snapshot.hasData) {
-                  return FutureBuilder<Subject>(
-                    future: Document<Subject>(
-                            path:
-                                'hochschulen/${user.university}/${user.subject}')
-                        .getData(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<Subject> snapshot) {
-                      if (snapshot.hasData) {
-                        if (snapshot.data.supported) {
-                          return SliverToBoxAdapter(
-                            child: Container(
-                              height: MediaQuery.of(context).size.height * 0.85,
-                              decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      'assets/backfall/termine_backfall_empty.png'),
-                                ),
+
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const SliverLoadingIndicator();
+                }
+
+                return StreamBuilder<Subject>(
+                  stream: Document<Subject>(
+                          path:
+                              'hochschulen/${user.university}/subjects/${user.subject}')
+                      .streamData(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<Subject> subjectSnapshot) {
+                    if (subjectSnapshot.hasError) {
+                      return const SliverLoadingIndicator();
+                    }
+
+                    if (subjectSnapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return const SliverLoadingIndicator();
+                    }
+                    if (subjectSnapshot.data.supported) {
+                      if (snapshot.data.isEmpty) {
+                        return SliverToBoxAdapter(
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.85,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(
+                                    'assets/backfall/termine_backfall_empty.png'),
                               ),
                             ),
-                          );
-                        }
+                          ),
+                        );
                       }
-                      return SliverToBoxAdapter(
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * 0.85,
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(
-                                  'assets/backfall/termine_backfall_notsupported.png'),
-                            ),
+                      return CalendarList(events: snapshot.data);
+                    }
+                    return SliverToBoxAdapter(
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.85,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                                'assets/backfall/termine_backfall_notsupported.png'),
                           ),
                         ),
-                      );
-                    },
-                  );
-                }
-                return const SliverLoadingIndicator();
+                      ),
+                    );
+                  },
+                );
               },
             );
     }
