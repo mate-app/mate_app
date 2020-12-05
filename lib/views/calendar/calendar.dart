@@ -19,7 +19,7 @@ class Calendar extends StatelessWidget {
               builder:
                   (BuildContext context, AsyncSnapshot<List<Event>> snapshot) {
                 if (snapshot.hasError) {
-                  return const SliverLoadingIndicator();
+                  return const ErrorMessage();
                 }
 
                 if (snapshot.connectionState == ConnectionState.waiting) {
