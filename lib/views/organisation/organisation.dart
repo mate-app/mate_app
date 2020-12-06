@@ -20,13 +20,18 @@ class Organisation extends StatelessWidget {
               ).streamData(),
               builder:
                   (BuildContext context, AsyncSnapshot<University> snapshot) {
-                if (snapshot.hasError || snapshot.data.id == '') {
+                if (snapshot.hasError) {
                   return const ErrorMessage();
                 }
 
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const LoadingIndicator();
                 }
+
+                if (snapshot.data.id == '') {
+                  return const ErrorMessage();
+                }
+
                 return OrganisationPanel(user: user, university: snapshot.data);
               },
             ),
