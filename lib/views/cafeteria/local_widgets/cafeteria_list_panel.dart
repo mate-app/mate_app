@@ -71,7 +71,7 @@ class _CafeteriaListPanelState extends State<CafeteriaListPanel> {
       'votes': downvoted
           ? FieldValue.arrayRemove([widget.dish.id])
           : FieldValue.arrayUnion([widget.dish.id]),
-      'upvotes': downvoted
+      'downvotes': downvoted
           ? FieldValue.arrayRemove([widget.dish.id])
           : FieldValue.arrayUnion([widget.dish.id]),
     };
