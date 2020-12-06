@@ -1,4 +1,5 @@
 export 'dynamic_text.dart';
+export 'error_message.dart';
 export 'loading_indicator.dart';
 export 'loading_screen.dart';
 export 'platform_list_item.dart';

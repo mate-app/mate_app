@@ -22,6 +22,10 @@ class Subjects extends StatelessWidget {
           order: ['name', 'ASC'],
         ).getData(),
         builder: (BuildContext context, AsyncSnapshot<List<Subject>> snapshot) {
+          if (snapshot.hasError) {
+            return const ErrorMessage();
+          }
+
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
               return SubjectList(subjects: snapshot.data, user: user);

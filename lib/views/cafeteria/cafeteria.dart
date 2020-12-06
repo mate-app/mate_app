@@ -27,22 +27,27 @@ class Cafeteria extends StatelessWidget {
                     DateTime.now().day, 23, 59, 59))
           ]).streamData(),
       builder: (BuildContext context, AsyncSnapshot<List<Dish>> snapshot) {
-        if (snapshot.hasData) {
-          if (snapshot.data.isEmpty) {
-            return SliverToBoxAdapter(
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.85,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/backfall/mensa_backfall.png'),
-                  ),
+        if (snapshot.hasError) {
+          return const ErrorMessage();
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const SliverLoadingIndicator();
+        }
+
+        if (snapshot.data.isEmpty) {
+          return SliverToBoxAdapter(
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.85,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/backfall/mensa_backfall.png'),
                 ),
               ),
-            );
-          }
-          return CafeteriaList(user: user, dishes: snapshot.data);
+            ),
+          );
         }
-        return const SliverLoadingIndicator();
+        return CafeteriaList(user: user, dishes: snapshot.data);
       },
     );
   }
