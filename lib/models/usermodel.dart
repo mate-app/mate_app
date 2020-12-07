@@ -7,6 +7,7 @@ class UserModel {
   String _subject;
   String _university;
   String _department;
+  List _votes;
   List _upvotes;
   List _downvotes;
   double _average;
@@ -21,6 +22,7 @@ class UserModel {
       String subject,
       String university,
       String department,
+      List votes,
       List upvotes,
       List downvotes,
       double average,
@@ -34,6 +36,7 @@ class UserModel {
         _university = university,
         _department = department,
         _upvotes = upvotes,
+        _votes = votes,
         _downvotes = downvotes,
         _average = average,
         _creditpoints = creditpoints;
@@ -50,6 +53,7 @@ class UserModel {
     department =
         data['department'] is String ? data['department'] as String : null;
     upvotes = data['upvotes'] is List ? data['upvotes'] as List : null;
+    votes = data['votes'] is List ? data['votes'] as List : null;
     downvotes = data['downvotes'] is List ? data['downvotes'] as List : null;
     average = data['average'] is double ? data['average'] as double : null;
     creditpoints =
@@ -64,6 +68,7 @@ class UserModel {
   set subject(String subject) => _subject = subject;
   set university(String university) => _university = university;
   set department(String department) => _department = department;
+  set votes(List votes) => _votes = votes;
   set upvotes(List upvotes) => _upvotes = upvotes;
   set downvotes(List downvotes) => _downvotes = downvotes;
   set average(double average) => _average = average;
@@ -77,6 +82,7 @@ class UserModel {
   String get subject => _subject ?? '';
   String get university => _university ?? '';
   String get department => _department ?? '';
+  List get votes => _votes ?? [];
   List get upvotes => _upvotes ?? [];
   List get downvotes => _downvotes ?? [];
   double get average => _average ?? 0;
