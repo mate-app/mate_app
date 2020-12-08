@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../models/models.dart';
+import '../../../../services/services.dart';
 import '../../../../styles/styles.dart';
 import 'local_widgets.dart';
 
@@ -11,7 +12,6 @@ class SettingsAccountProperties extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int votes = user.upvotes.length + user.downvotes.length;
     return Container(
       margin: const EdgeInsets.fromLTRB(10, 20, 10, 0),
       child: Column(
@@ -44,10 +44,22 @@ class SettingsAccountProperties extends StatelessWidget {
                   value: user.subject,
                   propertyName: 'Studiengang:',
                 ),
-                SettingsAccountProperty(
-                  value: votes.toString(),
-                  propertyName: 'Deine Mensa-Votes:',
-                ),
+                StreamBuilder<UserModel>(
+                    stream: Document<UserModel>(path: "users/${user.id}")
+                        .streamData(),
+                    builder: (context, snapshot) {
+                      String voteCount;
+                      if (snapshot.hasError ||
+                          snapshot.connectionState == ConnectionState.waiting) {
+                        voteCount = user.votes.length.toString();
+                      } else {
+                        voteCount = snapshot.data.votes.length.toString();
+                      }
+                      return SettingsAccountProperty(
+                        value: voteCount,
+                        propertyName: 'Deine Mensa-Votes:',
+                      );
+                    }),
                 SettingsAccountVotediagram(user: user),
                 Container(
                   margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),

@@ -37,8 +37,8 @@ class SettingsVersion extends StatelessWidget {
   - Zum Launch werden die Fachbereiche Informatik und Medien unterstützt. Die Unterstützung weiterer Fachbereiche erfolgt automatisch ohne das es einem Update bedarf.
 * Rating-System für Mensa-Gerichte
 * allgemeine und fachbereichsinterne News
-* Übersicht über Tage bis zu den Ferien, Studienfortschritt und Durchschnittsnote
-* Einsicht der Noten aller Module
+* Übersicht über Tage bis zu den Ferien, Studienfortschritt und Durchschnittsnote [wip]
+* Einsicht der Noten aller Module [wip]
 
 ''',
                   styleSheet:
