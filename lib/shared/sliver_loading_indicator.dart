@@ -16,7 +16,7 @@ class SliverLoadingIndicator extends StatelessWidget {
         height: 50,
         child: Center(
           child: Theme(
-            data: Theme.of(context).copyWith(accentColor: MateColors.secondary),
+            data: Theme.of(context).copyWith(accentColor: MateColors.white),
             child: PlatformCircularProgressIndicator(
               material: (_, __) => MaterialProgressIndicatorData(
                   backgroundColor: MateColors.primary),
