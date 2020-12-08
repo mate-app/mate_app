@@ -37,11 +37,14 @@ class Cafeteria extends StatelessWidget {
 
         if (snapshot.data.isEmpty) {
           return SliverToBoxAdapter(
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.85,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/backfall/mensa_backfall.png'),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 15),
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.85,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/backfall/mensa_backfall.png'),
+                  ),
                 ),
               ),
             ),

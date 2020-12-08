@@ -45,12 +45,15 @@ class Calendar extends StatelessWidget {
                     if (subjectSnapshot.data.supported) {
                       if (snapshot.data.isEmpty) {
                         return SliverToBoxAdapter(
-                          child: Container(
-                            height: MediaQuery.of(context).size.height * 0.85,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(
-                                    'assets/backfall/termine_backfall_empty.png'),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.85,
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/backfall/termine_backfall_empty.png'),
+                                ),
                               ),
                             ),
                           ),
@@ -59,12 +62,15 @@ class Calendar extends StatelessWidget {
                       return CalendarList(events: snapshot.data);
                     }
                     return SliverToBoxAdapter(
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * 0.85,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                                'assets/backfall/termine_backfall_notsupported.png'),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 15),
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.85,
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                  'assets/backfall/termine_backfall_notsupported.png'),
+                            ),
                           ),
                         ),
                       ),
@@ -78,11 +84,14 @@ class Calendar extends StatelessWidget {
       child: Column(
         children: [
           RegisterButton(),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.7,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/backfall/not_registered.png'),
+          Padding(
+            padding: const EdgeInsets.only(top: 15),
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.7,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/backfall/not_registered.png'),
+                ),
               ),
             ),
           ),

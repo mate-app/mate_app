@@ -11,8 +11,11 @@ class ErrorMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Center(
-        child: Text(message),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 15),
+        child: Center(
+          child: Text(message),
+        ),
       ),
     );
   }
