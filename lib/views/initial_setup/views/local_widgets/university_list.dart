@@ -50,11 +50,11 @@ class _UniversityListState extends State<UniversityList> {
               title: const Text('Fehler'),
               content: Text(message),
               actions: <Widget>[
-                CupertinoDialogAction(
+                PlatformDialogAction(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: DynamicText('nochmal versuchen'),
+                  child: const Text('nochmal versuchen'),
                 )
               ],
             ));

@@ -16,7 +16,7 @@ import 'views/authenticator.dart';
 FirebaseAnalytics analytics;
 
 void main() {
-  Crashlytics.instance.enableInDevMode = true; // TODO: disable in Production
+  Crashlytics.instance.enableInDevMode = false; // disable in Production
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
   analytics = FirebaseAnalytics();
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,6 +64,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
+      debugShowCheckedModeBanner: false,
       navigatorObservers: [
         FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
       ],
