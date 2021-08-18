@@ -44,7 +44,7 @@
 
 <h1 align="center">
     <a href="https://mate-app.de">
-      <img src="https://tobiaspoertner.com/img/matepreview.jpg" alt="mate mockup" width="800">
+      <img src="https://tobiaspoertner.com/work/mate-app/images/mate-app_preview_image.png" alt="mate mockup" width="800">
   </a>
 </h1>
 
